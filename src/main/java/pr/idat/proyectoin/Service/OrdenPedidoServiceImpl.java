@@ -3,7 +3,6 @@ package pr.idat.proyectoin.Service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,7 +54,7 @@ public class OrdenPedidoServiceImpl implements OrdenPedidoService {
 	@Override
 	public Integer CodigoOrdenPedido() {
 		
-if(repository.CodigoOrdenPedido() == null) {
+		if(repository.CodigoOrdenPedido() == null) {
 			
 			return 0;
 		}
@@ -69,15 +68,9 @@ if(repository.CodigoOrdenPedido() == null) {
 		return repository.PedidosCliente(DNI);
 	}
 
+	@Override
+	public Integer maxcodepedidobyid(Integer id) {
 	
-
-
-	
-	
-
-	
-
-	
-	
-
+		return repository.maxcodepedidobyid(id);
+	}
 }

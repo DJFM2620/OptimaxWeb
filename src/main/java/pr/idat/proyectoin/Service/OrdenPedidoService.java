@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.springframework.data.repository.query.Param;
 
-import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 
 public interface OrdenPedidoService {
@@ -18,5 +17,6 @@ public interface OrdenPedidoService {
 	public abstract Integer CodigoOrdenPedido();
 	public abstract Collection<OrdenPedido> PedidosCliente(@Param("clienteDNI")Integer DNI);
 	
+	public Integer maxcodepedidobyid(Integer id);
 	
 }

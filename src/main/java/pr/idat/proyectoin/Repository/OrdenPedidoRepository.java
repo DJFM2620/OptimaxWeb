@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 
 public interface OrdenPedidoRepository extends JpaRepository<OrdenPedido, Integer>{
@@ -20,5 +19,8 @@ public interface OrdenPedidoRepository extends JpaRepository<OrdenPedido, Intege
 	@Query(value = "select * from ordenpedidos join clientes on clientes.cod_cliente = ordenpedidos.cod_cliente where clientes.dni =:clienteDNI Order by ordenpedidos.fecha desc;\r\n"
 			+ "", nativeQuery=true)
 			public abstract Collection<OrdenPedido> PedidosCliente(@Param("clienteDNI")Integer DNI);
+	
+	@Query(value = "SELECT MAX(cod_pedido) FROM ordenpedidos WHERE cod_cliente =:clienteID", nativeQuery=true)
+	public abstract Integer maxcodepedidobyid(@Param("clienteID")Integer id);
 	
 } 
