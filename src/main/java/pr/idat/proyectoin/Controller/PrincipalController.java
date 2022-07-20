@@ -55,9 +55,6 @@ public class PrincipalController {
 	@Autowired
 	private EstadoService estadoService;
 	
-
-	
-	
 	private static final List<Articulo> carritoArticulo = new ArrayList<>();
 	private static final List<DetalleOrdenPedido> carritoDetalleOrdenPedido = new ArrayList<>();
 	

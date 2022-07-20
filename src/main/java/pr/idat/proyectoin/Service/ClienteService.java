@@ -17,4 +17,5 @@ public interface ClienteService{
 	public abstract Integer validacioncliente(@Param("clienteemail")String email,@Param("clientedni") Integer dni);
 	public abstract Integer ExistenciaCliente(@Param("clienteDNI")Integer DNI );
 	public abstract Integer ObtenerCodigoCliente(@Param("clienteDNI")Integer DNI );
+	public abstract Integer ObtenerCodigoByEmail(@Param("clienteEmail") String Email );
 }

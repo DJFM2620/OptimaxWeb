@@ -80,5 +80,12 @@ public class ClienteServiceImpl implements ClienteService{
 		return repository.ObtenerCodigoCliente(DNI);
 	}
 
+	@Override
+	public Integer ObtenerCodigoByEmail(String Email) {
+		
+			
+		return repository.ObtenerCodigoByEmail(Email);
+	}
+
 	
 }
