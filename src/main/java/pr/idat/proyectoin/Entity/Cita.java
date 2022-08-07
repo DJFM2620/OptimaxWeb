@@ -31,7 +31,6 @@ public class Cita implements Serializable
 	@DateTimeFormat(pattern="yyyy-MM-dd",iso=ISO.DATE)
 	private LocalDate fecha;
 	
-	
 	@Column
 	@DateTimeFormat(pattern = "HH:mm", iso = ISO.TIME)
 	private LocalTime Hora;
@@ -40,11 +39,6 @@ public class Cita implements Serializable
 	@JoinColumn(name = "cod_Cliente",nullable = false, 
 							 foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(cod_Cliente) references clientes(cod_Cliente)"))
 	private Cliente cliente;
-	
-	@ManyToOne
-	@JoinColumn(name = "cod_empleado",nullable = false,
-							 foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(cod_empleado) references empleados(cod_empleado)"))
-	private Empleado empleado;
 
 	public Cita() {
 		
@@ -82,22 +76,12 @@ public class Cita implements Serializable
 		this.cliente = cliente;
 	}
 
-	public Empleado getEmpleado() {
-		return empleado;
-	}
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
-
-	public Cita(Integer cod_Cita, LocalDate fecha, LocalTime hora, Cliente cliente, Empleado empleado) {
+	public Cita(Integer cod_Cita, LocalDate fecha, LocalTime hora, Cliente cliente) {
 		super();
 		this.cod_Cita = cod_Cita;
 		this.fecha = fecha;
 		Hora = hora;
 		this.cliente = cliente;
-		this.empleado = empleado;
 	}
-
 
 }

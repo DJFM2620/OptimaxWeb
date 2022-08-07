@@ -36,12 +36,10 @@ public class Cliente implements Serializable {
 	private String email;
 	@Column
 	private Integer dni;
-
 	@Column
 	private String ruc;
-
-	public Cliente() {
-	}
+	@Column
+	private String direccion;
 
 	@OneToMany(mappedBy = "cliente")
 	private Collection<OrdenPedido> itemsOrdenpedido = new ArrayList<>();
@@ -53,8 +51,11 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "cod_distrito", nullable = false, foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(cod_distrito) references distritos(cod_distrito)"))
 	private Distrito distrito;
 
+	public Cliente() {
+	}
+	
 	public Cliente(Integer cod_Cliente, String nombres, String apellidop, String apellidom, Integer celular,
-			String email, Integer dni, String ruc, Distrito distrito) {
+			String email, Integer dni, String ruc, String direccion, Distrito distrito) {
 		super();
 		this.cod_Cliente = cod_Cliente;
 		this.nombres = nombres;
@@ -64,6 +65,7 @@ public class Cliente implements Serializable {
 		this.email = email;
 		this.dni = dni;
 		this.ruc = ruc;
+		this.direccion = direccion;
 		this.distrito = distrito;
 	}
 
@@ -147,4 +149,11 @@ public class Cliente implements Serializable {
 		this.distrito = distrito;
 	}
 
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
 }

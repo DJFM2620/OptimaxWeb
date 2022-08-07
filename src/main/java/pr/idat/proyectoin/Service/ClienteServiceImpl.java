@@ -1,6 +1,7 @@
 package pr.idat.proyectoin.Service;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,21 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
+	public Boolean Validate(Integer ID) {
+
+		Optional<Cliente> celda = repository.findById(ID);
+
+		if (celda.isPresent()) {
+
+			return true;
+
+		} else {
+
+			return false;
+		}
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public Integer validacioncliente(String email, Integer dni) {
 		
@@ -81,7 +97,7 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public Integer ObtenerCodigoByEmail(String Email) {
+	public Cliente ObtenerCodigoByEmail(String Email) {
 		
 			
 		return repository.ObtenerCodigoByEmail(Email);

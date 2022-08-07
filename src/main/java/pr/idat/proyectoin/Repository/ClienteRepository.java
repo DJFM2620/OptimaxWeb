@@ -17,6 +17,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	@Query(value="select cod_cliente from clientes where dni=:clienteDNI",nativeQuery=true)
 	public abstract Integer ObtenerCodigoCliente(@Param("clienteDNI")Integer DNI );
 
-	@Query(value="select cod_cliente from clientes where email =:clienteEmail",nativeQuery=true)
-	public abstract Integer ObtenerCodigoByEmail(@Param("clienteEmail") String Email );
+	@Query(value="select * from clientes where email =:clienteEmail",nativeQuery=true)
+	public abstract Cliente ObtenerCodigoByEmail(@Param("clienteEmail") String Email );
 }

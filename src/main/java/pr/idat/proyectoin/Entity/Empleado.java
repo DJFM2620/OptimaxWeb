@@ -38,12 +38,10 @@ public class Empleado implements Serializable
 	private Integer dni;
 	@Column
 	private String email;
-
-	@OneToMany(mappedBy = "empleado")
-	private Collection<Cita> itemsCitas=new ArrayList<>();
 	
 	@OneToMany(mappedBy = "empleado")
 	private Collection<ComprobantePago> itemsComprpago=new ArrayList<>();
+	
 	@ManyToOne
 	@JoinColumn(name = "cod_cargoemp",nullable = false, 
 				foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key(cod_cargoemp) references cargoempleados(cod_cargoemp)"))
@@ -52,17 +50,10 @@ public class Empleado implements Serializable
 	public Empleado() {
 	}
 
-	
-	
-	
-	
-
-
-
-
 	public Empleado(Integer cod_empleado, String nombres, String apellidp, String apellidom, Integer telefono,
-			Integer dni, String email, Collection<Cita> itemsCitas, Collection<ComprobantePago> itemsComprpago,
+			Integer dni, String email, Collection<ComprobantePago> itemsComprpago,
 			CargoEmpleado tipoempleado) {
+		
 		super();
 		this.cod_empleado = cod_empleado;
 		this.nombres = nombres;
@@ -71,16 +62,9 @@ public class Empleado implements Serializable
 		this.telefono = telefono;
 		this.dni = dni;
 		this.email = email;
-		this.itemsCitas = itemsCitas;
 		this.itemsComprpago = itemsComprpago;
 		this.tipoempleado = tipoempleado;
 	}
-
-
-
-
-
-
 
 	public Integer getCod_empleado() {
 		return cod_empleado;
@@ -138,14 +122,6 @@ public class Empleado implements Serializable
 		this.email = email;
 	}
 
-	public Collection<Cita> getItemsCitas() {
-		return itemsCitas;
-	}
-
-	public void setItemsCitas(Collection<Cita> itemsCitas) {
-		this.itemsCitas = itemsCitas;
-	}
-
 	public Collection<ComprobantePago> getItemsComprpago() {
 		return itemsComprpago;
 	}
@@ -161,6 +137,4 @@ public class Empleado implements Serializable
 	public void setTipoempleado(CargoEmpleado tipoempleado) {
 		this.tipoempleado = tipoempleado;
 	}
-
-	
 }

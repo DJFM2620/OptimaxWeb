@@ -300,7 +300,7 @@ form .page .btns button.next{
                      </div>
                      <input type="time" name="horacliente" onchange="myFunctions(this.value)">
                   </div>
-                  <div class="field">
+                  <!-- <div class="field">
                      <div class="label">
                         Doctor
                      </div>
@@ -309,7 +309,7 @@ form .page .btns button.next{
                      <option value="${doc.cod_empleado}">${doc.nombres}</option>
                      </c:forEach>                    
                      </select>   
-                  </div>
+                  </div> -->
                   
                   <div class="field btns">
                      <button class="prev-1 prev">Atras</button>
