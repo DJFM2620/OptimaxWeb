@@ -1,5 +1,6 @@
 package pr.idat.proyectoin.Controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -11,11 +12,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.persistence.Converter;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import pr.idat.proyectoin.Entity.Articulo;
 import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.Cliente;
@@ -72,6 +82,12 @@ public class ControllerApiService {
 	private static final List<Articulo> ArticulosCarrito = new ArrayList<Articulo>();
 	private static final List<Integer> CantidadArticulos = new ArrayList<Integer>();
 
+	OkHttpClient client = new OkHttpClient.Builder().connectTimeout(180, TimeUnit.SECONDS)
+													.readTimeout(180, TimeUnit.SECONDS)
+													.build();
+
+	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+	
 	@GetMapping
 	public Collection<Articulo> FindAll() {
 
@@ -156,10 +172,9 @@ public class ControllerApiService {
 
 		System.out.println("=====================================================");
 		System.out.println("cod_Estado: " + map.get("cod_state"));
-		System.out.println("cod_cliente: " + map.get("cod_client"));
-		System.out.println("cod_pedido: " + map.get("cod_order"));
-		System.out.println("cod_articulo: " + map.get("cod_article"));
-		System.out.println("cantidad: " + map.get("quantity"));
+		System.out.println("email: " + map.get("email_client"));
+		System.out.println("codigos de articulos: " + map.get("articles"));
+		System.out.println("cantidades: " + map.get("quantities"));
 		System.out.println("subtotal: " + map.get("subtotal"));
 		System.out.println("=====================================================");
 
@@ -168,7 +183,7 @@ public class ControllerApiService {
 
 		OrdenPedido ordenpedido = new OrdenPedido();
 
-		ordenpedido.setCliente(serviceCli.FindByID(Integer.parseInt(map.get("cod_client"))));
+		ordenpedido.setCliente(serviceCli.ObtenerCodigoByEmail(map.get("email_client")));
 		ordenpedido.setEstadopedido(serviceEst.FindByID(Integer.parseInt(map.get("cod_state"))));
 		ordenpedido.setFecha(date);
 
@@ -180,14 +195,19 @@ public class ControllerApiService {
 		 * Este Matcher sirve para poder enviar los datos del Map al List y asi obtener
 		 * su Tamaño de Lista
 		 */
-		Matcher encuentrador = Pattern.compile("\\d+").matcher(map.get("cod_article"));
+		Matcher encuentradorArticulos = Pattern.compile("\\d+").matcher(map.get("articles"));
 
-		while (encuentrador.find()) {
+		while (encuentradorArticulos.find()) {
 
-			CodigosArticulo.add(Integer.parseInt(encuentrador.group()));
+			CodigosArticulo.add(Integer.parseInt(encuentradorArticulos.group()));
 		}
 
-		CantidadArticulos.add(Integer.parseInt(map.get("quantity")));
+		Matcher encuentradorCantidades = Pattern.compile("\\d+").matcher(map.get("quantities"));
+
+		while (encuentradorCantidades.find()) {
+
+			CantidadArticulos.add(Integer.parseInt(encuentradorCantidades.group()));
+		}
 
 		/* Se debe hacer un for para insertar cada articulo al DETALLE */
 		for (int i = 0; i < CodigosArticulo.size(); i++) {
@@ -211,27 +231,12 @@ public class ControllerApiService {
 		}
 		for (DetalleOrdenPedido DetalleOrdenPedido : carritoDetalleOrdenPedido) {
 
-			serviceDetOrd
-					.Insert(DetalleOrdenPedido); /*
+			serviceDetOrd.Insert(DetalleOrdenPedido); /*
 													 * Aca debe ir todos los articulos comprados por el cliente, por
 													 * logica siempre sera el ultimo codigo de pedido y el ultimo
 													 * cliente creado, si existe se buscara mediante su DNI al Cliente
 													 */
 		}
-
-		/*
-		 * Articulo articulo =
-		 * serviceArt.FindByID(Integer.parseInt(map.get("cod_article")));
-		 * 
-		 * DetalleOrdenPedido detalleordenpedido = new DetalleOrdenPedido();
-		 * 
-		 * detalleordenpedido.setOrdenpedido(serviceOrd.FindByID(maxCodigo));
-		 * detalleordenpedido.setArticulo(articulo);
-		 * detalleordenpedido.setSubtotal(Double.parseDouble(map.get("subtotal")));
-		 * detalleordenpedido.setCantidad(Integer.parseInt(map.get("quantity")));
-		 * 
-		 * serviceDetOrd.Insert(detalleordenpedido);
-		 */
 	}
 
 	@PostMapping(path = "/Cita/Registrar")
@@ -319,5 +324,62 @@ public class ControllerApiService {
 			//return "No existe el registro con ID => " + cliente.getCod_Cliente();
 		}
 
+	}
+	
+	@PostMapping(path = "/Token")
+	public void getToken(@org.springframework.web.bind.annotation.RequestBody HashMap<String, String> map)
+			throws IOException {
+
+		String key = map.get("key");
+		Integer total = Integer.parseInt(map.get("total"));
+
+		String result = "";
+		String URL = "https://api.culqi.com/v2";
+
+		JSONObject jo = new JSONObject();
+		jo.put("amount", total);
+		jo.put("currency_code", "PEN");
+		jo.put("email", map.get("email"));
+		jo.put("source_id", key);
+
+		System.err.println(jo.toString());
+
+		try {
+
+			okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, jo.toString());
+
+			Request request = new Request.Builder().url(URL + "/charges")
+					.header("Authorization", "Bearer sk_test_3a60f9b15e3b78a3").post(body).build();
+
+			Response response = client.newCall(request).execute();
+
+		} catch (IOException e) {
+			result = exceptionError();
+		}
+		System.out.println(result);
+	}
+
+	private String exceptionError() {
+
+		String result = "";
+
+		Map<String, Object> errorResponse = new HashMap<String, Object>();
+
+		errorResponse.put("object", "error");
+		errorResponse.put("type", "internal");
+		errorResponse.put("charge_id", "ninguno");
+		errorResponse.put("code", "ninguno");
+		errorResponse.put("decline_code", "ninguno");
+		errorResponse.put("merchant_message", "El tiempo de espera ha sido excedido");
+		errorResponse.put("user_message", "El tiempo de espera ha sido excedido");
+		errorResponse.put("param", "ninguno");
+
+		try {
+			result = new ObjectMapper().writeValueAsString(errorResponse);
+
+		} catch (JsonProcessingException jx) {
+
+		}
+		return result;
 	}
 }

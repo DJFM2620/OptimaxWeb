@@ -70,8 +70,7 @@ body {
 		<td><b>FECHA</b></td>
 		<td><b>NOMBRE CLIENTE</b></td>
 		<td><b>APELLIDO CLIENTE</b></td>
-		<td><b>NOMBRE DOCTOR</b></td>
-		<td><b>APELLIDO DOCTOR</b></td>
+		
 	</tr>
 	</thead>
 
@@ -83,9 +82,7 @@ body {
 			<td><b>${citas.fecha}</b></td>
 			<td><b>${citas.getCliente().getNombres()}</b></td>
 			<td><b>${citas.getCliente().getApellidop()}</b></td>
-			<td><b>${citas.getEmpleado().getNombres()}</b></td>
-			<td><b>${citas.getEmpleado().getApellidp()}</b></td>
-			
+
 		
 		</tr>
 		</c:forEach>

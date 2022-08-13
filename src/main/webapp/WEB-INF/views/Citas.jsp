@@ -508,9 +508,7 @@ ul, li, ol {
 		<td><b>CODIGO DE CITA</b></td>
 		<td><b>HORA</b></td>
 		<td><b>FECHA</b></td>
-			<td><b>CODIGO DOCTOR</b></td>
-			<td><b>NOMBRE DOCTOR</b></td>
-			<td><b>APELLIDO DOCTOR</b></td>
+		
 		
 		
 		
@@ -523,9 +521,7 @@ ul, li, ol {
 					<td>${citas.cod_Cita}</td>
 					<td>${citas.hora}</td>
 					<td>${citas.fecha}</td>
-					<td>${citas.getEmpleado().getCod_empleado()}</td>
-					<td>${citas.getEmpleado().getNombres()}</td>
-					<td>${citas.getEmpleado().getApellidp()}</td>
+					
 				
 					
 
