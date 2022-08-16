@@ -15,4 +15,5 @@ public interface CitaService{
 	public abstract Cita FindByID(Integer ID);
 	public abstract Collection<Cita> FindAll();
 	public abstract Collection<Cita> CitasCliente(@Param("clienteDNI")Integer DNI);
+	public abstract Collection<Cita> CitasByCodigoCliente(@Param("codCliente")Integer codCliente);
 }

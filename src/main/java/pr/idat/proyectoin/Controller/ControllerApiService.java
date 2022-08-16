@@ -38,6 +38,7 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pr.idat.proyectoin.Dto.OrdenPedidoDto;
 import pr.idat.proyectoin.Entity.Articulo;
 import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.Cliente;
@@ -252,7 +253,6 @@ public class ControllerApiService {
 		cita.setCliente(cliente);
 
 		serviceCita.Insert(cita);
-
 	}
 
 	@GetMapping(path = "/Cita/Listar")
@@ -261,31 +261,14 @@ public class ControllerApiService {
 		return serviceCita.FindAll();
 	}
 
-	@PostMapping(path = "/Recepcion")
-	public void Recepcion(@RequestBody HashMap<String, String> map) {
+	@GetMapping(path = "/Cita/{Email}")
+	public Collection<Cita> ListarCitas(@PathVariable("Email") String Email) {
 
-		System.out.println("=====================================================");
-		System.out.println("cod_article: " + map.get("cod_article"));
-		System.out.println("=====================================================");
-
-		Matcher encuentrador = Pattern.compile("\\d+").matcher(map.get("cod_article"));
-
-		while (encuentrador.find()) {
-
-			CodigosArticulo.add(Integer.parseInt(encuentrador.group()));
-		}
-
-		for (int i = 0; i < CodigosArticulo.size(); i++) {
-
-		}
-
-		/*
-		 * System.out.println("=====================================================");
-		 * System.out.println("cod_article: " + CodigosArticulo);
-		 * System.out.println("=====================================================");
-		 */
+		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
+		
+		return serviceCita.CitasByCodigoCliente(cliente.getCod_Cliente());
 	}
-
+	
 	@PutMapping(path = "/Cliente/Actualizar")
 	public void actualizarcliente(@RequestBody Cliente cliente) {
 		
@@ -323,7 +306,14 @@ public class ControllerApiService {
 		} else {
 			//return "No existe el registro con ID => " + cliente.getCod_Cliente();
 		}
-
+	}
+	
+	@GetMapping("/Ordenes/{Email}")
+	public Collection<OrdenPedidoDto> ObtenerOrdenesMovil(@PathVariable("Email") String Email){
+		
+		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
+		
+		return serviceOrd.ObtenerPedidosPerzonalizado(cliente.getCod_Cliente());
 	}
 	
 	@PostMapping(path = "/Token")
@@ -382,4 +372,6 @@ public class ControllerApiService {
 		}
 		return result;
 	}
+	
+	
 }

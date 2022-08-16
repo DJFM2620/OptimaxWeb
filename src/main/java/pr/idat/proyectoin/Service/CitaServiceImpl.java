@@ -57,5 +57,9 @@ public class CitaServiceImpl implements CitaService {
 		return repository.CitasCliente(DNI);
 	}
 
-	
+	@Override
+	public Collection<Cita> CitasByCodigoCliente(Integer codCliente) {
+		
+		return repository.CitasByCodigoCliente(codCliente);
+	}	
 }

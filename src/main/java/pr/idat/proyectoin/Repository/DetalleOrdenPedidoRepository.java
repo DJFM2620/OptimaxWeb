@@ -1,6 +1,7 @@
 package pr.idat.proyectoin.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,8 +18,12 @@ public interface DetalleOrdenPedidoRepository extends JpaRepository<DetalleOrden
 	@Query(value = "select  sum(subtotal) as SUBTOTAL from detalle_orden_pedido inner join clientes where clientes.dni=:clienteDNI and cod_pedido=:cod_pedido", nativeQuery=true)
 	public abstract Integer calculosubtotal(@Param("clienteDNI")Integer DNI,@Param("cod_pedido")Integer codigo);
 	
-	@Query(value = "select cantidad, subtotal,detalle_orden_pedido.cod_articulo, detalle_orden_pedido.cod_pedido from detalle_orden_pedido inner join clientes inner join ordenpedidos on ordenpedidos.cod_pedido=detalle_orden_pedido.cod_pedido where clientes.dni=:clienteDNI and ordenpedidos.cod_pedido=:pedidoCODIGO Order by ordenpedidos.fecha desc\r\n"
+	@Query(value = "select cantidad, subtotal,detalle_orden_pedido.cod_articulo, detalle_orden_pedido.cod_pedido from detalle_orden_pedido inner join clientes inner join ordenpedidos on ordenpedidos.cod_pedido=detalle_orden_pedido.cod_pedido where clientes.dni=:clienteDNI and ordenpedidos.cod_pedido=:pedidoCODIGO Order by ordenpedidos.fecha desc;"
 			+ "", nativeQuery=true)
 	public abstract Collection<DetalleOrdenPedido> DetallePedido(@Param("clienteDNI")Integer DNI,@Param("pedidoCODIGO")Integer codigo);
 	
+
 }
+
+
+

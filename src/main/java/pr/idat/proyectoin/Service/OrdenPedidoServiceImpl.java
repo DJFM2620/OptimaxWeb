@@ -1,12 +1,15 @@
 package pr.idat.proyectoin.Service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import pr.idat.proyectoin.Dto.OrdenPedidoDto;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Repository.OrdenPedidoRepository;
 
@@ -72,5 +75,31 @@ public class OrdenPedidoServiceImpl implements OrdenPedidoService {
 	public Integer maxcodepedidobyid(Integer id) {
 	
 		return repository.maxcodepedidobyid(id);
+	}
+	
+	@Override
+	public List<Object[]> OrdenesPedidosMovil(Integer DNI) {
+		
+		return repository.OrdenesPedidosMovil(DNI);
+	}
+	
+	@Override
+	public Collection<OrdenPedidoDto> ObtenerPedidosPerzonalizado(Integer DNI){
+		
+		List<Object[]> listOrdenes = (List<Object[]>) this.OrdenesPedidosMovil(DNI);
+		List<OrdenPedidoDto> listDto = new ArrayList<>();
+		
+		for (Object[] orden : listOrdenes) {
+			
+			OrdenPedidoDto dto = new OrdenPedidoDto();
+			
+			dto.setCod_pedido((Integer) orden[0]);
+			dto.setFecha(orden[1].toString());
+			dto.setSubTotal((Double) orden[2]);
+			dto.setCod_estado((Integer) orden[3]);
+			
+			listDto.add(dto);
+		}
+		return listDto;
 	}
 }

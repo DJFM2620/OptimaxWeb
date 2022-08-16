@@ -1,6 +1,7 @@
 package pr.idat.proyectoin.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.data.repository.query.Param;
 
@@ -16,4 +17,5 @@ public interface DetalleOrdenPedidoService  {
 	public abstract Collection<DetalleOrdenPedido> DetallePedidosCliente();
 	public abstract Integer calculosubtotal(@Param("clienteDNI")Integer DNI,@Param("cod_pedido")Integer codigo);
 	public abstract Collection<DetalleOrdenPedido> DetallePedido(@Param("clienteDNI")Integer DNI,@Param("pedidoCODIGO")Integer codigo);
+	
 }
