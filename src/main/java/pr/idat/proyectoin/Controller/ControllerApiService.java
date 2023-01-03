@@ -2,22 +2,16 @@ package pr.idat.proyectoin.Controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.persistence.Converter;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,6 +37,7 @@ import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.Cliente;
 import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.Distrito;
+import pr.idat.proyectoin.Entity.MarcaMontura;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Service.ArticuloService;
 import pr.idat.proyectoin.Service.CitaService;
@@ -51,6 +45,7 @@ import pr.idat.proyectoin.Service.ClienteService;
 import pr.idat.proyectoin.Service.DetalleOrdenPedidoService;
 import pr.idat.proyectoin.Service.DistritoService;
 import pr.idat.proyectoin.Service.EstadoService;
+import pr.idat.proyectoin.Service.MarcaMonturaService;
 import pr.idat.proyectoin.Service.OrdenPedidoService;
 
 @RestController
@@ -84,11 +79,10 @@ public class ControllerApiService {
 	private static final List<Integer> CantidadArticulos = new ArrayList<Integer>();
 
 	OkHttpClient client = new OkHttpClient.Builder().connectTimeout(180, TimeUnit.SECONDS)
-													.readTimeout(180, TimeUnit.SECONDS)
-													.build();
+			.readTimeout(180, TimeUnit.SECONDS).build();
 
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-	
+
 	@GetMapping
 	public Collection<Articulo> FindAll() {
 
@@ -232,7 +226,8 @@ public class ControllerApiService {
 		}
 		for (DetalleOrdenPedido DetalleOrdenPedido : carritoDetalleOrdenPedido) {
 
-			serviceDetOrd.Insert(DetalleOrdenPedido); /*
+			serviceDetOrd
+					.Insert(DetalleOrdenPedido); /*
 													 * Aca debe ir todos los articulos comprados por el cliente, por
 													 * logica siempre sera el ultimo codigo de pedido y el ultimo
 													 * cliente creado, si existe se buscara mediante su DNI al Cliente
@@ -244,7 +239,7 @@ public class ControllerApiService {
 	public void RegistrarCita(@RequestBody HashMap<String, String> map) throws ParseException {
 
 		Cita cita = new Cita();
-		
+
 		cita.setFecha(LocalDate.parse(map.get("date")));
 		cita.setHora(LocalTime.parse(map.get("hour")));
 
@@ -265,24 +260,24 @@ public class ControllerApiService {
 	public Collection<Cita> ListarCitas(@PathVariable("Email") String Email) {
 
 		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
-		
+
 		return serviceCita.CitasByCodigoCliente(cliente.getCod_Cliente());
 	}
-	
+
 	@PutMapping(path = "/Cliente/Actualizar")
 	public void actualizarcliente(@RequestBody Cliente cliente) {
-		
+
 		boolean op = serviceCli.Validate(serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
 
 		if (op) {
 
 			Cliente clienteDb = serviceCli.ObtenerCodigoByEmail(cliente.getEmail());
 
-			System.out.println("CODIGO CLIENTE EN BD ----> "+clienteDb.getEmail());
-			System.out.println("EMAIL CLIENTE EN BD ----> "+clienteDb.getCod_Cliente());
+			System.out.println("CODIGO CLIENTE EN BD ----> " + clienteDb.getEmail());
+			System.out.println("EMAIL CLIENTE EN BD ----> " + clienteDb.getCod_Cliente());
 
 			cliente.setCod_Cliente(clienteDb.getCod_Cliente());
-			
+
 			if (cliente.getApellidop() == null)
 				cliente.setApellidop(clienteDb.getApellidop());
 			if (cliente.getApellidom() == null)
@@ -301,21 +296,21 @@ public class ControllerApiService {
 				cliente.setDistrito(clienteDb.getDistrito());
 
 			serviceCli.Update(cliente);
-			//return "Se actualizaron los datos correctamente";
+			// return "Se actualizaron los datos correctamente";
 
 		} else {
-			//return "No existe el registro con ID => " + cliente.getCod_Cliente();
+			// return "No existe el registro con ID => " + cliente.getCod_Cliente();
 		}
 	}
-	
+
 	@GetMapping("/Ordenes/{Email}")
-	public Collection<OrdenPedidoDto> ObtenerOrdenesMovil(@PathVariable("Email") String Email){
-		
+	public Collection<OrdenPedidoDto> ObtenerOrdenesMovil(@PathVariable("Email") String Email) {
+
 		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
-		
+
 		return serviceOrd.ObtenerPedidosPerzonalizado(cliente.getCod_Cliente());
 	}
-	
+
 	@PostMapping(path = "/Token")
 	public void getToken(@org.springframework.web.bind.annotation.RequestBody HashMap<String, String> map)
 			throws IOException {
@@ -372,6 +367,13 @@ public class ControllerApiService {
 		}
 		return result;
 	}
-	
-	
+
+	@Autowired
+	MarcaMonturaService serviceMarca;
+
+	@GetMapping("/Marcas")
+	public Collection<MarcaMontura> findallmarca() {
+
+		return serviceMarca.FindAll();
+	}
 }

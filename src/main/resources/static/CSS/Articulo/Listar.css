@@ -1,0 +1,285 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+
+	font-family: 'Josefin Sans';
+}
+
+body {
+	
+	background: #F6F6F6;
+}
+
+img {
+
+	width: 130px;
+	height: 130px;
+	object-fit: contain;
+}
+
+.New, .Filter {
+	
+	width: 120px;
+	height: 30px;
+	border: 3px solid #063E85;
+	border-radius: 5px;
+}
+
+.New {
+	
+	background: #063E85; 
+	color: #FFFFFF;
+}
+
+.Button_Edit, .Button_Delete {
+	
+	width: 120px;
+	height: 30px;
+}
+
+.Button_Delete {
+
+	background: #FF3A46;
+	color: #FFFFFF;
+	border: 0;
+	font-size: 16px;
+	border-radius: 5px;
+}
+
+.Button_Edit {
+	
+	background: #3C72FF;
+	color: #FFFFFF;
+	border: 0;
+	font-size: 16px;
+	border-radius: 5px;
+}
+
+.la-user-plus, .New > span, 
+.Filter > span, la-filter,
+.la-trash-alt, .la-edit {
+
+	font-size: 17px;
+	font-weight: bold;
+}
+
+.Filter > span {
+	
+	color: #063E85;
+}
+
+.Table {
+	
+	display: inline-table;
+	width: 70%;
+	height: 100%;
+	border-left: 3px solid #CACACA;
+	border-right: 3px solid #CACACA;
+	border-top: 3px solid #CACACA;
+	border-radius: 16px;
+	margin-top: 15px;
+	border-spacing: 0px;
+	background: #FFFFFF;
+}
+
+td, th {
+	
+	border-bottom: 2px solid #ddd;
+	padding: 15px;
+	text-align: left;
+	color: #063E85;
+}
+
+.Table_Head {
+	
+	background: #DAE2EC;
+}
+
+.Menu_Filter {
+	
+	display: inline-table;
+	width: 450px;
+	height: 350px;
+	font-size: 17px;
+	background: #FFFFFF;
+	margin-left: 20px;
+	padding: 20px;
+}
+
+.Filter_Marca,
+.Filter_Modelo,
+.Filter_Material,
+.Filter_Precio,
+.Filter_Color {
+	
+	margin-bottom: 40px;
+}
+
+.Filter_Marca_Contents > div,
+.Filter_Modelo_Contents > div,
+.Filter_Material_Contents > div,
+.Filter_Precio_Contents > div,
+.Filter_Color_Contents > div {
+	
+	margin-top: 20px;
+	border-bottom: 1px solid #DFDFDF;
+}
+
+.Filter_Marca_Contents > div, .Filter_Marca > div,
+.Filter_Modelo_Contents > div, .Filter_Modelo > div,
+.Filter_Material_Contents > div, .Filter_Material > div,
+.Filter_Precio_Contents > div, .Filter_Precio > div,
+.Filter_Color_Contents > div, .Filter_Color > div  {
+	
+	width: 100%;
+	height: 35px;
+}
+
+.Filter_Marca_Contents, .Filter_Precio_Contents,
+.Filter_Material_Contents, .Filter_Modelo_Contents,
+.Filter_Color_Contents {
+
+	display: none;
+}
+
+.la-angle-down {
+	
+	float: right;
+	margin-right: 10px;
+}
+
+#filter-toggle-marca, #filter-toggle-precio, #filter-toggle-modelo,
+#filter-toggle-material, #filter-toggle-color {
+	
+	visibility: hidden;
+}
+
+#filter-toggle-marca:checked + .Filter_Marca_Contents {
+	
+	background: red;
+	display: inline;
+}
+
+#filter-toggle-precio:checked + .Filter_Precio_Contents {
+	
+	background: red;
+	display: inline;
+}
+
+#filter-toggle-modelo:checked + .Filter_Modelo_Contents {
+	
+	background: red;
+	display: inline;
+}
+
+#filter-toggle-material:checked + .Filter_Material_Contents {
+	
+	background: red;
+	display: inline;
+}
+
+#filter-toggle-color:checked + .Filter_Color_Contents {
+	
+	background: red;
+	display: inline;
+}
+
+::selection{
+  color: #fff;
+  background: #17A2B8;
+}
+.wrapper{
+  
+  background: #fff;
+  border-radius: 10px;
+  padding-bottom: 70px;
+  margin-bottom: 75px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+
+.price-input{
+  width: 100%;
+  display: flex;
+  margin: 0px 0 30px;
+}
+.price-input .field{
+  display: flex;
+  width: 100%;
+  height: 45px;
+  align-items: center;
+}
+.field input{
+  width: 100%;
+  height: 100%;
+  outline: none;
+  font-size: 19px;
+  margin-left: 12px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #999;
+}
+
+.price-input .separator{
+  width: 130px;
+  display: flex;
+  font-size: 19px;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider{
+  height: 5px;
+  position: relative;
+  background: #ddd;
+  border-radius: 5px;
+}
+
+.slider .progress{
+  height: 100%;
+  left: 0%;
+  right: 0%;
+  position: absolute;
+  border-radius: 5px;
+  background: #17A2B8;
+}
+
+.range-input{
+  position: relative;
+}
+
+.range-input input{
+  position: absolute;
+  width: 100%;
+  margin: 0px;
+  height: 5px; 
+  top: -5px;
+  background: none;
+  pointer-events: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+  height: 17px;
+  width: 17px;
+  border-radius: 50%;
+  background: #17A2B8;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+}
+
+.button_filter_price {
+	
+	background: #17A2B8;
+    color: #FFFFFF;
+    border: 0;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 104px;
+    height: 27px;
+    margin: auto;
+    display: block;
+    margin-top: 41px;
+}

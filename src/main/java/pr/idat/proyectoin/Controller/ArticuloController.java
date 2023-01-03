@@ -1,6 +1,9 @@
 package pr.idat.proyectoin.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +12,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import pr.idat.proyectoin.Entity.Articulo;
 import pr.idat.proyectoin.Service.ArticuloService;
+import pr.idat.proyectoin.Service.ColorArticuloService;
 import pr.idat.proyectoin.Service.MarcaMonturaService;
 import pr.idat.proyectoin.Service.TipoMaterialMonturaService;
 import pr.idat.proyectoin.Service.TipoModeloMonturaService;
@@ -23,83 +28,139 @@ public class ArticuloController {
 
 	@Autowired
 	private ArticuloService articuloService;
+	
 	@Autowired
 	private MarcaMonturaService marcaService;
+	
 	@Autowired
 	private TipoModeloMonturaService modeloService;
+	
 	@Autowired
 	private TipoMaterialMonturaService materialService;
+
+	@Autowired
+	private ColorArticuloService colorService;
 	
-	
-	@RequestMapping(value = "/articulo_listar",method = RequestMethod.GET)
+	@RequestMapping(value = "/Articulo/Listar", method = RequestMethod.GET)
 	public String listar_GET(Map map) {
 		
-		map.put("bArticulo",articuloService.FindAll());
+		map.put("bArticulo", articuloService.FindAll());
+		map.put("bMarcas", marcaService.FindAll());
+		map.put("bModelos", modeloService.FindAll());
+		map.put("bMateriales", materialService.FindAll());
+		map.put("bColores", colorService.FindAll());
+		map.put("mapPrecioMinimo", articuloService.minPrecio());
+		map.put("mapPrecioMaximo", articuloService.maxPrecio());
 		
-		return "/Articulo/listar";
+		return "/Articulo/Listar";
 	}
+
+	@RequestMapping(value = "/Articulo/Listar/Filtro", method = RequestMethod.GET)
+	public String listarPor(Map map, @RequestParam(name = "colores", required = false) List<String> colorList,
+									 @RequestParam(name = "marcas", required = false) List<String> marcaList,
+									 @RequestParam(name = "materiales", required = false) List<String> materialList,
+									 @RequestParam(name = "modelos", required = false) List<String> modeloList,
+									 @RequestParam(name = "minimo", required = false) Double precioMinimo,
+									 @RequestParam(name = "maximo", required = false) Double precioMaximo) {
+
+		System.out.println("COLOR: " + colorList);
+		System.out.println("MARCA: " + marcaList);
+		System.out.println("MATERIALES: " + materialList);
+		System.out.println("MODELOS: " + modeloList);
+		System.out.println("MINIMO: " + precioMinimo);
+		System.out.println("MAXIMO: " + precioMaximo);
 		
-	@RequestMapping(value = "/articulo_registrar",method = RequestMethod.GET)	
-	public String registrar_GET(Model model,Map map) {
+		Double minPrecio = articuloService.minPrecio();
+		Double maxPrecio = articuloService.maxPrecio();
 		
+		if(precioMinimo == null) {
+			
+			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, minPrecio, maxPrecio));
+			
+		}else {
+			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, precioMinimo, precioMaximo));
+		}
+		
+		map.put("bMarcas", marcaService.FindAll());
+		map.put("bModelos", modeloService.FindAll());
+		map.put("bMateriales", materialService.FindAll());
+		map.put("bColores", colorService.FindAll());
+		map.put("mapPrecioMinimo", articuloService.minPrecio());
+		map.put("mapPrecioMaximo", articuloService.maxPrecio());
+		
+		return "/Articulo/Listar";
+	}
+	
+	@RequestMapping(value = "/Articulo/Registrar", method = RequestMethod.GET)
+	public String registrar_GET(Model model, Map map) {
+
 		model.addAttribute("articulo", new Articulo());
+		
 		map.put("bMarca", marcaService.FindAll());
-		map.put("bModelo",modeloService.FindAll());
-		map.put("bMaterial",materialService.FindAll());	
-		
-		return "/Articulo/registrar";
+		map.put("bModelo", modeloService.FindAll());
+		map.put("bMaterial", materialService.FindAll());
+		map.put("bColores", colorService.FindAll());
+
+		return "/Articulo/Registrar";
 	}
-	@RequestMapping(value = "/articulo_registrar",method = RequestMethod.POST)
-	public String registrar_POST(@RequestPart("picture")MultipartFile picture,Articulo art) throws IOException 
-	{
-		
-		
+
+	@RequestMapping(value = "/Articulo/Registrar", method = RequestMethod.POST)
+	public String registrar_POST(@RequestPart("picture") MultipartFile picture, Articulo art) throws IOException {
+
 		art.setImagen(picture.getBytes());
-		
+
 		articuloService.Insert(art);
-		
-		return "redirect:/articulo_listar";
+
+		return "redirect:/Articulo/Registrar";
 	}
-	@RequestMapping(value = "/detallearticulo/{codigoarticulo}",method = RequestMethod.GET)
-	public String detalle_GET(Map map,@PathVariable("codigoarticulo") Integer articuloID ) {
+
+	@RequestMapping(value = "/Articulo/Detalle/{ArticuloID}", method = RequestMethod.GET)
+	public String detalle_GET(Map map, @PathVariable("ArticuloID") Integer ArticuloID) {
+
+		Articulo articuloModel = articuloService.FindByID(ArticuloID);
 		
-		map.put("Bimagen", articuloService.FindByID(articuloID));
-		Articulo articuloModel=articuloService.FindByID(articuloID);
+		map.put("Bimagen", articuloService.FindByID(ArticuloID));
 		map.put("articulo", articuloModel);
-		return "/Articulo/detalle";
-	}
-	@RequestMapping(value = "/articulo_borrar/{cod_articulo}",method =RequestMethod.GET )
-	public String borrar_GET(Model model, @PathVariable("cod_articulo") Integer cod_articulo) {
 		
-		model.addAttribute("Articulo",articuloService.FindByID(cod_articulo));
-		
-		return "Articulo/borrar";
+		return "/Articulo/Detalle";
 	}
-	
-	@RequestMapping(value = "/articulo_borrar/{cod_articulo}",method =RequestMethod.POST )
+
+	@RequestMapping(value = "/Articulo/Borrar/{ArticuloID}", method = RequestMethod.GET)
+	public String borrar_GET(Model model, @PathVariable("ArticuloID") Integer ArticuloID) {
+
+		model.addAttribute("Articulo", articuloService.FindByID(ArticuloID));
+
+		return "/Articulo/Borrar";
+	}
+
+	@RequestMapping(value = "/Articulo/Borrar/{ArticuloID}", method = RequestMethod.POST)
 	public String borrar_POST(Articulo articulo) {
-		
+
 		articuloService.Delete(articulo.getCodArticulo());
-		
-		return "redirect:/articulo_listar";
+
+		return "redirect:/Articulo/Listar";
 	}
-	@RequestMapping(value = "/articulo_editar/{cod_articulo}",method = RequestMethod.GET)	
-	public String editar_GET(Model model,Map map, @PathVariable("cod_articulo") Integer cod_articulo) {
+
+	@RequestMapping(value = "/Articulo/Editar/{ArticuloID}", method = RequestMethod.GET)
+	public String editar_GET(Model model, Map map, @PathVariable("ArticuloID") Integer ArticuloID) {
+
+		model.addAttribute("Articulo", articuloService.FindByID(ArticuloID));
 		
-		model.addAttribute("Articulo",articuloService.FindByID(cod_articulo));
 		map.put("bMarca", marcaService.FindAll());
-		map.put("bModelo",modeloService.FindAll());
-		map.put("bMaterial",materialService.FindAll());	
-		
-		return "/Articulo/editar";
+		map.put("bModelo", modeloService.FindAll());
+		map.put("bMaterial", materialService.FindAll());
+		map.put("bColores", colorService.FindAll());
+
+		return "/Articulo/Editar";
 	}
-	@RequestMapping(value = "/articulo_editar/{cod_articulo}",method = RequestMethod.POST)	
-	public String editar_POST(Articulo articulo,@RequestPart("picture")MultipartFile picture)throws IOException  {
-		
+
+	@RequestMapping(value = "/Articulo/Editar/{ArticuloID}", method = RequestMethod.POST)
+	public String editar_POST(Articulo articulo, @RequestPart("picture") MultipartFile picture) throws IOException {
+
 		articulo.setImagen(picture.getBytes());
-		articuloService.Update(articulo);
 		
-		return "redirect:/articulo_listar";
+		articuloService.Update(articulo);
+
+		return "redirect:/Articulo/Listar";
 	}
-	
 }

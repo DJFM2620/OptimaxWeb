@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+
+    font-family: 'Josefin Sans';
+}
+
+
+body {
+
+    background: #FFDA9E;
+}
+
+
+.Form {
+
+    margin: 100px auto;
+    width: 415px;
+    padding-bottom: 15px;
+    border-radius: 8px;
+    background-color: #ebebeb;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
+    border: solid 1px #cbc9c9;
+}
+
+button[type=submit] {
+
+    width: 150px;
+    height: 40px;
+    border-radius: 6px;
+    border: 0px;
+    background: #3C72FF;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+button[type=button] {
+
+    width: 150px;
+    height: 40px;
+    float:right;
+    border-radius: 6px;
+    border: 0px;
+    background: #FF3A46;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+h1 {
+
+    font-size: 32px;
+    font-weight: 300;
+    color: #4c4c4c;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 15px;
+}
+
+form {
+
+    margin: 0 30px;
+}
+
+input, select {
+
+    margin-top: 13px;
+}
+
+input[type=text], select {
+
+    width: 340px;
+    height: 40px;
+    text-transform: uppercase;
+    border-radius: 0px 4px 4px 0px/5px 5px 4px 4px;
+    background-color: #fff;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
+    border: solid 1px #cbc9c9;
+    padding-left: 10px;
+}
+
+select {
+
+    width: 354px;
+}

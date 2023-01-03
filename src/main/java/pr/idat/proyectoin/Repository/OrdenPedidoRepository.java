@@ -19,14 +19,15 @@ public interface OrdenPedidoRepository extends JpaRepository<OrdenPedido, Intege
 	
 	@Query(value = "select * from ordenpedidos join clientes on clientes.cod_cliente = ordenpedidos.cod_cliente where clientes.dni =:clienteDNI Order by ordenpedidos.fecha desc;"
 			+ "", nativeQuery=true)
-			public abstract Collection<OrdenPedido> PedidosCliente(@Param("clienteDNI")Integer DNI);
+	public abstract Collection<OrdenPedido> PedidosCliente(@Param("clienteDNI")Integer DNI);
 	
 	@Query(value = "SELECT MAX(cod_pedido) FROM ordenpedidos WHERE cod_cliente =:clienteID", nativeQuery=true)
 	public abstract Integer maxcodepedidobyid(@Param("clienteID")Integer id);
 	
-	@Query(value = "select OrdenPedidos.cod_pedido, fecha, sum(subtotal), cod_estado "
+	@Query(value = "select OrdenPedidos.cod_pedido, fecha, sum(subtotal), estado "
 			 + "from OrdenPedidos join Detalle_Orden_Pedido "
-			 + "On OrdenPedidos.cod_pedido = Detalle_Orden_Pedido.cod_pedido "
+			 + "On OrdenPedidos.cod_pedido = Detalle_Orden_Pedido.cod_pedido join estadopedidos "
+			 + "On OrdenPedidos.cod_estado = estadopedidos.cod_estado "
 			 + "where cod_cliente =:codCliente "
 			 + "group by OrdenPedidos.cod_pedido having count(*) > 1;", nativeQuery = true)
 	public abstract List<Object[]> OrdenesPedidosMovil(@Param("codCliente") Integer DNI);

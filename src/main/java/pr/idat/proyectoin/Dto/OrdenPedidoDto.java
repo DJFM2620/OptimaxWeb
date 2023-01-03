@@ -13,17 +13,17 @@ public class OrdenPedidoDto implements Serializable {
 	private Integer cod_pedido;
 	private String fecha;
 	private Double subTotal;
-	private Integer cod_estado;
+	private String estado;
 	
 	public OrdenPedidoDto() {
 	}
 
-	public OrdenPedidoDto(Integer cod_pedido, String fecha, Double subTotal, Integer cod_estado) {
+	public OrdenPedidoDto(Integer cod_pedido, String fecha, Double subTotal, String estado) {
 		super();
 		this.cod_pedido = cod_pedido;
 		this.fecha = fecha;
 		this.subTotal = subTotal;
-		this.cod_estado = cod_estado;
+		this.estado = estado;
 	}
 
 	public Integer getCod_pedido() {
@@ -50,11 +50,15 @@ public class OrdenPedidoDto implements Serializable {
 		this.subTotal = subTotal;
 	}
 
-	public Integer getCod_estado() {
-		return cod_estado;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setCod_estado(Integer cod_estado) {
-		this.cod_estado = cod_estado;
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 }

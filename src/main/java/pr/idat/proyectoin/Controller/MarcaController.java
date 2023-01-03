@@ -14,65 +14,63 @@ import pr.idat.proyectoin.Service.MarcaMonturaService;
 
 @Controller
 public class MarcaController {
-	
+
 	@Autowired
 	private MarcaMonturaService marcamonturaService;
 
-	@RequestMapping( value = "/MarcasArticulos", method = RequestMethod.GET)
-	public String ListaMarcasArticulos_GET( Map map) {
+	@RequestMapping(value = "/Marca/Listar", method = RequestMethod.GET)
+	public String ListaMarcasArticulos_GET(Map map) {
 
-	map.put("bMarcas", marcamonturaService.FindAll());
+		map.put("bMarcas", marcamonturaService.FindAll());
 
-	return "/Marca/MarcasArticulos";
+		return "/Marca/Listar";
 	}
 
-	@RequestMapping( value = "/RegistrarMarcaArticulo", method = RequestMethod.GET)
-	public String RegistrarMarcaArticulo_GET( Model model ) {
+	@RequestMapping(value = "/Marca/Registrar", method = RequestMethod.GET)
+	public String RegistrarMarcaArticulo_GET(Model model) {
 
-	model.addAttribute("MarcaArticulo", new MarcaMontura());
+		model.addAttribute("MarcaArticulo", new MarcaMontura());
 
-	return "/Marca/RegistrarMarcaArticulo";
+		return "/Marca/Registrar";
 	}
 
-	@RequestMapping( value = "/RegistrarMarcaArticulo", method = RequestMethod.POST)
-	public String RegistrarMarcaArticulo_POST( MarcaMontura marcaArticulo ) {
+	@RequestMapping(value = "/Marca/Registrar", method = RequestMethod.POST)
+	public String RegistrarMarcaArticulo_POST(MarcaMontura marcaArticulo) {
 
 		marcamonturaService.Insert(marcaArticulo);
 
-	return "redirect:/MarcasArticulos";
+		return "redirect:/Marca/Listar";
 	}
 
-	@RequestMapping( value = "/EditarMarcaArticulo/{MarcaArticuloID}", method = RequestMethod.GET)
-	public String EditarMarcaArticulo_GET( Model model, @PathVariable("MarcaArticuloID") Integer MarcaArticuloID) {
+	@RequestMapping(value = "/Marca/Editar/{MarcaID}", method = RequestMethod.GET)
+	public String EditarMarcaArticulo_GET(Model model, @PathVariable("MarcaID") Integer MarcaID) {
 
-	model.addAttribute("MarcaArticulo", marcamonturaService.FindByID(MarcaArticuloID));
+		model.addAttribute("MarcaArticulo", marcamonturaService.FindByID(MarcaID));
 
-	return "/Marca/EditarMarcaArticulo";
+		return "/Marca/Editar";
 	}
 
-	@RequestMapping( value = "/EditarMarcaArticulo/{MarcaArticuloID}", method = RequestMethod.POST)
-	public String EditarMarcaArticulo_POST( MarcaMontura marcaArticulo ) {
+	@RequestMapping(value = "/Marca/Editar/{MarcaID}", method = RequestMethod.POST)
+	public String EditarMarcaArticulo_POST(MarcaMontura marcaArticulo) {
 
 		marcamonturaService.Update(marcaArticulo);
 
-	return "redirect:/MarcasArticulos";
+		return "redirect:/Marca/Listar";
 	}
 
-	@RequestMapping( value = "/EliminarMarcaArticulo/{MarcaArticuloID}", method = RequestMethod.GET)
-	public String EliminarMarcaArticulo_GET( Model model, @PathVariable("MarcaArticuloID") Integer MarcaArticuloID) {
+	@RequestMapping(value = "/Marca/Eliminar/{MarcaID}", method = RequestMethod.GET)
+	public String EliminarMarcaArticulo_GET(Model model, @PathVariable("MarcaID") Integer MarcaID) {
 
-	model.addAttribute("MarcaArticulo", marcamonturaService.FindByID(MarcaArticuloID));
+		model.addAttribute("MarcaArticulo", marcamonturaService.FindByID(MarcaID));
 
-	return "/Marca/EliminarMarcaArticulo";
+		return "/Marca/Eliminar";
 	}
 
-	@RequestMapping( value = "/EliminarMarcaArticulo/{MarcaArticuloID}", method = RequestMethod.POST)
-	public String EliminarMarcaArticulo_POST( MarcaMontura marcaArticulo ) {
+	@RequestMapping(value = "/Marca/Eliminar/{MarcaID}", method = RequestMethod.POST)
+	public String EliminarMarcaArticulo_POST(MarcaMontura marcaArticulo) {
 
 		marcamonturaService.Delete(marcaArticulo.getCod_Marca());
 
-	return "redirect:/MarcasArticulos";
+		return "redirect:/Marca/Listar";
 	}
-	
-	
 }

@@ -38,127 +38,98 @@ public class PrincipalController {
 
 	@Autowired
 	private EmpleadoService empleadoService;
+	
 	@Autowired
 	private ClienteService clienteService;
+	
 	@Autowired
 	private ArticuloService articuloService;
+	
 	@Autowired
 	private DetalleOrdenPedidoService detalleOrdenService;
+	
 	@Autowired
 	private DistritoService distritoService;
+	
 	@Autowired
 	private OrdenPedidoService ordenPedidoService;
+	
 	@Autowired
 	private CitaService citaService;
+	
 	@Autowired
 	private DetalleOrdenPedidoService detalleService;
+	
 	@Autowired
 	private EstadoService estadoService;
 
 	private static final List<Articulo> carritoArticulo = new ArrayList<>();
 	private static final List<DetalleOrdenPedido> carritoDetalleOrdenPedido = new ArrayList<>();
-
 	private static final List<Integer> Quantities = new ArrayList<Integer>();
 
-	@RequestMapping(value = "/principal", method = RequestMethod.GET)
+	@RequestMapping(value = "/Principal", method = RequestMethod.GET)
 	public String login() {
 
-		return "login";
+		return "/Principal";
 	}
-
-	@RequestMapping(value = "/articulos", method = RequestMethod.GET)
-	public String articulos() {
-
-		return "Articulos/listar";
-	}
-
-	/*
-	 * @RequestMapping(value = "/validarempleado",method = RequestMethod.GET) public
-	 * String validarempleado(String email, Integer dni) {
-	 * 
-	 * if(clienteService.validacioncliente(email, dni)==1) {
-	 * 
-	 * return "redirect:/principal";
-	 * 
-	 * } else { if (empleadoService.validaciondatoslogin(email,dni)==1) { if
-	 * (empleadoService.validarcargo(email, dni)==1) { return
-	 * "/Administrador/principal"; } if (empleadoService.validarcargo(email,
-	 * dni)==2) { return null; } if (empleadoService.validarcargo(email, dni)==3) {
-	 * return null; }
-	 * 
-	 * }
-	 * 
-	 * else {
-	 * 
-	 * System.out.println("EL USUARIO NO EXISTE");
-	 * 
-	 * return "redirect:/errorlogin"; } } return null; }
-	 */
 
 	@RequestMapping(value = "/validarempleado/{emailId}/{dniId}", method = RequestMethod.GET)
 	public String validarempleado(Map map, @PathVariable("emailId") String email, @PathVariable("dniId") Integer dni) {
 		if (clienteService.validacioncliente(email, dni) == 1) {
 
-			return "redirect:/principal";
+			return "redirect:/Principal";
 
 		} else {
-
 			if (empleadoService.validarcargo(email, dni) == 3) {
-				return "/Administrador/principal";
+				
+				return "/Administrador/Principal";
+				
 			} else if (empleadoService.validarcargo(email, dni) == 4) {
 
-				return "/Recepcionista/principal";
+				return "/Recepcionista/Principal";
 			}
 			if (empleadoService.validarcargo(email, dni) == 2) {
-				return "/JefedeVentas/principal";
-			}
+				
+				return "/JefedeVentas/Principal";
+			}else {
 
-			else {
-
-				System.out.println("EL USUARIO NO EXISTE");
-
-				return "redirect:/principal";
+				return "redirect:/Principal";
 			}
 		}
 	}
 
-	@RequestMapping(value = "/errorlogin", method = RequestMethod.GET)
-	public String errorlogin_GET() {
-
-		return "errorlogin";
-	}
-
-	@RequestMapping(value = "/lentes", method = RequestMethod.GET)
+	@RequestMapping(value = "/Lentes", method = RequestMethod.GET)
 	public String lentes_GET(Model model, Map map) {
 
 		map.put("Bimagen", articuloService.FindAll());
 		map.put("bCarrito", carritoArticulo);
 
-		return "lentes";
+		return "/Lentes";
 	}
 
-	@RequestMapping(value = "/lentes", method = RequestMethod.POST)
+	//Una vez se hace click en el boton "Realizar Pedido" del carrito se realizar esto
+	@RequestMapping(value = "/Lentes", method = RequestMethod.POST)
 	public String lentes_POST(Model model, Map map, @RequestParam(value = "Quantity") String Cantidades) {
 
 		Matcher encuentrador = Pattern.compile("\\d+").matcher(Cantidades);
 
 		while (encuentrador.find()) {
 
-			Quantities.add(Integer.parseInt(encuentrador.group()));
+			Quantities.add(Integer.parseInt(encuentrador.group()));//se almacenan las cantidades en el array
 		}
-		System.out.println("El ultimo codigo de es:" + ordenPedidoService.CodigoOrdenPedido().toString());
 
 		return "redirect:/RegistrarClientePedido";
 	}
 
-	@RequestMapping(value = "/lentescarrito/{articuloID}", method = RequestMethod.GET)
-	public String lentescarrito_GET(@PathVariable("articuloID") Integer articuloID, Map map) {
+	//Esto sucede cuando se agregar un lente al carrito
+	@RequestMapping(value = "/Lentes/Carrito/{ArticuloID}", method = RequestMethod.GET)
+	public String lentescarrito_GET(@PathVariable("ArticuloID") Integer ArticuloID, Map map) {
 
-		Articulo articulo = articuloService.FindByID(articuloID);
+		Articulo articulo = articuloService.FindByID(ArticuloID);
 
 		carritoArticulo.add(articulo);
 
-		return "redirect:/lentes";
+		return "redirect:/Lentes";
 	}
 
 	@RequestMapping(value = "/RegistrarClientePedido", method = RequestMethod.GET)
@@ -251,19 +222,18 @@ public class PrincipalController {
 
 		} /* Fin Else */
 
-		return "redirect:/principal";
+		return "redirect:/Principal";
 	}
 
-	@RequestMapping(value = "/cita", method = RequestMethod.GET)
+	@RequestMapping(value = "/Cita", method = RequestMethod.GET)
 	public String cita_GET(Map map) {
 
 		map.put("bDistritos", distritoService.FindAll());
-		// map.put("bDoctor",empleadoService.buscardoctores());
 
-		return "Cita/registrar";
+		return "/Cita/Registrar";
 	}
 
-	@RequestMapping(value = "/cita", method = RequestMethod.POST)
+	@RequestMapping(value = "/Cita", method = RequestMethod.POST)
 	public String cita_POST(@RequestParam("nombrecliente") String nombrecliente,
 			@RequestParam("apellidopcliente") String apellidopcliente,
 			@RequestParam("apellidomcliente") String apellidomcliente,
@@ -309,43 +279,22 @@ public class PrincipalController {
 			citaService.Insert(cita);
 		}
 
-		return "redirect:/principal";
+		return "redirect:/Principal";
 	}
 
-	@RequestMapping(value = "/Prueba", method = RequestMethod.GET)
-	public String Prubeas(Model model) {
-
-		model.addAttribute("OrdenPedido", ordenPedidoService.FindByID(ordenPedidoService.CodigoOrdenPedido() - 2));
-
-		return "Pruebas";
-	}
-
-	@RequestMapping(value = "/Prueba1", method = RequestMethod.GET)
-	public String Pruebas() {
-
-		return "Prueba";
-	}
-
-	@RequestMapping(value = "/mispedidos", method = RequestMethod.GET)
+	@RequestMapping(value = "/MisPedidos", method = RequestMethod.GET)
 	public String pedidos(Map map) {
 
-		return "/Pedidos";
+		return "/Pedido/Pedidos";
 	}
 
-	@RequestMapping(value = "/mispedidos", method = RequestMethod.POST, params = "dni")
+	@RequestMapping(value = "/MisPedidos", method = RequestMethod.POST, params = "dni")
 	public String pedidos_post(Map map) {
 
-		return "/Pedidos";
+		return "/Pedido/Pedidos";
 	}
-	/*
-	 * @RequestMapping(value="/detallepedidos",method =RequestMethod.GET ) public
-	 * String detallepedidos(Map map) {
-	 * map.put("bDetalle",detalleService.DetallePedidosCliente());
-	 * map.put("bsubtotal", detalleService.calculosubtotal()); return
-	 * "/Detallepedidos"; }
-	 */
 
-	@RequestMapping({ "/EliminarArticuloCarro" })
+	@RequestMapping({ "/Lentes/Carrito/Eliminar" })
 	public String removeProductHandler(Map map, @RequestParam(value = "code", defaultValue = "") String code) {
 
 		Articulo articulo = articuloService.FindByID(Integer.parseInt(code));
@@ -358,97 +307,96 @@ public class PrincipalController {
 
 				carritoArticulo.remove(carritoArticulo.indexOf(a));
 
-				return "redirect:/lentes";
+				return "redirect:/Lentes";
 			}
 		}
 
-		return "redirect:/lentes";
+		return "redirect:/Lentes";
 	}
 
-	@RequestMapping({ "/Buscarpedidopordni" })
+	@RequestMapping({ "/BuscarPedidoDni" })
 	public String Buscarpedido(Map map, @RequestParam(value = "code", defaultValue = "") Integer code) {
 
 		map.put("bPedidos", ordenPedidoService.PedidosCliente(code));
 
-		return "/Pedidos";
+		return "/Pedido/Pedidos";
 	}
 
-	@RequestMapping(value = "/miscitas", method = RequestMethod.GET)
+	@RequestMapping(value = "/MisCitas", method = RequestMethod.GET)
 	public String citas() {
 
-		return "/Citas";
+		return "/Cita/Citas";
 	}
 
-	@RequestMapping(value = "/miscitas", method = RequestMethod.GET, params = "dni")
+	@RequestMapping(value = "/MisCitas", method = RequestMethod.GET, params = "dni")
 	public String citaspost() {
 
-		return "/Citas";
+		return "/Cita/Citas";
 	}
 
-	@RequestMapping({ "/Buscarcitapordni" })
+	@RequestMapping({ "/BuscarCitaDni" })
 	public String Buscarcita(Map map, @RequestParam(value = "code", defaultValue = "") Integer code) {
 
 		map.put("bCitadni", citaService.CitasCliente(code));
 
-		return "/Citas";
+		return "/Cita/Citas";
 	}
 
-	@RequestMapping(value = "/citasprincipal", method = RequestMethod.GET)
+	@RequestMapping(value = "/Recepcionista/Principal", method = RequestMethod.GET)
 	public String citas(Map map) {
 
-		return "Recepcionista/principal";
+		return "/Recepcionista/Principal";
 	}
 
-	@RequestMapping(value = "/citas_listar", method = RequestMethod.GET)
+	@RequestMapping(value = "/Cita/Listar", method = RequestMethod.GET)
 	public String listarcitas(Map map) {
 
 		map.put("bCitas", citaService.FindAll());
 
-		return "Cita/listar";
+		return "/Cita/Listar";
 	}
 
-	@RequestMapping({ "/verdetallepedido" })
+	@RequestMapping({ "/Pedido/Detalle" })
 	public String Verdetalle(Map map, @RequestParam(value = "code", defaultValue = "") Integer code,
 			@RequestParam(value = "codes", defaultValue = "") Integer codes) {
 
 		map.put("bDetalles", detalleOrdenService.DetallePedido(code, codes));
 		map.put("bsubtotal", detalleService.calculosubtotal(code, codes));
 
-		return "/Detallepedidos";
+		return "/Pedido/Detalle";
 
 	}
 
-	@RequestMapping(value = "/pedidos_listado", method = RequestMethod.GET)
+	@RequestMapping(value = "/Pedido/Listar", method = RequestMethod.GET)
 	public String listarpedido(Map map) {
 
 		map.put("bPedidos", ordenPedidoService.FindAll());
 
-		return "Pedido/listar";
+		return "/Pedido/Listar";
 	}
 
-	@RequestMapping(value = "/jefedeventas", method = RequestMethod.GET)
+	@RequestMapping(value = "/JefeVentas/Principal", method = RequestMethod.GET)
 	public String listarpedido() {
 
-		return "JefedeVentas/principal";
+		return "/JefeVentas/Principal";
 	}
 
-	@RequestMapping(value = "/orden_editar/{ordenId}", method = RequestMethod.GET)
-	public String editarorden(Map map, Model model, @PathVariable("ordenId") Integer ordenId) {
+	@RequestMapping(value = "/Pedido/Editar/{OrdenId}", method = RequestMethod.GET)
+	public String editarorden(Map map, Model model, @PathVariable("OrdenId") Integer OrdenId) {
 
-		OrdenPedido ordenmodel = ordenPedidoService.FindByID(ordenId);
+		OrdenPedido ordenmodel = ordenPedidoService.FindByID(OrdenId);
 
 		model.addAttribute("OrdenPedido", ordenmodel);
 		map.put("bEstado", estadoService.FindAll());
 
-		return "Pedido/Editar";
+		return "/Pedido/Editar";
 	}
 
-	@RequestMapping(value = "/orden_editar/{ordenId}", method = RequestMethod.POST)
+	@RequestMapping(value = "/Pedido/Editar/{OrdenId}", method = RequestMethod.POST)
 	public String editarordenPost(OrdenPedido ordenpedido) {
 
 		ordenPedidoService.Update(ordenpedido);
 
-		return "redirect:/pedidos_listado";
+		return "redirect:/Pedido/Listar";
 	}
-
 }

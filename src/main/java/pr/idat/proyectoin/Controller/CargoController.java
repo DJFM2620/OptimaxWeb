@@ -15,62 +15,62 @@ import pr.idat.proyectoin.Service.CargoEmpleadoService;
 @Controller
 public class CargoController {
 
-	@Autowired 
+	@Autowired
 	private CargoEmpleadoService cargoempleadosService;
-	
-	
-	
-	@RequestMapping( value = "/CargosEmpleados", method = RequestMethod.GET)
-	public String CargosEmpleadoGET(Map map) {
-	map.put("bCargosEmpleado", cargoempleadosService.FindAll() );
 
-	 return "/Cargo/listar";
+	@RequestMapping(value = "/CargoEmpleado/Listar", method = RequestMethod.GET)
+	public String CargosEmpleadoGET(Map map) {
+
+		map.put("bCargosEmpleado", cargoempleadosService.FindAll());
+
+		return "/Cargo/Listar";
 	}
 
-	@RequestMapping( value = "/RegistrarCargoEmpleado", method = RequestMethod.GET)
+	@RequestMapping(value = "/CargoEmpleado/Registrar", method = RequestMethod.GET)
 	public String RegistrarCargosEmpleado_GET(Model model) {
 
-	 model.addAttribute("Cargo", new CargoEmpleado());
-	return "/Cargo/registrar";
+		model.addAttribute("Cargo", new CargoEmpleado());
+		
+		return "/Cargo/Registrar";
 	}
 
-	@RequestMapping( value = "/RegistrarCargoEmpleado", method = RequestMethod.POST)
+	@RequestMapping(value = "/CargoEmpleado/Registrar", method = RequestMethod.POST)
 	public String RegistrarCargosEmpleado_POST(CargoEmpleado cargoEmpleado) {
 
-	cargoempleadosService.Insert(cargoEmpleado);
-	return "redirect:/CargosEmpleados";
+		cargoempleadosService.Insert(cargoEmpleado);
+		
+		return "redirect:/CargoEmpleado/Listar";
 	}
 
-	@RequestMapping( value = "/EditarCargoEmpleado/{cod_cargoemp}", method = RequestMethod.GET)
-	public String EditarCargosEmpleado_GET(Model model, @PathVariable("cod_cargoemp") Integer CodCargoEmp) {
+	@RequestMapping(value = "/CargoEmpleado/Editar/{CargoID}", method = RequestMethod.GET)
+	public String EditarCargosEmpleado_GET(Model model, @PathVariable("CargoID") Integer CargoID) {
 
-	 model.addAttribute("Cargo", cargoempleadosService.FindByID(CodCargoEmp));
+		model.addAttribute("Cargo", cargoempleadosService.FindByID(CargoID));
 
-	 return "/Cargo/Editar";
+		return "/Cargo/Editar";
 	}
 
-	@RequestMapping( value = "/EditarCargoEmpleado/{cod_cargoemp}", method = RequestMethod.POST)
+	@RequestMapping(value = "/CargoEmpleado/Editar/{CargoID}", method = RequestMethod.POST)
 	public String EditarCargosEmpleado_POST(CargoEmpleado cargoEmpleado) {
 
-	cargoempleadosService.Update(cargoEmpleado);
+		cargoempleadosService.Update(cargoEmpleado);
 
-	 return "redirect:/CargoEmpleados";
+		return "redirect:/CargoEmpleado/Listar";
 	}
 
-	@RequestMapping( value = "/EliminarCargoEmpleado/{cod_cargoemp}", method = RequestMethod.GET)
-	public String EliminarCargosEmpleado_GET(Model model, @PathVariable("cod_cargoemp") Integer CodCargoEmp) {
-		
-		
-	model.addAttribute("Cargo", cargoempleadosService.FindByID(CodCargoEmp));
+	@RequestMapping(value = "/CargoEmpleado/Eliminar/{CargoID}", method = RequestMethod.GET)
+	public String EliminarCargosEmpleado_GET(Model model, @PathVariable("CargoID") Integer CargoID) {
 
-	 return "/Cargo/Eliminar";
+		model.addAttribute("Cargo", cargoempleadosService.FindByID(CargoID));
+
+		return "/Cargo/Eliminar";
 	}
 
-	@RequestMapping( value = "/EliminarCargoEmpleado/{cod_cargoemp}", method = RequestMethod.POST)
+	@RequestMapping(value = "/CargoEmpleado/Eliminar/{CargoID}", method = RequestMethod.POST)
 	public String EliminarCargosEmpleado_POST(CargoEmpleado cargoEmpleado) {
 
 		cargoempleadosService.Delete(cargoEmpleado.getCod_cargoemp());
 
-	 return "redirect:/CargoEmpleados";
+		return "redirect:/CargoEmpleado/Listar";
 	}
 }

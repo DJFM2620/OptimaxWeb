@@ -32,7 +32,6 @@ public class DetalleOrdenPedido implements Serializable
 	@Column
 	private Integer cantidad;
 	
-	
 	@Column
 	private Double subtotal;
 	

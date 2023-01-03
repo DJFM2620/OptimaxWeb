@@ -1,7 +1,9 @@
 package pr.idat.proyectoin.Entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.springframework.data.jpa.domain.Specification;
 
 @Entity
 @Table( name = "articulos")
@@ -24,9 +32,6 @@ public class Articulo implements Serializable {
 	private Integer CodArticulo;
 	
 	@Column
-	private String Color;
-	
-	@Column
 	private Integer Stock;
 	
 	@Column
@@ -35,7 +40,11 @@ public class Articulo implements Serializable {
 	@Column(columnDefinition = "longblob")
 	private byte[] imagen;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "Cod_Color", nullable = false,
+						  foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (cod_color) references color_articulo(cod_color)"))
+	private ColorArticulo color;
+	
 	@ManyToOne
 	@JoinColumn(name = "Cod_TipMaterial", nullable = false,
 						  foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (cod_tip_material) references tipo_material_montura(cod_tip_material)"))
@@ -54,20 +63,18 @@ public class Articulo implements Serializable {
 	public Articulo() {
 	}
 
-	public Articulo(Integer codArticulo, String color, Integer stock, Double precio, byte[] imagen,
+	public Articulo(Integer codArticulo, Integer stock, Double precio, byte[] imagen, ColorArticulo color,
 			TipoMaterialMontura tipoMaterialMontura, TipoModeloMontura tipoModeloMontura, MarcaMontura marcaMontura) {
 		super();
 		CodArticulo = codArticulo;
-		Color = color;
 		Stock = stock;
 		Precio = precio;
 		this.imagen = imagen;
+		this.color = color;
 		this.tipoMaterialMontura = tipoMaterialMontura;
 		this.tipoModeloMontura = tipoModeloMontura;
 		this.marcaMontura = marcaMontura;
 	}
-
-
 
 	public Integer getCodArticulo() {
 		return CodArticulo;
@@ -75,14 +82,6 @@ public class Articulo implements Serializable {
 
 	public void setCodArticulo(Integer codArticulo) {
 		CodArticulo = codArticulo;
-	}
-
-	public String getColor() {
-		return Color;
-	}
-
-	public void setColor(String color) {
-		Color = color;
 	}
 
 	public Integer getStock() {
@@ -99,6 +98,14 @@ public class Articulo implements Serializable {
 
 	public void setPrecio(Double precio) {
 		Precio = precio;
+	}
+
+	public ColorArticulo getColor() {
+		return color;
+	}
+
+	public void setColor(ColorArticulo color) {
+		this.color = color;
 	}
 
 	public TipoMaterialMontura getTipoMaterialMontura() {
@@ -132,7 +139,8 @@ public class Articulo implements Serializable {
 	public void setImagen(byte[] imagen) {
 		this.imagen = imagen;
 	}
-		
+	
+
 	public String getBase64Imagen() 
 	{
 		String base64=Base64.getEncoder().encodeToString(this.imagen);
