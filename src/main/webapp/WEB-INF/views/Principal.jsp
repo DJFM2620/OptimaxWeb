@@ -22,11 +22,11 @@
 					<div class="col-sm-12">
 						<div class="custom_menu">
 							<ul>
-								<li><a href="<c:url value='/principal'/>">Inicio</a></li>
-								<li><a href="<c:url value='/lentes'/>">Lentes</a></li>
-								<li><a href="<c:url value='/mispedidos'/>">Mis pedidos</a></li>
-								<li><a href="<c:url value='/cita'/>">Registrar una cita</a></li>
-								<li><a href="<c:url value='/miscitas'/>">Mis citas</a></li>
+								<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
+								<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
+								<li><a href="<c:url value='/MisPedidos'/>">Mis pedidos</a></li>
+								<li><a href="<c:url value='/Cita'/>">Registrar una cita</a></li>
+								<li><a href="<c:url value='/MisCitas'/>">Mis citas</a></li>
 							</ul>
 						</div>
 					</div>

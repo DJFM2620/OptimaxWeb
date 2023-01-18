@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,6 +76,9 @@ public class ControllerApiService {
 	@Autowired
 	private CitaService serviceCita;
 
+	@Autowired
+	MarcaMonturaService serviceMarca;
+	
 	private static final List<DetalleOrdenPedido> carritoDetalleOrdenPedido = new ArrayList<>();
 	private static final List<Integer> CodigosArticulo = new ArrayList<Integer>();
 	private static final List<Articulo> ArticulosCarrito = new ArrayList<Articulo>();
@@ -89,6 +95,14 @@ public class ControllerApiService {
 		return serviceArt.FindAll();
 	}
 
+	@GetMapping(path = "/Pageable")
+	public Page<Articulo> FindAllPageable() {
+		
+		Pageable first = PageRequest.of(1, 4);
+		
+		return serviceArt.FindAllPage(first);
+	}
+	
 	@GetMapping(path = "/{ID}")
 	public Articulo FindByID(@PathVariable("ID") Integer ID) {
 
@@ -111,6 +125,12 @@ public class ControllerApiService {
 		return serviceCli.FindAll();
 	}
 
+	@GetMapping(path = "/Cliente/ID/{ID}")
+	public Cliente FindCliente(@PathVariable("ID") Integer ID) {
+
+		return serviceCli.FindByID(ID);
+	}
+	
 	@PostMapping(path = "/Cliente/Agregar")
 	public void InsertCliente(@RequestBody Cliente cliente) {
 
@@ -214,20 +234,15 @@ public class ControllerApiService {
 			DetalleOrdenPedido Detalle = new DetalleOrdenPedido();
 
 			Detalle.setOrdenpedido(serviceOrd.FindByID(maxCodigo));
-
 			Detalle.setArticulo(articulo);
-			System.out.println(articulo.getCodArticulo());
-
 			Detalle.setCantidad(CantidadArticulos.get(i));
-
 			Detalle.setSubtotal(CantidadArticulos.get(i) * ArticulosCarrito.get(i).getPrecio());
 
 			carritoDetalleOrdenPedido.add(Detalle);
 		}
 		for (DetalleOrdenPedido DetalleOrdenPedido : carritoDetalleOrdenPedido) {
 
-			serviceDetOrd
-					.Insert(DetalleOrdenPedido); /*
+			serviceDetOrd.Insert(DetalleOrdenPedido); /*
 													 * Aca debe ir todos los articulos comprados por el cliente, por
 													 * logica siempre sera el ultimo codigo de pedido y el ultimo
 													 * cliente creado, si existe se buscara mediante su DNI al Cliente
@@ -320,7 +335,7 @@ public class ControllerApiService {
 
 		String result = "";
 		String URL = "https://api.culqi.com/v2";
-
+		
 		JSONObject jo = new JSONObject();
 		jo.put("amount", total);
 		jo.put("currency_code", "PEN");
@@ -330,7 +345,6 @@ public class ControllerApiService {
 		System.err.println(jo.toString());
 
 		try {
-
 			okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, jo.toString());
 
 			Request request = new Request.Builder().url(URL + "/charges")
@@ -367,9 +381,6 @@ public class ControllerApiService {
 		}
 		return result;
 	}
-
-	@Autowired
-	MarcaMonturaService serviceMarca;
 
 	@GetMapping("/Marcas")
 	public Collection<MarcaMontura> findallmarca() {

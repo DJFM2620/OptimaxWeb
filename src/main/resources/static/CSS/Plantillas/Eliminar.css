@@ -14,7 +14,7 @@ body {
 
 .Form {
 
-    margin: 100px auto;
+    margin: 50px auto;
     width: 415px;
     padding-bottom: 15px;
     border-radius: 8px;
@@ -68,7 +68,7 @@ input, select {
     margin-top: 13px;
 }
 
-input[type=text], select {
+input[type=text], input[type=email], select {
 
     width: 340px;
     height: 40px;

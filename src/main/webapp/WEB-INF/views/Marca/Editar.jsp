@@ -8,22 +8,30 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/MarcaArticulo/Editar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
 <title>Editar Marca Articulo</title>
 </head>
 <body>
-
-	<h3>Editar Marca de Articulo</h3>
-	<form:form name="" method="post" modelAttribute="MarcaArticulo">
-Marca ID: <form:input type="text" path="cod_Marca" readonly="true" />
-		<br>
-Nombre: <form:input type="text" path="nombre_Marca" />
-		<br>
-
-		<button type="submit">Guardar</button>
-		<button type="button"
-			onclick="location.href='<c:url value="/MarcasArticulos"/>'">Cancelar</button>
-	</form:form>
+	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
+	<div class="Form">
+		<h1>Editar Marca de Articulo</h1>
+		<form:form name="" method="post" modelAttribute="MarcaArticulo">
+			ID: 
+			<br>
+			<form:input type="text" path="cod_Marca" readonly="true" />
+			<br>
+			<br>
+			
+			Nombre: 
+			<br>
+			<form:input type="text" path="nombre_Marca" />
+			<br>
+			<br>
+			
+			<button type="submit">Guardar</button>
+			<button type="button" onclick="location.href='<c:url value = "/Marca/Listar"/>'">Cancelar</button>
+		</form:form>
+	</div>
 </body>
 </html>

@@ -63,7 +63,7 @@ public class CargoController {
 
 		model.addAttribute("Cargo", cargoempleadosService.FindByID(CargoID));
 
-		return "/Cargo/Eliminar";
+		return "/Cargo/Borrar";
 	}
 
 	@RequestMapping(value = "/CargoEmpleado/Eliminar/{CargoID}", method = RequestMethod.POST)

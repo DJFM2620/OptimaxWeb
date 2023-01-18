@@ -71,18 +71,20 @@ rangeInput.forEach(input => { //Recorremos los range input seleccionados
 	});
 });
 
-
-function openFilter(InputID) {
+function openFilter(InputID, ContentsID) {
     
     var element = document.getElementById(InputID);
+    var contents = document.getElementById(ContentsID);
     
     if(element.checked == true){
 	
 		element.checked = false;
+		contents.style.display = "none";
 	 
 	}else {
 		
 		element.checked = true;
+		contents.style.display = "inline";
 	}
 }
 

@@ -47,7 +47,7 @@ public class MaterialController {
 
 		model.addAttribute("MaterialArticulo", materialService.FindByID(MaterialID));
 
-		return "/Material/editar";
+		return "/Material/Editar";
 	}
 
 	@RequestMapping(value = "/Material/Editar/{MaterialID}", method = RequestMethod.POST)

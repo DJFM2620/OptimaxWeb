@@ -9,34 +9,33 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet"
-	href="<c:url value='/CSS/ModeloArticulo/Editar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
 <title>Editar Modelo Articulo</title>
 
 </head>
 <body>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-	<section>
-		<div class="testbox">
-			<h1>Editar - Modelo Articulo</h1>
-
-			<form:form name="" method="post" modelAttribute="ModeloArticulo">
-
-				<label id="icon" for=""><i class="icon-user "></i></label>
-		ID: <form:input type="number" path="cod_Modelo" readonly="true" />
-				<br>
-
-				<label id="icon" for="name1"><i class="icon-user "></i></label>
-		Forma: <form:input type="text" path="forma_Modelo" />
-				<br>
-
-				<button type="submit">Guardar</button>
-				<button type="button"
-					onclick="location.href ='<c:url value = "/ModelosArticulos"/>'">Cancelar</button>
-
-			</form:form>
-		</div>
-	</section>
+	<div class="Form">
+		<h1>Editar Modelo Articulo</h1>
+		<form:form name="" method="post" modelAttribute="ModeloArticulo">
+		
+			ID:
+			<br>
+			<form:input type="text" path="cod_Modelo" readonly="true" />
+			<br>
+			<br>
+			
+			Forma:
+			<br>
+			<form:input type="text" path="forma_Modelo" />
+			<br>
+			<br>
+		
+			<button type="submit">Guardar</button>
+			<button type="button" onclick="location.href ='<c:url value = "/Modelo/Listar"/>'">Cancelar</button>
+		
+		</form:form>
+	</div>
 </body>
 </html>

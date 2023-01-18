@@ -41,8 +41,8 @@
 	  
 	  		Color: 
 			<br>
-			<form:select path="color.cod_Color">
-				<form:options items="${bColores}" itemValue="cod_Color" itemLabel="nombre" />
+			<form:select path="color.cod_color">
+				<form:options items="${bColores}" itemValue="cod_color" itemLabel="nombre" />
 			</form:select>
 			<br>
 			<br>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="<c:url value='/CSS/Articulo/Listar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Listar.css'/>">
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
@@ -18,14 +18,13 @@
 	<div class="main">
 		<div>
 			<button class="New" onclick="location.href='<c:url value = "/Articulo/Registrar"/>'"><span class="las la-user-plus"></span> <span>NUEVO</span></button>
-			<button class="Filter"><span class="las la-filter"></span> <span>FILTER</span></button>
 			<input type="text" placeholder="Buscar..." class="Search">
 		</div>
 		
 		<table class="Table">
 			<thead class="Table_Head">
 				<tr>
-					<th>ID</th>
+					<th><b>ID</b></th>
 					<th><b>Precio</b></th>
 					<th><b>Stock</b></th>
 					<th><b>Color</b></th>
@@ -65,13 +64,13 @@
 		
 		<div class="Menu_Filter">
 		
-			<div class="Filter_Marca">
-				<div class="Filter_Marca_Header" onclick="openFilter('filter-toggle-marca')">
+			<div class="Filter_Item">
+				<div class="Filter_Marca_Header" onclick="openFilter('filter-toggle-marca', 'Filter_Marca_Contents_ID')">
 					<span style="cursor: pointer;"><b>Marcas</b></span>
 					<span style="cursor: pointer;" class="las la-angle-down"></span>
 				</div>
-				<input type="checkbox" id="filter-toggle-marca">
-				<div class="Filter_Marca_Contents">
+				<input type="checkbox" class="filter-toggle" id="filter-toggle-marca">
+				<div class="Filter_Contents Filter_Marca_Contents" id="Filter_Marca_Contents_ID">
 					<c:forEach var="marca" items="${bMarcas}">
 						<div>	
 							<input class="input_filter" type="checkbox" id="input_${marca.nombre_Marca}">
@@ -82,14 +81,14 @@
 				</div>
 			</div>
 			
-			<div class="Filter_Precio">
-				<div class="Filter_Precio_Header" onclick="openFilter('filter-toggle-precio')">
+			<div class="Filter_Item">
+				<div class="Filter_Precio_Header" onclick="openFilter('filter-toggle-precio', 'Filter_Precio_Contents_ID')">
 					<span style="cursor: pointer;"><b>Precios</b></span>
 					<span style="cursor: pointer;" class="las la-angle-down"></span>
 				</div>
 				
-				<input type="checkbox" id="filter-toggle-precio">
-				<div class="Filter_Precio_Contents">
+				<input type="checkbox" class="filter-toggle" id="filter-toggle-precio">
+				<div class="Filter_Contents Filter_Precio_Contents" id="Filter_Precio_Contents_ID">
 					<div class="wrapper">
 				      	<div class="price-input">
 				        	<div class="field">
@@ -114,14 +113,14 @@
 				</div>
 			</div>
 			
-			<div class="Filter_Modelo">
-				<div class="Filter_Modelo_Header" onclick="openFilter('filter-toggle-modelo')">
+			<div class="Filter_Item">
+				<div class="Filter_Modelo_Header" onclick="openFilter('filter-toggle-modelo', 'Filter_Modelo_Contents_ID')">
 					<span style="cursor: pointer;"><b>Modelos</b></span>
 					<span style="cursor: pointer;" class="las la-angle-down"></span>
 				</div>
 				
-				<input type="checkbox" id="filter-toggle-modelo">
-				<div class="Filter_Modelo_Contents">
+				<input type="checkbox" class="filter-toggle" id="filter-toggle-modelo">
+				<div class="Filter_Contents Filter_Modelo_Contents" id="Filter_Modelo_Contents_ID">
 					<c:forEach var="modelo" items="${bModelos}">
 						<div>	
 							<input class="input_filter" type="checkbox" id="input_${modelo.forma_Modelo}">
@@ -133,14 +132,14 @@
 				
 			</div>
 			
-			<div class="Filter_Material">
-				<div class="Filter_Material_Header" onclick="openFilter('filter-toggle-material')">
+			<div class="Filter_Item">
+				<div class="Filter_Material_Header" onclick="openFilter('filter-toggle-material', 'Filter_Material_Contents_ID')">
 					<span style="cursor: pointer;"><b>Materiales</b></span>
 					<span style="cursor: pointer;" class="las la-angle-down"></span>
 				</div>
 				
-				<input type="checkbox" id="filter-toggle-material">
-				<div class="Filter_Material_Contents">
+				<input type="checkbox" class="filter-toggle" id="filter-toggle-material">
+				<div class="Filter_Contents Filter_Material_Contents" id="Filter_Material_Contents_ID">
 					<c:forEach var="material" items="${bMateriales}">
 						<div>	
 							<input class="input_filter" type="checkbox" id="input_${material.nombre_Materia}">
@@ -151,14 +150,14 @@
 				</div>
 			</div>
 			
-			<div class="Filter_Color">
-				<div class="Filter_Color_Header" onclick="openFilter('filter-toggle-color')">
+			<div class="Filter_Item">
+				<div class="Filter_Color_Header" onclick="openFilter('filter-toggle-color', 'Filter_Color_Contents_ID')">
 					<span style="cursor: pointer;"><b>Colores</b></span>
 					<span style="cursor: pointer;" class="las la-angle-down"></span>
 				</div>
 				
-				<input type="checkbox" id="filter-toggle-color">
-				<div class="Filter_Color_Contents">
+				<input type="checkbox" class="filter-toggle" id="filter-toggle-color">
+				<div class="Filter_Contents Filter_Color_Contents" id="Filter_Color_Contents_ID">
 					<c:forEach var="color" items="${bColores}">
 						<div>	
 							<input class="input_filter" type="checkbox" id="input_${color.nombre}">
@@ -170,8 +169,7 @@
 			</div>
 		</div>
 	</div>
-</body>
-<script type="text/javascript" src="/idat/JS/Listar.js"></script>
-
+	
+	<script type="text/javascript" src="/idat/JS/Listar.js"></script>
 </body>
 </html>

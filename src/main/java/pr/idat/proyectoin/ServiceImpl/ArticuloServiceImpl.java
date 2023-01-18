@@ -7,6 +7,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service; 
 
 import pr.idat.proyectoin.Entity.Articulo;
@@ -63,14 +66,26 @@ public class ArticuloServiceImpl implements ArticuloService{
 	}
 
 	@Override
-	public Collection<Articulo> FindAll() {
+	public Collection<Articulo> FindAll() {		
 		
 		return repository.findAll();
 	}
 
 	@Override
+	public Page<Articulo> FindAllPage(Pageable pageable) {
+	
+		return repository.findAll(pageable);
+	}
+	
+	@Override
+	public Integer CountArticles() {
+	
+		return repository.CountArticles();
+	}
+	
+	@Override
 	public Collection<Articulo> FilterAll(List<String> coloresList, List<String> marcasList,
-			List<String> materialList, List<String> modeloList, Double precioMinimo, Double precioMaximo) {
+			List<String> materialList, List<String> modeloList, Double precioMinimo, Double precioMaximo, Integer pagina) {
 		
 		List<Integer> marcasCods = new ArrayList<>();
 		List<Integer> materialCods = new ArrayList<>();
@@ -108,7 +123,7 @@ public class ArticuloServiceImpl implements ArticuloService{
 				modeloCods.add(serviceModelo.codigoByNombre(nombre));
 			}
 		}
-		return repository.FilterAll(colorCods, marcasCods, materialCods, modeloCods, precioMinimo, precioMaximo);
+		return repository.FilterAll(colorCods, marcasCods, materialCods, modeloCods, precioMinimo, precioMaximo, pagina);
 	}
 	
 	@Override

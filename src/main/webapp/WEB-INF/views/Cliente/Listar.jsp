@@ -7,35 +7,37 @@
 <meta charset="utf-8">
 <title>Listado de Clientes</title>
 
-<link rel="stylesheet" href="<c:url value='/CSS/Cliente/Listar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Listar.css'/>">
+<link rel="stylesheet"
+	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
 </head>
-
-<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-
-<section>
-
-	<div class="container">
-
-		<table>
-			<thead>
+<body>
+	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
+	<div class="main">
+		<div>
+			<button class="New" onclick="location.href='<c:url value = "/Cliente/Registrar"/>'">
+				<span class="las la-user-plus"></span> <span>NUEVO</span>
+			</button>
+			<input type="text" placeholder="Buscar..." class="Search">
+		</div>
+		
+		<table class="Table">
+			<thead class="Table_Head">
 				<tr>
 					<td><b>ID</b></td>
 					<td><b>Nombre</b></td>
 					<td><b>Apellido Paterno</b></td>
 					<td><b>Apellido Materno</b></td>
-					<td><b>celular</b></td>
+					<td><b>Celular</b></td>
 					<td><b>Dni</b></td>
 					<td><b>Email</b></td>
-					<td><b>ruc</b></td>
+					<td><b>RUC</b></td>
 					<td><b>Distrito</b></td>
 					<td><b>Accion</b></td>
-
-
 				</tr>
 			</thead>
-
-			<tbody>
+			<tbody class="Table_Body">
 				<c:forEach var="cliente" items="${bCliente}">
 					<tr>
 						<td>${cliente.cod_Cliente}</td>
@@ -47,30 +49,18 @@
 						<td>${cliente.email}</td>
 						<td>${cliente.ruc}</td>
 						<td>${cliente.distrito.nombredistr}</td>
-
-						<td><a
-							href="<c:url value = '/EditarCliente/${cliente.cod_Cliente}'/>">
-								Editar </a> | <a
-							href="<c:url value = '/Eliminarcliente/${cliente.cod_Cliente}'/>">
-								Eliminar </a></td>
-
+						<td>
+							<button class="Button_Edit" onclick="location.href='<c:url value ="/Cliente/Editar/${cliente.cod_Cliente}"/>'">
+								<span class="las la-edit"></span><span>Editar</span>
+							</button>
+							<button class="Button_Delete" onclick="location.href='<c:url value = "/Cliente/Eliminar/${cliente.cod_Cliente}"/>'">
+								<span class="las la-trash-alt"></span><span>Borrar </span>
+							</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-</section>
-<script type="text/javascript">
-	$(window).on(
-			"load resize ",
-			function() {
-				var scrollWidth = $('.tbl-content').width()
-						- $('.tbl-content table').width();
-				$('.tbl-header').css({
-					'padding-right' : scrollWidth
-				});
-			}).resize();
-</script>
-
 </body>
 </html>

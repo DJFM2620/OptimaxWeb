@@ -7,80 +7,70 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/Empleado/Editar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
 <title>Editar Empleado</title>
 
 </head>
 <body>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-	<section>
-		<div class="testbox">
-			<form:form name="" method="post" modelAttribute="Empleado">
+	<div class="Form">
+		<h1>Editar Datos de Empleado</h1>
+		<form:form name="" method="post" modelAttribute="Empleado">
 
-				<section class="contenedor">
-					<div class='bold-line'></div>
-					<div class='container'>
-						<div class='window'>
-							<div class='overlay'></div>
-							<div class='content'>
-								<div class='welcome'>Editar</div>
-								<div class='input-fields'>
+			ID:
+			<br>
+			<form:input path="cod_empleado" id="nombres" placeholder="nombre" readonly="true"/>
+			<br>
+			<br>
 
-									ID:
-									<form:input path="cod_empleado" id="nombres"
-										placeholder="nombre" readonly="true"
-										class='input-line full-width' />
-									<br>
+			Nombre:
+			<br>
+			<form:input type="text" path="nombres" id="nombres" placeholder="nombre" required="true"/>
+			<br>
+			<br>
+			
+			Apellido Paterno:
+			<br>
+			<form:input type="text" path="apellidp" id="apellidp" placeholder="apellido Paterno" required="true"/>
+			<br>
+			<br>
 
-									<form:input type="text" path="nombres" id="nombres"
-										placeholder="nombre" required="true"
-										class='input-line full-width' />
-									<br>
+			Apellido Materno:
+			<br>
+			<form:input type="text" path="apellidom" id="apellidom" placeholder="apellido Materno" required="true"/>
+			<br>
+			<br>
+			
+			Celular:
+			<br>
+			<form:input type="text" path="telefono" id="telefono" placeholder="telefono" maxlength="9" required="true"/>
+			<br>
+			<br>
+			
+			DNI:
+			<br>
+			<form:input type="text" path="dni" id="dni" placeholder="dni" maxlength="8" required="true"/>
+			<br>
+			<br>
+			
+			Email
+			<br>
+			<form:input type="email" path="email" id="email" placeholder="email" required="true"/>
+			<br>
+			<br>
 
-									<form:input type="text" path="apellidp" id="apellidp"
-										placeholder="apellido Paterno" required="true"
-										class='input-line full-width' />
-									<br>
+			Cargo:
+			<br>
+			<form:select path="tipoempleado.cod_cargoemp">
+				<form:options items="${bCargo}" itemValue="cod_cargoemp" itemLabel="cargo" />
+			</form:select>
+			<br>
+			<br>
 
-									<form:input type="text" path="apellidom" id="apellidom"
-										placeholder="apellido Materno" required="true"
-										class='input-line full-width' />
-									<br>
-
-									<form:input type="text" path="dni" id="dni" placeholder="dni"
-										required="true" class='input-line full-width' />
-									<br>
-
-									<form:input type="text" path="telefono" id="telefono"
-										placeholder="telefono" required="true"
-										class='input-line full-width' />
-									<br>
-
-									<form:input type="text" path="email" id="name"
-										placeholder="email" required="true"
-										class='input-line full-width' />
-									<br> <br>
-
-
-									<form:select path="tipoempleado.cod_cargoemp">
-										<br>
-
-										<form:options items="${bCargo}" itemValue="cod_cargoemp"
-											itemLabel="cargo" />
-										<br>
-
-									</form:select>
-									<br>
-
-									<button type="submit" class="button">Guardar</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-			</form:form>
-		</div>
-	</section>
+			<button type="submit" class="button">Guardar</button>
+			<button type="button" onclick="location.href='<c:url value = "/Empleado/Listar"/>'">Cancelar</button>
+		</form:form>
+	</div>
 </body>
 </html>

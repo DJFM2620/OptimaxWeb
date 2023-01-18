@@ -63,24 +63,17 @@ public class ArticuloController {
 									 @RequestParam(name = "minimo", required = false) Double precioMinimo,
 									 @RequestParam(name = "maximo", required = false) Double precioMaximo) {
 
-		System.out.println("COLOR: " + colorList);
-		System.out.println("MARCA: " + marcaList);
-		System.out.println("MATERIALES: " + materialList);
-		System.out.println("MODELOS: " + modeloList);
-		System.out.println("MINIMO: " + precioMinimo);
-		System.out.println("MAXIMO: " + precioMaximo);
-		
 		Double minPrecio = articuloService.minPrecio();
 		Double maxPrecio = articuloService.maxPrecio();
 		
-		if(precioMinimo == null) {
+		/*if(precioMinimo == null) {
 			
 			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, minPrecio, maxPrecio));
 			
 		}else {
 			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, precioMinimo, precioMaximo));
 		}
-		
+		*/
 		map.put("bMarcas", marcaService.FindAll());
 		map.put("bModelos", modeloService.FindAll());
 		map.put("bMateriales", materialService.FindAll());
@@ -111,7 +104,7 @@ public class ArticuloController {
 
 		articuloService.Insert(art);
 
-		return "redirect:/Articulo/Registrar";
+		return "redirect:/Articulo/Listar";
 	}
 
 	@RequestMapping(value = "/Articulo/Detalle/{ArticuloID}", method = RequestMethod.GET)
@@ -125,16 +118,16 @@ public class ArticuloController {
 		return "/Articulo/Detalle";
 	}
 
-	@RequestMapping(value = "/Articulo/Borrar/{ArticuloID}", method = RequestMethod.GET)
-	public String borrar_GET(Model model, @PathVariable("ArticuloID") Integer ArticuloID) {
+	@RequestMapping(value = "/Articulo/Eliminar/{ArticuloID}", method = RequestMethod.GET)
+	public String eliminar_GET(Model model, @PathVariable("ArticuloID") Integer ArticuloID) {
 
 		model.addAttribute("Articulo", articuloService.FindByID(ArticuloID));
 
 		return "/Articulo/Borrar";
 	}
 
-	@RequestMapping(value = "/Articulo/Borrar/{ArticuloID}", method = RequestMethod.POST)
-	public String borrar_POST(Articulo articulo) {
+	@RequestMapping(value = "/Articulo/Eliminar/{ArticuloID}", method = RequestMethod.POST)
+	public String eliminar_POST(Articulo articulo) {
 
 		articuloService.Delete(articulo.getCodArticulo());
 

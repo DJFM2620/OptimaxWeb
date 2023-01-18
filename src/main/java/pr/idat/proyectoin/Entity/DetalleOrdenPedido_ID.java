@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 
-
 @Embeddable
 public class DetalleOrdenPedido_ID implements Serializable
 {

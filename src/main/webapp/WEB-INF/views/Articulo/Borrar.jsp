@@ -8,34 +8,60 @@
 <meta charset="ISO-8859-1">
 <title>Eliminar Articulo</title>
 
-<link rel="stylesheet" href="<c:url value='/CSS/Articulo/Eliminar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Eliminar.css'/>">
 
 </head>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>	
-	<div class="testbox">
+	<div class="Form">
 		<h1>Eliminar Articulo</h1>
 	
 		<form:form name="" method="post" modelAttribute="Articulo">
+		
 	   		ID:
+	   		<br>
 	   		<form:input type="text" path="codArticulo" readonly="true" />
+			<br>
 			<br>
 			    
 	 		Color:
-	 		<form:input type="text" path="color" id="nombres"
-				placeholder="color" />
+	 		<br>
+	 		<form:input type="text" path="color.nombre" readonly="true"/>
+			<br>
 			<br>
 			
 		 	Precio: 
-		 	<form:input path="precio" id="nombres" placeholder="precio" />
+		 	<br>
+		 	<form:input type="text" path="precio" readonly="true"/>
+			<br>
 			<br>
 	 
-	 		Stock 
-	  		<form:input path="stock" id="nombres" placeholder="stock" />
+	 		Stock:
+	 		<br>
+	  		<form:input type="text" path="stock" readonly="true"/>
 			<br>
 			<br>
 			
-			<p>¿Estas seguro de borrar?</p>
-			<button type="submit">Si</button>
+			Marca:
+	 		<br>
+	  		<form:input type="text" path="marcaMontura.nombre_Marca" readonly="true"/>
+			<br>
+			<br>
+			
+			Material:
+	 		<br>
+	  		<form:input type="text" path="tipoMaterialMontura.nombre_Materia" readonly="true"/>
+			<br>
+			<br>
+			
+			Modelo:
+	 		<br>
+	  		<form:input type="text" path="tipoModeloMontura.forma_Modelo" readonly="true"/>
+			<br>
+			<br>
+			
+			<p>¿Estas seguro de eliminar este articulo?</p>
+			<button type="submit" class="button">Eliminar</button>
+			<button type="button" onclick="location.href='<c:url value = "/Articulo/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
 </body>

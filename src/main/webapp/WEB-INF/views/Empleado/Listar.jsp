@@ -5,31 +5,35 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Listar.css'/>">
+<link rel="stylesheet"
+	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
 <title>Listado Empleados</title>
-<link rel="stylesheet" href="<c:url value='/CSS/Empleado/Listar.css'/>">
 
 <body>
-<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-
-<section>
-	<div class="container">
-		<table>
-			<thead>
+	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
+	<div class="main">
+		<div>
+			<button class="New" onclick="location.href='<c:url value = "/Empleado/Registrar"/>'"><span class="las la-user-plus"></span> <span>NUEVO</span></button>
+			<input type="text" placeholder="Buscar..." class="Search">
+		</div>
+		<table class="Table">
+			<thead class="Table_Head">
 				<tr>
 					<td><b>ID</b></td>
 					<td><b>Nombre</b></td>
-					<td><b>Apellido_Paterno</b></td>
-					<td><b>Apellido_Materno</b></td>
+					<td><b>Apellido Paterno</b></td>
+					<td><b>Apellido Materno</b></td>
 					<td><b>DNI</b></td>
 					<td><b>Telefono</b></td>
 					<td><b>Email</b></td>
 					<td><b>Cargo</b></td>
-					<td><b>Accion</b></td>
-
+					<td><b>Opciones</b></td>
 				</tr>
 			</thead>
-
-			<tbody>
+			<tbody class="Table_Body">
 				<c:forEach var="empleado" items="${bEmpleado}">
 					<tr>
 						<td>${empleado.cod_empleado}</td>
@@ -40,29 +44,18 @@
 						<td>${empleado.telefono}</td>
 						<td>${empleado.email}</td>
 						<td>${empleado.tipoempleado.cargo}</td>
-						<td><a
-							href="<c:url value = '/empleado_editar/${empleado.cod_empleado}'/>">
-								Editar </a> | <a
-							href="<c:url value = '/empleado_borrar/${empleado.cod_empleado}'/>">
-								Eliminar </a></td>
+						<td>
+							<button class="Button_Edit" onclick="location.href='<c:url value ="/Empleado/Editar/${empleado.cod_empleado}"/>'">
+								<span class="las la-edit"></span><span>Editar</span>
+							</button>
+							<button class="Button_Delete" onclick="location.href='<c:url value = "/Empleado/Eliminar/${empleado.cod_empleado}"/>'">
+								<span class="las la-trash-alt"></span><span>Borrar </span>
+							</button>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
-</section>
-
-<script type="text/javascript">
-	$(window).on(
-			"load resize ",
-			function() {
-				var scrollWidth = $('.tbl-content').width()
-						- $('.tbl-content table').width();
-				$('.tbl-header').css({
-					'padding-right' : scrollWidth
-				});
-			}).resize();
-</script>
-
 </body>
 </html>

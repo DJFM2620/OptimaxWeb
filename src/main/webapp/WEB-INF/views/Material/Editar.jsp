@@ -8,7 +8,7 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/MaterialArticulo/Editar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
 <title>Editar Material Articulo</title>
 </head>
@@ -16,17 +16,25 @@
 
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
 
-	<form:form name="" method="post" modelAttribute="MaterialArticulo">
+	<div class="Form">
+		<h1> Editar Material Articulo</h1>
+		<form:form name="" method="post" modelAttribute="MaterialArticulo">
 
-ID: <form:input type="text" path="cod_TipMaterial" readonly="true" />
-		<br>
-
-Nombre: <form:input type="text" path="Nombre_Materia" />
-		<br>
-		
-		<button type="submit">Guardar</button>
-		<button type="button"
-			onclick="location.href='<c:url value="/MaterialArticulos"/>'">Cancelar</button>
-	</form:form>
+			ID: 
+			<br>
+			<form:input type="text" path="cod_TipMaterial" readonly="true" />
+			<br>
+			<br>
+			
+			Nombre:
+			<br> 
+			<form:input type="text" path="Nombre_Materia" />
+			<br>
+			<br>
+				
+			<button type="submit">Guardar</button>
+			<button type="button" onclick="location.href='<c:url value = "/Material/Listar"/>'">Cancelar</button>
+		</form:form>
+	</div>
 </body>
 </html>
