@@ -2,6 +2,7 @@ package pr.idat.proyectoin.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -25,6 +26,12 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer>, Jp
 			@Param("minimo") Double precioMinimo,
 			@Param("maximo") Double precioMaximo,
 			@Param("pagina") Integer pagina);
+	
+	@Query(value = "SELECT COD_ARTICULO, SUM(CANTIDAD) FROM DETALLE_ORDEN_PEDIDO JOIN ORDENPEDIDOS"
+			+ " ON ORDENPEDIDOS.COD_PEDIDO = DETALLE_ORDEN_PEDIDO.COD_PEDIDO "
+			+ " WHERE MONTH(FECHA) = :mes "
+			+ " GROUP BY COD_ARTICULO LIMIT 5;", nativeQuery = true)
+	public abstract List<Map<String, Object>> Better_Selling(@Param("mes") String mes);
 	
 	@Query(value = "SELECT MIN(precio) FROM ARTICULOS;", nativeQuery = true)
 	public abstract Double minPrecio();

@@ -3,6 +3,7 @@ package pr.idat.proyectoin.ServiceImpl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -124,6 +125,12 @@ public class ArticuloServiceImpl implements ArticuloService{
 			}
 		}
 		return repository.FilterAll(colorCods, marcasCods, materialCods, modeloCods, precioMinimo, precioMaximo, pagina);
+	}
+	
+	@Override
+	public List<Map<String, Object>> Better_Selling(String mes) {
+		
+		return repository.Better_Selling(mes);
 	}
 	
 	@Override

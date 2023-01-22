@@ -18,14 +18,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -152,8 +149,14 @@ public class LentesController {
 		Double maxPrecio = articuloService.maxPrecio();
 
 		int maxPages = (int) Math.ceil(articuloService.CountArticles()/12.0);
-		Integer offSet = 12 * (pagina - 1); // 12(1) -> 24(2) -> 36(3)
-		Integer currentPage = pagina;
+		
+		Integer offSet = 0; // 12(1) -> 24(2) -> 36(3)
+		Integer currentPage = 1;
+		
+		if(pagina != null) {
+			offSet = 12 * (pagina - 1); // 12(1) -> 24(2) -> 36(3)
+			currentPage = pagina;
+		}
 
 		if ((maxPages - currentPage) > 10) {
 			if (currentPage > 3) {

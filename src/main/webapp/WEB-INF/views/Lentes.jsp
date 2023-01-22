@@ -25,7 +25,7 @@
 			<div class="NavBar_Menu">
 				<ul>
 					<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
-					<li> <a href="<c:url value='/Lentes'/>">Lentes</a></li>
+					<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
 				</ul>
 				<button type="button" id="openButton" onclick="AbrirModal()">CARRITO</button>
 			</div>
@@ -46,9 +46,8 @@
 					<c:forEach var="art" items="${bArticulo.content}">
 		
 						<div class="Item">
-		
+						
 							<c:set var="typeImage" value="${fn:substringAfter(art.imagen,'.')}" />
-		
 							<img src="data:image/${typeImage};base64,${art.getBase64Imagen()}"
 								onclick="DetailProduct(document.getElementById('articuloID${art.codArticulo}').value)" />
 		
@@ -65,7 +64,9 @@
 									AGREGAR AL CARRITO
 								</button>
 							</div>
+							
 						</div>
+						
 					</c:forEach>
 				</c:if>
 				
@@ -282,7 +283,13 @@
 				</form>
 			</div>
 		</div>
+		
 	</div>
+	
+	<div class="Footer">
+		<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
+	</div>
+	
 	<script type="text/javascript" src="/idat/JS/Lentes.js"></script>
 </body>
 </html>

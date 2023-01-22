@@ -94,7 +94,7 @@ public class ControllerApiService {
 
 		return serviceArt.FindAll();
 	}
-
+	
 	@GetMapping(path = "/Pageable")
 	public Page<Articulo> FindAllPageable() {
 		

@@ -2,6 +2,7 @@ package pr.idat.proyectoin.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,8 @@ public interface ArticuloService{
 			@Param("minimo") Double precioMinimo,
 			@Param("maximo") Double precioMaximo,
 			@Param("pagina") Integer pagina);
+	
+	public abstract List<Map<String, Object>> Better_Selling(@Param("mes") String mes);
 	
 	public abstract Double minPrecio();
 	public abstract Double maxPrecio();

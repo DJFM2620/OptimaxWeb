@@ -46,7 +46,6 @@ public class PedidosController {
 		map.put("bsubtotal", detalleService.calculosubtotal(code, codes));
 
 		return "/Pedido/Detalle";
-
 	}
 	
 	@RequestMapping(value = "/MisPedidos", method = RequestMethod.GET)
