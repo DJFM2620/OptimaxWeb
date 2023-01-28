@@ -53,22 +53,14 @@ public class DetalleOrdenPedidoServiceImpl implements DetalleOrdenPedidoService{
 	}
 
 	@Override
-	public Collection<DetalleOrdenPedido> DetallePedidosCliente() {
+	public Collection<DetalleOrdenPedido> DetallePedido(Integer codigo) {
 		
-		return repository.DetallePedidosCliente();
-	}
-
-	
-
-	@Override
-	public Collection<DetalleOrdenPedido> DetallePedido(Integer DNI, Integer codigo) {
-		
-		return repository.DetallePedido(DNI, codigo);
+		return repository.DetallePedido(codigo);
 	}
 
 	@Override
-	public Integer calculosubtotal(Integer DNI, Integer codigo) {
+	public Integer calculosubtotal(Integer codigo) {
 		
-		return repository.calculosubtotal(DNI, codigo);
+		return repository.calculosubtotal(codigo);
 	}
 }

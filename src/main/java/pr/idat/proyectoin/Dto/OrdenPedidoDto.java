@@ -1,10 +1,6 @@
 package pr.idat.proyectoin.Dto;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 public class OrdenPedidoDto implements Serializable {
 

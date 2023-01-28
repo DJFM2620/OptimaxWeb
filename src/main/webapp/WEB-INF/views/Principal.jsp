@@ -16,22 +16,7 @@
 </head>
 <body>
 
-	<div class="NavBar">
-		<div class="NavBar_Content">
-			<div>
-				<p>OPTIMAX</p>
-			</div>
-			<div class="NavBar_Menu">
-				<ul>
-					<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
-					<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
-					<li><a href="<c:url value='/MisPedidos'/>">Mis pedidos</a></li>
-					<li><a href="<c:url value='/Cita'/>">Registrar una cita</a></li>
-					<li><a href="<c:url value='/MisCitas'/>">Mis citas</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<%@include file="/WEB-INF/views/shared/NavBar.jsp"%>
 
 	<div class="Logo">
 		<img src="image/logo.jpeg">
@@ -62,7 +47,7 @@
 
 		<div class="Info">
 			<div class="Info_Title">
-				<h3>Nuestros Productos</h3>
+				<h3>Sobre Nuestros Productos</h3>
 			</div>
 			<div class="Info_Content">
 				<p>
@@ -93,9 +78,7 @@
 		</form>
 	</div>
 
-	<div class="Footer">
-		<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
-	</div>
+	<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
 
 	<script>
 		function openForm() {
@@ -118,10 +101,5 @@
 		}
 	</script>
 
-	<script
-		src="https://unpkg.com/sweetalert2@7.8.2/dist/sweetalert2.all.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script src="js/sweetAlert.js"></script>
 </body>
 </html>

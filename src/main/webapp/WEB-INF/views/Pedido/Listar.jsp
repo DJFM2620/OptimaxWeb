@@ -6,7 +6,13 @@
 <html>
 <head>
 
-<link rel="stylesheet" href="<c:url value='/CSS/Pedidos/Listar.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/CSS/Pedidos/MisPedidos.css'/>">
+
+<link rel="stylesheet"
+	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Listar Pedidos</title>
 </head>
@@ -14,87 +20,77 @@
 
 	<%@include file="/WEB-INF/views/shared/tabjefedeventas.jsp"%>
 
-	<section>
-		<div class="container">
-
-			<input id="myInput" type="text" placeholder="Search.."> <br>
-			<br>
-
-			<table style="padding: 0%;">
+	<div class="Main main">
+		<div class="Content">
+		
+			<div class="Search">
+				<input id="myInput" type="text" placeholder="Search..">
+			</div>
+			<table class="Table">
 				<thead>
 					<tr>
-						<td><b>COD PEDIDO</b></td>
-						<td><b>FECHA</b></td>
-						<td><b>DNI CLIENTE</b></td>
-						<td><b>ESTADO PEDIDO</b></td>
-
-						<td><b>Accion</b></td>
+						<td><b>Pedido</b></td>
+						<td><b>Fecha</b></td>
+						<td><b>Nombre Cliente</b></td>
+						<td><b>Apellido Cliente</b></td>
+						<td><b>DNI Cliente</b></td>
+						<td><b>Estado</b></td>
+						<td><b>Opciones</b></td>
 					</tr>
 				</thead>
-				<tbody id="myTable">
 
+				<tbody id="TBody">
 					<c:forEach var="pedidos" items="${bPedidos}">
 						<tr>
 							<td id="codigo${pedidos.cod_pedido}">${pedidos.cod_pedido}</td>
 							<td>${pedidos.fecha}</td>
-							<td id="dni${pedidos.getCliente().getDni()}">${pedidos.getCliente().getDni()}</td>
-							<td>${pedidos.getEstadopedido().getEstado()}</td>
+							<td>${pedidos.cliente.nombres}</td>
+							<td>${pedidos.cliente.apellidop}</td>
+							<td id="dni${pedidos.cliente.dni}">${pedidos.cliente.dni}</td>
+							<td>${pedidos.estadopedido.estado}</td>
 							<td>
-
-								<button class="button"
-									onclick="verdetalle(document.getElementById('codigo${pedidos.cod_pedido}'),document.getElementById('dni${pedidos.getCliente().getDni()}'))">Ver
-									detalle</button> <br> <br>
-								<button class="button"
-									onclick="location.href='<c:url value = "/orden_editar/${pedidos.cod_pedido}"/>'">EDITAR
-								</button> <br> <br>
-
+								<button onclick="Detalle(document.getElementById('codigo${pedidos.cod_pedido}'))">DETALLE</button>
+								<button class="Edit_Button" onclick="location.href='<c:url value ="/Pedido/Editar/${pedidos.cod_pedido}"/>'">
+									EDITAR
+								</button>
 							</td>
 						</tr>
-
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-	</section>
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-		$(document)
-				.ready(
-						function() {
-							$("#myInput")
-									.on(
-											"keyup",
-											function() {
-												var value = $(this).val()
-														.toLowerCase();
-												$("#myTable tr")
-														.filter(
-																function() {
-																	$(this)
-																			.toggle(
-																					$(
-																							this)
-																							.text()
-																							.toLowerCase()
-																							.indexOf(
-																									value) > -1)
-																});
-											});
-						});
-	</script>
-	<script type="text/javascript">
-		function verdetalle(codigo, dni) {
-
-			var PedidoCODIGO = codigo.innerHTML;
-			var ClienteDNI = dni.innerHTML;
-
-			<c:url var="path" value="/verdetallepedido"/>
-			location.href = "${path}?code=" + ClienteDNI + "&codes="
-					+ PedidoCODIGO;
-		}
-	</script>
-
+		<div class="Detail">
+		
+			<div class="Detail_ID">
+				<span id="Detail_ID">
+					Detalle de Pedido
+				</span>
+			</div>
+		
+			<div class="Detail_Items">
+				<div class="Detail_Header">
+			        <span>Articulo</span>
+			        <span>Precio</span>
+			        <span>Cantidad</span>
+			        <span>SubTotal</span>
+			        <span>Imagen</span>
+			    </div>
+			    <div class="Detail_Content" id="Detail_Content">
+			    </div>
+			</div>
+		
+			<div class="Detail_Info">
+				<span>SubTotal: </span>
+				<span id="Info_SubTotal"></span>
+				<span>IGV (18%): </span>
+				<span id="Info_IGV"></span>
+				<span>Delivery:</span>
+				<span id="Info_Delivery"></span>
+				<span>Total:</span>
+				<span id="Info_Total"></span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/idat/JS/Pedidos.js"></script>
 </body>
 </html>

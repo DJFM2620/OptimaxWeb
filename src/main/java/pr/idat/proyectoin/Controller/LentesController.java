@@ -122,7 +122,7 @@ public class LentesController {
 	@RequestMapping(value = "/Lentes", method = RequestMethod.POST)
 	public String lentes_POST(Model model, Map map, 
 							  @RequestParam(value = "Quantity") String Cantidades,
-							  @RequestParam(value = "SubTotalOrder") String SubTotalOrder) {
+							  @RequestParam(value = "PostTotalOrder") String SubTotalOrder) {
 
 		SubTotal = SubTotalOrder;
 		

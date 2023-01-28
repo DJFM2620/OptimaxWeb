@@ -8,6 +8,7 @@
 <head>
 
 <link rel="stylesheet" href="<c:url value='/CSS/Lentes.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/NavBar.css'/>">
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
@@ -26,6 +27,9 @@
 				<ul>
 					<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
 					<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
+					<li><a href="<c:url value='/MisPedidos'/>">Mis pedidos</a></li>
+					<li><a href="<c:url value='/Cita'/>">Registrar una cita</a></li>
+					<li><a href="<c:url value='/MisCitas'/>">Mis citas</a></li>
 				</ul>
 				<button type="button" id="openButton" onclick="AbrirModal()">CARRITO</button>
 			</div>
@@ -244,8 +248,25 @@
 				<button class="CloseModal" onclick="CerrarModal()">CERRAR</button>
 				
 				<div class="Cart_Content_Total">
-					<span>TOTAL A PAGAR: </span>
-					<input type="text" id="TotalOrder" value="0">
+					<div>
+                        <span>SUBTOTAL: </span>
+    					<input type="text" id="SubTotalOrder" value="0">
+                    </div>
+                    
+    				<div>
+                        <span>IGV (18%): </span>
+    					<input type="text" id="IGVOrder" value="0">
+                    </div>
+                    
+    				<div>
+                        <span>DELIVERY: </span>
+    					<input type="text" id="DeliveryOrder" value="5">
+                    </div>
+                    
+    				<div>
+                        <span>TOTAL A PAGAR: </span>
+    					<input type="text" id="TotalOrder" value="0">
+                    </div>
 				</div>				
 				
 				<form method="post" action="/idat/Lentes">
@@ -277,7 +298,7 @@
 						</div>
 					</c:forEach>
 					<div class="Cart_Footer">
-						<input type="text" name="SubTotalOrder" hidden="true">
+						<input type="text" name="PostTotalOrder" hidden="true">
 						<button type="submit" id="btnOrder">Realizar Pedido</button>
 					</div>
 				</form>
@@ -286,9 +307,7 @@
 		
 	</div>
 	
-	<div class="Footer">
-		<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
-	</div>
+	<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
 	
 	<script type="text/javascript" src="/idat/JS/Lentes.js"></script>
 </body>

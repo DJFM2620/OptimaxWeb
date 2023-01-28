@@ -18,8 +18,7 @@ public interface OrdenPedidoService {
 	
 	public abstract Integer CodigoOrdenPedido();
 	public abstract Collection<OrdenPedido> PedidosCliente(@Param("clienteDNI")Integer DNI);
-	
-	public Integer maxcodepedidobyid(Integer id);
+	public abstract Integer maxcodepedidobyid(Integer id);
 	public abstract List<Object[]> OrdenesPedidosMovil(@Param("codCliente") Integer DNI);
-	public abstract Collection<OrdenPedidoDto> ObtenerPedidosPerzonalizado(Integer DNI);
+	public abstract Collection<OrdenPedidoDto> ObtenerPedidosPersonalizado(Integer DNI);
 }

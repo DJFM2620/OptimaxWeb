@@ -62,7 +62,7 @@
 			</tbody>
 		</table>
 		
-		<div class="Menu_Filter">
+		<div class="Menu">
 		
 			<div class="Filter_Item">
 				<div class="Filter_Marca_Header" onclick="openFilter('filter-toggle-marca', 'Filter_Marca_Contents_ID')">

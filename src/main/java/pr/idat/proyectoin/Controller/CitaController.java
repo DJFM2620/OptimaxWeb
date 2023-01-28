@@ -2,6 +2,7 @@ package pr.idat.proyectoin.Controller;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.Cliente;
@@ -59,7 +61,7 @@ public class CitaController {
 
 			Cita cita = new Cita();
 
-			cita.setFecha(date);
+			cita.setFecha(date);	
 			cita.setHora(time);
 			cita.setCliente(clienteService.FindByID(clienteService.ObtenerCodigoCliente(dnicliente)));
 
@@ -94,22 +96,16 @@ public class CitaController {
 	}
 	
 	@RequestMapping(value = "/MisCitas", method = RequestMethod.GET)
-	public String citas() {
-
+	public String citas(Map map) {
+		
 		return "/Cita/Citas";
 	}
 
-	@RequestMapping(value = "/MisCitas", method = RequestMethod.GET, params = "dni")
-	public String citaspost() {
+	@RequestMapping(value = "/Cita/Dni", method = RequestMethod.GET)
+	public @ResponseBody Collection<Cita> Citas(Integer dni){
 
-		return "/Cita/Citas";
-	}
-
-	@RequestMapping({ "/BuscarCitaDni" })
-	public String Buscarcita(Map map, @RequestParam(value = "code", defaultValue = "") Integer code) {
-
-		map.put("bCitadni", citaService.CitasCliente(code));
-
-		return "/Cita/Citas";
+		Collection<Cita> cita = citaService.CitasCliente(dni);
+        
+        return cita;
 	}
 }

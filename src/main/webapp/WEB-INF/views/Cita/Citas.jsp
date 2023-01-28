@@ -9,80 +9,57 @@
 
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/Cita/Miscitas.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/CSS/Pedidos/MisPedidos.css'/>">
+	
+<link rel="stylesheet"
+	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Mis Citas</title>
 </head>
 <body>
-	<div class="imagen">
-		<img src="image/logo.jpeg"
-			style="position: relative; width: 1000px; height: 261px; top: 62px; left: 412px;">
-	</div>
 
-	<div class="header_section_top">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="custom_menu">
-					<ul style="color: white;">
-						<li style="color: white;"><a style="color: white;"
-							href="<c:url value='/principal'/>">Inicio</a></li>
-						<li style="color: white;"><a style="color: white;"
-							href="<c:url value='/lentes'/>">Lentes</a></li>
-					</ul>
-				</div>
+	<%@include file="/WEB-INF/views/shared/NavBar.jsp"%>
+
+	<div class="Main">
+		<div class="Content">
+			<div class="Search">
+				Ingresar DNI: <input type="text" id='dni' maxlength="8"/>
+				<button type="button" onclick="CitasDni(document.getElementById('dni'))">Buscar</button>
 			</div>
-		</div>
-	</div>
-
-	<div class="logo_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="logo">
-						<img src="image/logo.jpeg">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="dni" style="position: absolute; left: 40%; top: 36%;">
-		Colocar dni: <input name="dninuevo" id='dni' maxlength="8" />
-
-		<button type="button" onclick="EnviarDNI()">Buscar</button>
-	</div>
-
-	<section>
-		<div class="container">
-
-			<table id="table" style="position: absolute; left: -369px;">
+			<table class="Table">
 				<thead>
 					<tr>
-						<td><b>CODIGO DE CITA</b></td>
-						<td><b>HORA</b></td>
-						<td><b>FECHA</b></td>
+						<td><b>Cita</b></td>
+						<td><b>Hora</b></td>
+						<td><b>Fecha</b></td>
 					</tr>
 				</thead>
 
-				<tbody>
-					<c:forEach var="citas" items="${bCitadni}">
-						<tr>
-							<td>${citas.cod_Cita}</td>
-							<td>${citas.hora}</td>
-							<td>${citas.fecha}</td>
-						</tr>
-					</c:forEach>
+				<tbody id="TBody">
 				</tbody>
 			</table>
 		</div>
-	</section>
-	<script type="text/javascript">
-		function EnviarDNI() {
-
-			var ClienteDNI = document.getElementById('dni').value;
-
-			<c:url var="path" value="/Buscarcitapordni"/>
-			location.href = "${path}?code=" + ClienteDNI;
-		}
-	</script>
+		<div class="Detail">
+		
+			<div class="Detail_ID">
+				<span id="Detail_ID">Informacion</span>
+			</div>
+		
+			<div class="Detail_Items">
+			    <div class="Detail_Content" id="Detail_Content">
+			    	<p>Ingresa tu DNI para que puedas ver tus citas.</p>
+			    	<p>Estas estaran ordenadas por fecha en orden descendente.</p>
+			    	<p>Recuerda que si llegas tarde o dias despues de la fecha citada, no habra lugar a reclamo.</p>
+			    </div>
+			</div>
+		</div>
+	</div>
+	
+	<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
+	
+	<script type="text/javascript" src="/idat/JS/MisCitas.js"></script>
 </body>
 </html>

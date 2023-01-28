@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import pr.idat.proyectoin.Entity.Cita;
+import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Service.DetalleOrdenPedidoService;
 import pr.idat.proyectoin.Service.EstadoService;
@@ -27,9 +32,6 @@ public class PedidosController {
 	@Autowired
 	private EstadoService estadoService;
 	
-	@Autowired
-	private DetalleOrdenPedidoService detalleService;
-	
 	@RequestMapping(value = "/Pedido/Listar", method = RequestMethod.GET)
 	public String listarpedido(Map map) {
 
@@ -38,34 +40,26 @@ public class PedidosController {
 		return "/Pedido/Listar";
 	}
 	
-	@RequestMapping({ "/Pedido/Detalle" })
-	public String Verdetalle(Map map, @RequestParam(value = "code", defaultValue = "") Integer code,
-			@RequestParam(value = "codes", defaultValue = "") Integer codes) {
-
-		map.put("bDetalles", detalleOrdenService.DetallePedido(code, codes));
-		map.put("bsubtotal", detalleService.calculosubtotal(code, codes));
-
-		return "/Pedido/Detalle";
-	}
-	
 	@RequestMapping(value = "/MisPedidos", method = RequestMethod.GET)
 	public String pedidos(Map map) {
-
+		
 		return "/Pedido/Pedidos";
 	}
+	
+	@RequestMapping(value = "/Pedido/Detalle", method = RequestMethod.GET)
+    public @ResponseBody Collection<DetalleOrdenPedido> DetallePedido(Integer codigoPedido) {
+		
+		Collection<DetalleOrdenPedido> detalle = detalleOrdenService.DetallePedido(codigoPedido);
+        
+        return detalle;
+    }
 
-	@RequestMapping(value = "/MisPedidos", method = RequestMethod.POST, params = "dni")
-	public String pedidos_post(Map map) {
+	@RequestMapping(value = "/Pedido/Dni", method = RequestMethod.GET)
+	public @ResponseBody Collection<OrdenPedido> Ordenes(Integer dni) {
 
-		return "/Pedido/Pedidos";
-	}
+		Collection<OrdenPedido> orden = ordenPedidoService.PedidosCliente(dni);
 
-	@RequestMapping({ "/BuscarPedidoDni" })
-	public String Buscarpedido(Map map, @RequestParam(value = "code", defaultValue = "") Integer code) {
-
-		map.put("bPedidos", ordenPedidoService.PedidosCliente(code));
-
-		return "/Pedido/Pedidos";
+		return orden;
 	}
 	
 	@RequestMapping(value = "/Pedido/Editar/{OrdenId}", method = RequestMethod.GET)

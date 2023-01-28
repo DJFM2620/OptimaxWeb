@@ -1,6 +1,5 @@
 package pr.idat.proyectoin.ServiceImpl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,7 +84,7 @@ public class OrdenPedidoServiceImpl implements OrdenPedidoService {
 	}
 	
 	@Override
-	public Collection<OrdenPedidoDto> ObtenerPedidosPerzonalizado(Integer DNI){
+	public Collection<OrdenPedidoDto> ObtenerPedidosPersonalizado(Integer DNI){
 		
 		List<Object[]> listOrdenes = (List<Object[]>) this.OrdenesPedidosMovil(DNI);
 		List<OrdenPedidoDto> listDto = new ArrayList<>();

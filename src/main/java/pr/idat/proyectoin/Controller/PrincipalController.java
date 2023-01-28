@@ -51,6 +51,7 @@ public class PrincipalController {
 
 	@RequestMapping(value = "/validarempleado/{emailId}/{dniId}", method = RequestMethod.GET)
 	public String validarempleado(Map map, @PathVariable("emailId") String email, @PathVariable("dniId") Integer dni) {
+		
 		if (clienteService.validacioncliente(email, dni) == 1) {
 
 			return "redirect:/Principal";
@@ -66,7 +67,7 @@ public class PrincipalController {
 			}
 			if (empleadoService.validarcargo(email, dni) == 2) {
 				
-				return "/JefedeVentas/Principal";
+				return "/JefeVentas/Principal";
 			}else {
 
 				return "redirect:/Principal";

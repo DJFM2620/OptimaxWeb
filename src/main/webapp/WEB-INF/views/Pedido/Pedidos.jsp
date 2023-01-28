@@ -10,122 +10,76 @@
 
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/Pedidos/MisPedidos.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/CSS/Pedidos/MisPedidos.css'/>">
+	
+<link rel="stylesheet"
+	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Mis pedidos</title>
 
 </head>
 <body>
-	<div class="imagen">
-		<img src="image/logo.jpeg"
-			style="position: relative; width: 1000px; height: 261px; top: 62px; left: 412px;">
-	</div>
 
-	<div class="header_section_top">
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="custom_menu">
-					<ul style="color: white;">
-						<li style="color: white;"><a style="color: white;"
-							href="<c:url value='/principal'/>">Inicio</a></li>
-						<li style="color: white;"><a style="color: white;"
-							href="<c:url value='/lentes'/>">Lentes</a></li>
+	<%@include file="/WEB-INF/views/shared/NavBar.jsp"%>
 
-					</ul>
-				</div>
+	<div class="Main">
+		<div class="Content">
+			<div class="Search">
+				Ingresar DNI: <input type="text" id='dni' maxlength="8" />
+				<button type="button" onclick="OrdenesDni(document.getElementById('dni'))">Buscar</button>
 			</div>
-		</div>
-	</div>
-
-	<div class="logo_section">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<div class="logo">
-						<img src="image/logo.jpeg">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-
-
-
-	<div class="dni" style="position: absolute; left: 40%; top: 36%;">
-		Colocar dni: <input name="dninuevo" id='dni' maxlength="8" />
-
-		<button type="button" onclick="EnviarDNI()">Buscar</button>
-	</div>
-
-	<section>
-		<div class="container">
-
-
-
-
-			<table id="table"
-				style="position: absolute; /* left: -227px; */ right: 0px; left: -400px; top: 27px;">
+			<table class="Table">
 				<thead>
 					<tr>
 						<td><b>Pedido</b></td>
 						<td><b>Fecha</b></td>
-
-						<td><b>Accion</b></td>
-
-
+						<td><b>Estado</b></td>
+						<td><b>Opciones</b></td>
 					</tr>
 				</thead>
 
-				<tbody>
-					<c:forEach var="pedidos" items="${bPedidos}">
-						<tr>
-							<td id="codigo${pedidos.cod_pedido}">${pedidos.cod_pedido}</td>
-							<td>${pedidos.fecha}</td>
-
-
-
-							<td><a
-								onclick="verdetalle(document.getElementById('codigo${pedidos.cod_pedido}'))">
-									Ver detalle </a></td>
-
-						</tr>
-					</c:forEach>
+				<tbody id="TBody">
 				</tbody>
 			</table>
 		</div>
-	</section>
+		<div class="Detail">
+		
+			<div class="Detail_ID">
+				<span id="Detail_ID">
+					Detalle de Pedido
+				</span>
+			</div>
+		
+			<div class="Detail_Items">
+				<div class="Detail_Header">
+			        <span>Articulo</span>
+			        <span>Precio</span>
+			        <span>Cantidad</span>
+			        <span>SubTotal</span>
+			        <span>Imagen</span>
+			    </div>
+			    <div class="Detail_Content" id="Detail_Content">
+			    </div>
+			</div>
+		
+			<div class="Detail_Info">
+				<span>SubTotal: </span>
+				<span id="Info_SubTotal"></span>
+				<span>IGV (18%): </span>
+				<span id="Info_IGV"></span>
+				<span>Delivery:</span>
+				<span id="Info_Delivery"></span>
+				<span>Total:</span>
+				<span id="Info_Total"></span>
+			</div>
+		</div>
+	</div>
 
-
-	<script type="text/javascript">
-		function EnviarDNI() {
-
-			var ClienteDNI = document.getElementById('dni').value;
-
-			<c:url var="path" value="/Buscarpedidopordni"/>
-			location.href = "${path}?code=" + ClienteDNI;
-		}
-		function verdetalle(codigo) {
-
-			var ClienteDNI = document.getElementById('dni').value;
-			var PedidoCODIGO = codigo.innerHTML;
-
-			<c:url var="path" value="/verdetallepedido"/>
-			location.href = "${path}?code=" + ClienteDNI + "&codes="
-					+ PedidoCODIGO;
-		}
-	</script>
-
-
-
+	<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
+	
+	<script type="text/javascript" src="/idat/JS/Pedidos.js"></script>
 </body>
-
-
-
-
-
-
-
-
 </html>

@@ -8,24 +8,26 @@
 
 </head>
 <body>
-	<div class="Footer_Social_Networks">
-		<ul>
-			<li><span class="lab la-facebook"></span></li>
-			<li><span class="lab la-instagram"></span></li>
-			<li><span class="lab la-twitter"></span></li>
-			<li><span class="lab la-youtube"></span></li>
-		</ul>
-	</div>
-
-	<div class="Footer_Index">
-		<ul>
-			<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
-			<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
-			<li><a href="<c:url value='/MisPedidos'/>">MisPedidos</a></li>
-			<li><a href="<c:url value='/MisCitas'/>">MisCitas</a></li>
-			<li><a>Politica de Privacidad</a></li>
-			<li><a>Terminos y Condiciones</a></li>
-		</ul>
+	<div class="Footer">
+		<div class="Footer_Social_Networks">
+			<ul>
+				<li><span class="lab la-facebook"></span></li>
+				<li><span class="lab la-instagram"></span></li>
+				<li><span class="lab la-twitter"></span></li>
+				<li><span class="lab la-youtube"></span></li>
+			</ul>
+		</div>
+		
+		<div class="Footer_Index">
+			<ul>
+				<li><a href="<c:url value='/Principal'/>">Inicio</a></li>
+				<li><a href="<c:url value='/Lentes'/>">Lentes</a></li>
+				<li><a href="<c:url value='/MisPedidos'/>">MisPedidos</a></li>
+				<li><a href="<c:url value='/MisCitas'/>">MisCitas</a></li>
+				<li><a>Politica de Privacidad</a></li>
+				<li><a>Terminos y Condiciones</a></li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

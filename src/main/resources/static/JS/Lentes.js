@@ -2,8 +2,12 @@
 	Esto primer codigo permite que al cargar la pagina se ejecute automaticamente, por mas que ya este este codigo dentro de la
 	funcion "Calcular()", ya que eso solo se ejecuta cuando se cambia las cantidades, no cuando se carga la pagina
 */
+var inputSubTotal = document.getElementById("SubTotalOrder");
+var inputIGVTotal = document.getElementById("IGVOrder");
+var inputDelivery = 5;
 var inputTotal = document.getElementById("TotalOrder");
-var inputNameTotal = document.getElementsByName("SubTotalOrder");
+
+var inputNameTotal = document.getElementsByName("PostTotalOrder");
 var subTotales = document.getElementsByClassName("SubTotales");
 
 var sumSubTotal = 0;
@@ -12,13 +16,13 @@ for (var i = 0; i < subTotales.length; i++) {
 
 	sumSubTotal = sumSubTotal + parseInt(subTotales.item(i).value);
 }
-inputTotal.value = sumSubTotal;
-inputNameTotal.item(0).value = sumSubTotal;
-/*
-	=============================================================
-	Lo que falta, ahora es simplemente enviar los datos del cliente al servidor, el boton continuar que habilite la pasarela
-	y enviar los datos al servidor junto al token y listo
-*/
+inputSubTotal.value = sumSubTotal;
+inputIGVTotal.value = (inputSubTotal.value * 0.18).toFixed(2);
+inputTotal.value = (parseFloat(inputSubTotal.value) + parseFloat(inputIGVTotal.value) + parseFloat(inputDelivery)).toFixed(2);
+
+inputNameTotal.item(0).value = inputTotal.value;
+
+// =================================================================================================
 
 function Calcular(N1, N2, SubTotal) {
 
@@ -29,8 +33,12 @@ function Calcular(N1, N2, SubTotal) {
 
 	SubTotal.value = Sum;
 
+	var inputSubTotal = document.getElementById("SubTotalOrder");
+	var inputIGVTotal = document.getElementById("IGVOrder");
+	var inputDelivery = 5;
 	var inputTotal = document.getElementById("TotalOrder");
-	var inputNameTotal = document.getElementsByName("SubTotalOrder");
+
+	var inputNameTotal = document.getElementsByName("PostTotalOrder");
 	var subTotales = document.getElementsByClassName("SubTotales");
 
 	var sumSubTotal = 0;
@@ -39,8 +47,11 @@ function Calcular(N1, N2, SubTotal) {
 
 		sumSubTotal = sumSubTotal + parseInt(subTotales.item(i).value);
 	}
-	inputTotal.value = sumSubTotal;
-	inputNameTotal.item(0).value = sumSubTotal;
+	inputSubTotal.value = sumSubTotal;
+	inputIGVTotal.value = (inputSubTotal.value * 0.18).toFixed(2);
+	inputTotal.value = (parseFloat(inputSubTotal.value) + parseFloat(inputIGVTotal.value) + parseFloat(inputDelivery)).toFixed(2);
+
+	inputNameTotal.item(0).value = inputTotal.value;
 }
 
 function AddtoCart(articuloID) {

@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -88,7 +90,7 @@ public class ControllerApiService {
 			.readTimeout(180, TimeUnit.SECONDS).build();
 
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+	
 	@GetMapping
 	public Collection<Articulo> FindAll() {
 
@@ -134,20 +136,7 @@ public class ControllerApiService {
 	@PostMapping(path = "/Cliente/Agregar")
 	public void InsertCliente(@RequestBody Cliente cliente) {
 
-		System.out.println("===============================");
-		System.out.println("CLIENTE");
-		System.out.println("ID: " + cliente.getCod_Cliente());
-		System.out.println("NAME: " + cliente.getNombres());
-		System.out.println("APELLIDO P: " + cliente.getApellidop());
-		System.out.println("APELLIDO M: " + cliente.getApellidom());
-		System.out.println("EMAIL: " + cliente.getEmail());
-		System.out.println("DIRECCION: " + cliente.getDireccion());
-		System.out.println("RUC: " + cliente.getRuc());
-		System.out.println("DISTRITO: " + cliente.getDistrito().getCod_distrito());
-
 		serviceCli.Insert(cliente);
-
-		// return "¡Cliente agregado exitosamente...!";
 	}
 
 	@PostMapping(path = "/AgregarArt")
@@ -184,15 +173,7 @@ public class ControllerApiService {
 
 	@PostMapping(path = "/InsertarVenta")
 	public void InsertarVenta(@RequestBody HashMap<String, String> map) {
-
-		System.out.println("=====================================================");
-		System.out.println("cod_Estado: " + map.get("cod_state"));
-		System.out.println("email: " + map.get("email_client"));
-		System.out.println("codigos de articulos: " + map.get("articles"));
-		System.out.println("cantidades: " + map.get("quantities"));
-		System.out.println("subtotal: " + map.get("subtotal"));
-		System.out.println("=====================================================");
-
+		
 		LocalDate date = LocalDate.now();
 		System.out.println("fecha: " + date);
 
@@ -288,9 +269,6 @@ public class ControllerApiService {
 
 			Cliente clienteDb = serviceCli.ObtenerCodigoByEmail(cliente.getEmail());
 
-			System.out.println("CODIGO CLIENTE EN BD ----> " + clienteDb.getEmail());
-			System.out.println("EMAIL CLIENTE EN BD ----> " + clienteDb.getCod_Cliente());
-
 			cliente.setCod_Cliente(clienteDb.getCod_Cliente());
 
 			if (cliente.getApellidop() == null)
@@ -323,7 +301,7 @@ public class ControllerApiService {
 
 		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
 
-		return serviceOrd.ObtenerPedidosPerzonalizado(cliente.getCod_Cliente());
+		return serviceOrd.ObtenerPedidosPersonalizado(cliente.getCod_Cliente());
 	}
 
 	@PostMapping(path = "/Token")
