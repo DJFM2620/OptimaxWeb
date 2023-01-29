@@ -74,6 +74,12 @@
 				<br>
 				<br>
 				
+				Direccion:
+				<br>
+				<form:input path="direccion" type='text' placeholder='direccion' />
+				<br>
+				<br>
+				
 				Distrito:
 				<br>
 				<form:select path="distrito.cod_distrito">

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="Form">
-		<h1>Registrar Cliente</h1>
+		<h1>¡Hola! Ingresa tus datos para registrarte</h1>
 		
 		<form:form name="" method="post" modelAttribute="Cliente">
 			
@@ -70,9 +70,14 @@
 				<form:options items="${bDistrito}" itemValue="cod_distrito" itemLabel="nombredistr" />
 			</form:select>
 			<br>
+			<br>
 			
-			<button type="submit">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Cliente/Listar"/>'">Cancelar</button>
+			<div class="Login">Ya estas registrado? 
+				<span onclick="location.href='<c:url value='/Principal'/>'">
+					inicia sesion 
+				</span>
+			</div>
+			<button type="submit">Registrarse</button>
 		</form:form>
 	</div>
 </body>

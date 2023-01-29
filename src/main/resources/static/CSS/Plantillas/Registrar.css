@@ -5,12 +5,10 @@
     font-family: 'Josefin Sans';
 }
 
-
 body {
 
     background: #FFDA9E;
 }
-
 
 .Form {
 
@@ -83,4 +81,12 @@ input[type=text], select {
 select {
 
     width: 354px;
+}
+
+.Login span {	
+	
+	cursor: pointer;
+    color: #3C72FF;
+    font-size: 14px;
+    text-transform: uppercase;
 }

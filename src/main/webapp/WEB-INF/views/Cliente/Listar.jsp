@@ -33,6 +33,7 @@
 					<td><b>Dni</b></td>
 					<td><b>Email</b></td>
 					<td><b>RUC</b></td>
+					<td><b>Direccion</b></td>
 					<td><b>Distrito</b></td>
 					<td><b>Accion</b></td>
 				</tr>
@@ -48,6 +49,7 @@
 						<td>${cliente.dni}</td>
 						<td>${cliente.email}</td>
 						<td>${cliente.ruc}</td>
+						<td>${cliente.direccion}</td>
 						<td>${cliente.distrito.nombredistr}</td>
 						<td>
 							<button class="Button_Edit" onclick="location.href='<c:url value ="/Cliente/Editar/${cliente.cod_Cliente}"/>'">

@@ -3,18 +3,20 @@ package pr.idat.proyectoin.Controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import pr.idat.proyectoin.Entity.Articulo;
+import pr.idat.proyectoin.Entity.Cliente;
 import pr.idat.proyectoin.Service.ArticuloService;
 import pr.idat.proyectoin.Service.ClienteService;
+import pr.idat.proyectoin.Service.DistritoService;
 import pr.idat.proyectoin.Service.EmpleadoService;
 
 @Controller
@@ -26,6 +28,9 @@ public class PrincipalController {
 	@Autowired
 	private ClienteService clienteService;
 
+	@Autowired
+	private DistritoService distritoService;
+	
 	@Autowired
 	private ArticuloService articuloService;
 	
@@ -49,6 +54,16 @@ public class PrincipalController {
 		return "/Principal";
 	}
 
+	@RequestMapping(value="/Login/Registrar", method = RequestMethod.GET)
+	public String RegistroCliente(Model model, Map map) {
+		
+		model.addAttribute("Cliente", new Cliente());
+		
+		map.put("bDistrito", distritoService.FindAll());
+		
+		return "/Cliente/Login_Registrar";
+	}
+	
 	@RequestMapping(value = "/validarempleado/{emailId}/{dniId}", method = RequestMethod.GET)
 	public String validarempleado(Map map, @PathVariable("emailId") String email, @PathVariable("dniId") Integer dni) {
 		

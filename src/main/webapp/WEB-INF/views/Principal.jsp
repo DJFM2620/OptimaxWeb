@@ -69,7 +69,7 @@
 			<label for="psw"><b>Password</b></label> <input type="password"
 				placeholder="Enter Password" name="dni" id="dniId" required>
 
-			<a href="<c:url value ='/cliente_registrar'/>">Registrate aqui </a>
+			<a href="<c:url value ='/Login/Registrar'/>">Registrate aqui </a>
 
 			<button type="button" id="button-a" class="btn"
 				onclick="execute(document.getElementById('emailId').value,document.getElementById('dniId').value)">Login</button>

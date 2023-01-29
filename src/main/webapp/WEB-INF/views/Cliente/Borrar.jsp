@@ -68,6 +68,12 @@
 			<br>
 			<br>
 			
+			Direccion:
+			<br>
+			<form:input path="direccion" type='text' placeholder='direccion' />
+			<br>
+			<br>
+			
 			Distrito:
 			<br>
 				<form:input type="text" path="distrito.nombredistr" readonly="true"/>
