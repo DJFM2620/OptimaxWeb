@@ -13,10 +13,15 @@ public interface ClienteService{
 	public abstract void Delete (Integer ID);
 	public abstract Cliente FindByID(Integer ID);
 	public abstract Collection<Cliente> FindAll();
-	public abstract Boolean Validate(Integer ID);
+	public abstract Boolean Validar(Integer ID);
+	public abstract Integer ValidarRelacion(Integer ID);
 	
 	public abstract Integer validacioncliente(@Param("clienteemail")String email,@Param("clientedni") Integer dni);
 	public abstract Integer ExistenciaCliente(@Param("clienteDNI")Integer DNI );
+	
 	public abstract Integer ObtenerCodigoCliente(@Param("clienteDNI")Integer DNI );
 	public abstract Cliente ObtenerCodigoByEmail(@Param("clienteEmail") String Email );
+	
+	public abstract Integer CountCitasCliente(@Param("codCliente") Integer codCliente );
+	public abstract Integer CountOrdenesCliente(@Param("codCliente") Integer codCliente );
 }

@@ -10,4 +10,7 @@ public interface ColorArticuloRepository extends JpaRepository<ColorArticulo, In
 
 	@Query(value = "SELECT cod_color FROM COLOR_ARTICULO WHERE nombre =:nombre", nativeQuery = true)
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+
+	@Query(value = "SELECT count(*) FROM ARTICULOS WHERE COD_COLOR = :codColor ", nativeQuery = true)
+	public abstract Integer CountColorArticulo(@Param("codColor") Integer codColor);
 }

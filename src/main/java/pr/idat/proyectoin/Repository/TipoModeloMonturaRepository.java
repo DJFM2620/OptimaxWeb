@@ -10,4 +10,7 @@ public interface TipoModeloMonturaRepository extends JpaRepository<TipoModeloMon
 
 	@Query(value = "SELECT cod_modelo FROM TIPO_MODELO_MONTURA WHERE forma_modelo = :nombre", nativeQuery = true)
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	
+	@Query(value="SELECT count(*) FROM ARTICULOS WHERE COD_MODELO =:codArticulo", nativeQuery=true)
+	public abstract Integer CountModeloArticulo(@Param("codArticulo") Integer codArticulo);
 }

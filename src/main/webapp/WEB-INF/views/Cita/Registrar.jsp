@@ -48,7 +48,7 @@
 		</div>
 	</div>
 	<div class="form-outer">
-		<form action="/idat/cita" method="post">
+		<form action="/idat/Cita" method="post">
 			<div class="page slide-page">
 				<div class="title" style="top: 44%; left: 48%; margin-left: 130px;">
 					Aviso</div>

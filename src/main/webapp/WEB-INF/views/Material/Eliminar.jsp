@@ -7,27 +7,43 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/MaterialArticulo/Eliminar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Eliminar.css'/>">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Eliminar Material Articulo</title>
 
 </head>
 <body>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-	<div class="testbox">
-		<h4 style="position: relative; left: 148px; font-size: 23px;">Material-Borrar</h4>
+	
+	<div class="Form">
+		<h1>Eliminar Material</h1>
 		
 		<form:form name="" method="post" modelAttribute="MaterialArticulo">
-	ID: <form:input type="text" path="cod_TipMaterial" readonly="true" />
+		
+			ID: 
+			<br>
+			<form:input type="text" path="cod_TipMaterial" id="codigo" readonly="true" />
+			<br>
 			<br>
 
-	Nombre: <form:input type="text" path="Nombre_Materia" />
+			Nombre: 
+			<br>
+			<form:input type="text" path="Nombre_Materia" readonly="true"/>
+			<br>
 			<br>
 
-			<p>¿Estas seguro de borrar?</p>
-
-			<button type="submit">Si</button>
+			<p>¿Estas seguro de eliminar este material?</p>
+			<button type="button" class="Delete_Button" onclick="validateRelationship(document.getElementById('codigo'),'/Material/Eliminar' ,'/Material/Listar')">Eliminar</button>
+			<button type="button" class="Cancel_Button"  onclick="location.href ='<c:url value = "/Material/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<div class="Cart" id="Cart">
+		<div class="Cart_Content" id="Cart_Content">
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
 </body>
 </html>

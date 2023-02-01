@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Eliminar Articulo</title>
 
 <link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Eliminar.css'/>">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<title>Eliminar Articulo</title>
 
 </head>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>	
@@ -19,7 +21,7 @@
 		
 	   		ID:
 	   		<br>
-	   		<form:input type="text" path="codArticulo" readonly="true" />
+	   		<form:input type="text" path="codArticulo" id="codigo" readonly="true" />
 			<br>
 			<br>
 			    
@@ -60,9 +62,16 @@
 			<br>
 			
 			<p>¿Estas seguro de eliminar este articulo?</p>
-			<button type="submit" class="button">Eliminar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Articulo/Listar"/>'">Cancelar</button>
+			<button type="button" class="Delete_Button" onclick="validateRelationship(document.getElementById('codigo'),'/Articulo/Eliminar' ,'/Articulo/Listar')">Eliminar</button>
+			<button type="button" class="Cancel_Button" onclick="location.href='<c:url value = "/Articulo/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<div class="Cart" id="Cart">
+		<div class="Cart_Content" id="Cart_Content">
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
 </body>
 </html>

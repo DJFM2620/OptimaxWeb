@@ -55,7 +55,7 @@
 			
 			RUC (Opcional):
 			<br>
-			<form:input path="ruc" placeholder='ruc' />
+			<form:input path="ruc" placeholder='ruc' maxlength="12"/>
 			<br>
 			<br>
 			

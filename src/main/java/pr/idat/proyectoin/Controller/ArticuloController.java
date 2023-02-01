@@ -1,6 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import pr.idat.proyectoin.Entity.Articulo;
@@ -61,17 +63,6 @@ public class ArticuloController {
 									 @RequestParam(name = "minimo", required = false) Double precioMinimo,
 									 @RequestParam(name = "maximo", required = false) Double precioMaximo) {
 
-		Double minPrecio = articuloService.minPrecio();
-		Double maxPrecio = articuloService.maxPrecio();
-		
-		/*if(precioMinimo == null) {
-			
-			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, minPrecio, maxPrecio));
-			
-		}else {
-			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, precioMinimo, precioMaximo));
-		}
-		*/
 		map.put("bMarcas", marcaService.FindAll());
 		map.put("bModelos", modeloService.FindAll());
 		map.put("bMateriales", materialService.FindAll());
@@ -124,12 +115,24 @@ public class ArticuloController {
 		return "/Articulo/Borrar";
 	}
 
-	@RequestMapping(value = "/Articulo/Eliminar/{ArticuloID}", method = RequestMethod.POST)
-	public String eliminar_POST(Articulo articulo) {
+	@RequestMapping(value = "/Articulo/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-		articuloService.Delete(articulo.getCodArticulo());
-
-		return "redirect:/Articulo/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(articuloService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el articulo de ID '" + codigo + "'");
+			
+			articuloService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el articulo debido a que esta relacionado con pedidos");
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "/Articulo/Editar/{ArticuloID}", method = RequestMethod.GET)

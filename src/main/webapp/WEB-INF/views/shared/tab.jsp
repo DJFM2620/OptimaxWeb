@@ -11,31 +11,47 @@
 <body>
 	<nav class="sidebar-menu">
 		<ul>
-			<li class="has-subnav"><a
-				onclick="location.href='<c:url value='/Articulo/Listar'/>'"> <i
-					class="fa fa-laptop fa-2x"></i> <span class="nav-text">Articulos</span>
-			</a></li>
+			<li class="has-subnav">
+				<a onclick="location.href='<c:url value='/Articulo/Listar'/>'"> 
+					<i class="fa fa-list fa-2x"></i> 
+					<span class="nav-text">Articulos</span>
+				</a>
+			</li>
 
-			<li class="has-subnav"><a
-				onclick="location.href='<c:url value='/Empleado/Listar'/>'"> <i
-					class="fa fa-laptop fa-2x"></i> <span class="nav-text">
-						Empleados </span>
-			</a></li>
-			<li class="has-subnav"><a
-				onclick="location.href='<c:url value='/CargoEmpleado/Listar'/>'">
-					<i class="fa fa-list fa-2x"></i> <span class="nav-text">
-						Cargos </span>
-			</a></li>
-			<li class="has-subnav"><a
-				onclick="location.href='<c:url value='/Distrito/Listar'/>'"> <i
-					class="fa fa-list fa-2x"></i> <span class="nav-text">
-						Distritos </span>
-			</a></li>
+			<li class="has-subnav">
+				<a onclick="location.href='<c:url value='/Empleado/Listar'/>'"> 
+					<i class="fa fa-list fa-2x"></i> 
+					<span class="nav-text">Empleados </span>
+				</a>
+			</li>
+			
+			<li class="has-subnav">
+				<a onclick="location.href='<c:url value='/CargoEmpleado/Listar'/>'">
+					<i class="fa fa-list fa-2x"></i> 
+					<span class="nav-text">Cargos </span>
+				</a>
+			</li>
+			
+			<li class="has-subnav">
+				<a onclick="location.href='<c:url value='/Distrito/Listar'/>'"> 
+					<i class="fa fa-list fa-2x"></i>
+					<span class="nav-text"> Distritos </span>
+				</a>
+			</li>
+			
 			<li class="has-subnav"><a
 				onclick="location.href='<c:url value='/Marca/Listar'/>'"> <i
 					class="fa fa-list fa-2x"></i> <span class="nav-text"> Marca
 				</span>
 			</a></li>
+			
+			<li class="has-subnav">
+				<a onclick="location.href='<c:url value='/ColorArticulo/Listar'/>'"> 
+					<i class="fa fa-list fa-2x"></i> 
+					<span class="nav-text">Colores </span>
+				</a>
+			</li>
+			
 			<li class="has-subnav"><a
 				onclick="location.href='<c:url value='/Material/Listar'/>'"> <i
 					class="fa fa-list fa-2x"></i> <span class="nav-text">

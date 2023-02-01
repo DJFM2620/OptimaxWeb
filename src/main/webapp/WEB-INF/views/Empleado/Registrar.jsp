@@ -27,51 +27,44 @@
 
 			Nombre:
 			<br>
-			<form:input type="text" path="nombres" id="nombres"
-				placeholder="nombre" required="true" />
+			<form:input type="text" path="nombres" id="nombres" placeholder="nombre" required="true" />
 			<br>
 			<br>
 			
 			Apellido Paterno:
 			<br>
-			<form:input type="text" path="apellidp" id="apellidp"
-				placeholder="apellido Paterno" required="true"/>
+			<form:input type="text" path="apellidp" id="apellidp" placeholder="apellido Paterno" required="true"/>
 			<br>
 			<br>
 			
 			Apellido Materno:
 			<br>
-			<form:input type="text" path="apellidom" id="apellidom"
-				placeholder="apellido Materno" required="true" />
+			<form:input type="text" path="apellidom" id="apellidom" placeholder="apellido Materno" required="true" />
 			<br>
 			<br>
 			
 			DNI:
 			<br>
-			<form:input type="text" path="dni" id="dni" placeholder="dni"
-				required="true" />
+			<form:input type="text" path="dni" id="dni" placeholder="dni" required="true" maxlength="8" />
 			<br>
 			<br>
 			
 			Telefono:
 			<br>
-			<form:input type="text" path="telefono" id="telefono"
-				placeholder="telefono" required="true" />
+			<form:input type="text" path="telefono" id="telefono" placeholder="telefono" required="true" maxlength="9"/>
 			<br>
 			<br>
 			
 			Email:
 			<br>
-			<form:input type="text" path="email" id="name" placeholder="email"
-				required="true" />
+			<form:input type="text" path="email" id="name" placeholder="email" required="true" />
 			<br>
 			<br>
 
 			Cargo:
 			<br>
 			<form:select path="tipoempleado.cod_cargoemp">
-				<form:options items="${bCargo}" itemValue="cod_cargoemp"
-					itemLabel="cargo" />
+				<form:options items="${bCargo}" itemValue="cod_cargoemp" itemLabel="cargo" />
 			</form:select>
 			<br>
 			<br>

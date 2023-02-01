@@ -22,7 +22,7 @@
      
   			ID:
 	   		<br>
-	   		<form:input type="text" path="cod_cargoemp"/>
+	   		<form:input type="text" path="cod_cargoemp" readonly="true"/>
 			<br>
 			<br>
 			    

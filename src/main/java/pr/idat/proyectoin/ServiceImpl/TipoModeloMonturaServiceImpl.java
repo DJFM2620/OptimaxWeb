@@ -36,6 +36,17 @@ public class TipoModeloMonturaServiceImpl implements TipoModeloMonturaService {
 		
 		repository.deleteById(ID);
 	}
+	
+	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountModeloArticulo(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -55,5 +66,11 @@ public class TipoModeloMonturaServiceImpl implements TipoModeloMonturaService {
 	public Integer codigoByNombre(String nombre) {
 	
 		return repository.codigoByNombre(nombre);
+	}
+	
+	@Override
+	public Integer CountModeloArticulo(Integer codArticulo) {
+		
+		return repository.CountModeloArticulo(codArticulo);
 	}
 }

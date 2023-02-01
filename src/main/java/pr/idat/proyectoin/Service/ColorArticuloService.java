@@ -15,4 +15,6 @@ public interface ColorArticuloService {
 	public abstract Collection<ColorArticulo> FindAll();
 	
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	public abstract Integer ValidarRelacion(Integer ID);
+	public abstract Integer CountColorArticulo(@Param("codColor") Integer codColor);
 }

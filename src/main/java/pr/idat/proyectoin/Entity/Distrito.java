@@ -14,8 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="distritos")
-public class Distrito implements Serializable
-{
+public class Distrito implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,45 +31,27 @@ public class Distrito implements Serializable
 	
 	
 	public Distrito() {
-		// TODO Auto-generated constructor stub
 	}
 
-
-	
-	
-	
-	
 	public Distrito(Integer cod_distrito, String nombredistr) {
 		super();
 		this.cod_distrito = cod_distrito;
 		this.nombredistr = nombredistr;
 	}
 
-
-
-
-
-
 	public Integer getCod_distrito() {
 		return cod_distrito;
 	}
-
 
 	public void setCod_distrito(Integer cod_distrito) {
 		this.cod_distrito = cod_distrito;
 	}
 
-
 	public String getNombredistr() {
 		return nombredistr;
 	}
 
-
 	public void setNombredistr(String nombredistr) {
 		this.nombredistr = nombredistr;
 	}
-	
-	
-	
-	
 }

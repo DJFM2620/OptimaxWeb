@@ -38,6 +38,17 @@ public class DistritoServiceImpl implements DistritoService {
 	}
 
 	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountDistritoCliente(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public Distrito FindByID(Integer ID) {
 		
@@ -49,6 +60,12 @@ public class DistritoServiceImpl implements DistritoService {
 	public Collection<Distrito> FindAll() {
 		
 		return repository.findAll();
+	}
+
+	@Override
+	public Integer CountDistritoCliente(Integer codDistrito) {
+		
+		return repository.CountDistritoCliente(codDistrito);
 	}
 
 }

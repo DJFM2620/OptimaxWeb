@@ -8,7 +8,8 @@
 <head>
 <meta charset="ISO-8859-1">
 
-<link rel="stylesheet" href="<c:url value='/CSS/MarcaArticulo/Eliminar.css'/>">
+<link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Eliminar.css'/>">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Eliminar Marca Articulo</title>
 
@@ -17,18 +18,33 @@
 
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
 	
-	<div class="testbox">
-		<h4 style="position: relative; left: 148px; font-size: 23px;">Marca-Borrar</h4>
+	<div class="Form">
+		<h1>Eliminar Marca</h1>
 
 		<form:form name="" method="post" modelAttribute="MarcaArticulo">
-Marca ID: <form:input type="text" path="cod_Marca" readonly="true" />
+			Marca ID: 
 			<br>
-Nombre: <form:input type="text" path="nombre_Marca" readonly="true" />
+			<form:input type="text" path="cod_Marca" id="codigo" readonly="true" />
 			<br>
-			<p>¿Esta seguro de Borrar la Marca?</p>
-			<button type="submit">Si, borrar</button>
-
+			<br>
+			
+			Nombre: 
+			<br>
+			<form:input type="text" path="nombre_Marca" readonly="true" />
+			<br>
+			<br>
+			
+			<p>¿Estas seguro de eliminar esta marca?</p>
+			<button type="button" class="Delete_Button" onclick="validateRelationship(document.getElementById('codigo'),'/Marca/Eliminar' ,'/Marca/Listar')">Eliminar</button>
+			<button type="button" class="Cancel_Button"  onclick="location.href ='<c:url value = "/Marca/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<div class="Cart" id="Cart">
+		<div class="Cart_Content" id="Cart_Content">
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
 </body>
 </html>

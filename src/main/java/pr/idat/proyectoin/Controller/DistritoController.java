@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.Distrito;
 
@@ -67,11 +70,23 @@ public class DistritoController {
 		return "/Distrito/Borrar";
 	}
 
-	@RequestMapping(value = "/Distrito/Eliminar/{DistritoID}", method = RequestMethod.POST)
-	public String eliminar_POST(Distrito distrito) {
+	@RequestMapping(value = "/Distrito/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
+
+		List<String> result = new ArrayList<String>();
 		
-		distritoService.Delete(distrito.getCod_distrito());
-		
-		return "redirect:/Distrito/Listar";
+		if(distritoService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el distrito de ID '" + codigo + "'");
+			
+			distritoService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el distrito debido a que esta relacionado con clientes");
+		}
+		return result;
 	}
 }

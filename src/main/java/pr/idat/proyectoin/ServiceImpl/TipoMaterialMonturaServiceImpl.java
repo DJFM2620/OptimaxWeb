@@ -38,6 +38,17 @@ public class TipoMaterialMonturaServiceImpl implements TipoMaterialMonturaServic
 	}
 
 	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountModeloArticulo(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public TipoMaterialMontura FindByID(Integer ID) {
 		
@@ -55,5 +66,11 @@ public class TipoMaterialMonturaServiceImpl implements TipoMaterialMonturaServic
 	public Integer codigoByNombre(String nombre) {
 	
 		return repository.codigoByNombre(nombre);
+	}
+	
+	@Override
+	public Integer CountModeloArticulo(Integer codMaterial) {
+		
+		return repository.CountModeloArticulo(codMaterial);
 	}
 }

@@ -23,8 +23,6 @@ public interface DetalleOrdenPedidoRepository extends JpaRepository<DetalleOrden
 				 + "on ordenpedidos.cod_pedido = detalle_orden_pedido.cod_pedido where ordenpedidos.cod_pedido=:pedidoCODIGO "
 				 + "Order by ordenpedidos.fecha desc;" , nativeQuery=true)
 	public abstract Collection<DetalleOrdenPedido> DetallePedido(@Param("pedidoCODIGO")Integer codigo);
-	
-
 }
 
 

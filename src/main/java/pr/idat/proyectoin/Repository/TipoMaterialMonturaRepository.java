@@ -10,4 +10,7 @@ public interface TipoMaterialMonturaRepository extends JpaRepository<TipoMateria
 
 	@Query(value = "SELECT cod_tip_material FROM TIPO_MATERIAL_MONTURA WHERE nombre_materia =:nombre", nativeQuery = true)
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	
+	@Query(value = "SELECT count(*) FROM ARTICULOS WHERE COD_TIP_MATERIAL = :codMaterial ", nativeQuery = true)
+	public abstract Integer CountModeloArticulo(@Param("codMaterial") Integer codMaterial);
 }

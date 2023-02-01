@@ -38,6 +38,17 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	}
 
 	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountComprobanteEmpleado(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public Empleado FindByID(Integer ID) {
 		
@@ -94,6 +105,12 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 		
 		
 		return repository.buscardoctores();
+	}
+
+	@Override
+	public Integer CountComprobanteEmpleado(Integer codEmpleado) {
+		
+		return repository.CountComprobanteEmpleado(codEmpleado);
 	}
 
 	

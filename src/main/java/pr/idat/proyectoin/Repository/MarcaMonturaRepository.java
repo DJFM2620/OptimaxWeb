@@ -10,4 +10,7 @@ public interface MarcaMonturaRepository extends JpaRepository<MarcaMontura, Inte
 
 	@Query(value = "SELECT cod_marca FROM MARCA_MONTURA WHERE nombre_marca =:nombre", nativeQuery = true)
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	
+	@Query(value = "SELECT count(*) FROM ARTICULOS WHERE COD_MARCA = :codMarca ", nativeQuery = true)
+	public abstract Integer CountMarcaArticulos(@Param("codMarca") Integer codMarca);
 }

@@ -41,4 +41,7 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer>, Jp
 	
 	@Query(value = "SELECT COUNT(*) FROM ARTICULOS;", nativeQuery = true)
 	public abstract Integer CountArticles();
+	
+	@Query(value = "SELECT count(*) FROM DETALLE_ORDEN_PEDIDO WHERE COD_ARTICULO =:codArticulo ", nativeQuery = true)
+	public abstract Integer CountOrdenesArticulo(@Param("codArticulo") Integer codArticulo);
 }

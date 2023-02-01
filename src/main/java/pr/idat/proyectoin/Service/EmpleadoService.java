@@ -17,4 +17,6 @@ public interface EmpleadoService{
 	public abstract Integer validaciondatoslogin(@Param("empleadoemail")String email,@Param("empleadodni") Integer dni);
 	public abstract Integer validarcargo(@Param("empleadoemail")String email,@Param("empleadodni") Integer dni);
 	public abstract Collection<Empleado> buscardoctores();
+	public abstract Integer ValidarRelacion(Integer ID);
+	public abstract Integer CountComprobanteEmpleado(@Param("codEmpleado") Integer codEmpleado);
 }

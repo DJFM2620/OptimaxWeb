@@ -39,6 +39,17 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if((repository.CountOrdenesCliente(ID) == 0) && (repository.CountCitasCliente(ID) == 0)) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	@Transactional(readOnly = true)
 	public Cliente FindByID(Integer ID) {
 		
@@ -53,7 +64,7 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public Boolean Validate(Integer ID) {
+	public Boolean Validar(Integer ID) {
 
 		Optional<Cliente> celda = repository.findById(ID);
 
@@ -102,6 +113,18 @@ public class ClienteServiceImpl implements ClienteService{
 		
 			
 		return repository.ObtenerCodigoByEmail(Email);
+	}
+
+	@Override
+	public Integer CountCitasCliente(Integer codCliente) {
+		
+		return repository.CountCitasCliente(codCliente);
+	}
+
+	@Override
+	public Integer CountOrdenesCliente(Integer codCliente) {
+		
+		return repository.CountOrdenesCliente(codCliente);
 	}
 
 	

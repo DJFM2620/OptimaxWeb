@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.TipoModeloMontura;
 import pr.idat.proyectoin.Service.TipoModeloMonturaService;
@@ -66,11 +69,23 @@ public class ModeloController {
 		return "/Modelo/Eliminar";
 	}
 
-	@RequestMapping(value = "/Modelo/Eliminar/{ModeloID}", method = RequestMethod.POST)
-	public String EliminarModeloArticulo_POST(TipoModeloMontura modeloArticulo) {
+	@RequestMapping(value = "/Modelo/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-		modeloArticuloService.Delete(modeloArticulo.getCod_Modelo());
-
-		return "redirect:/Modelo/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(modeloArticuloService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el modelo de ID '" + codigo + "'");
+			
+			modeloArticuloService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el modelo debido a que esta relacionado con articulos");
+		}
+		return result;
 	}
 }

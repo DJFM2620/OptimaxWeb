@@ -257,7 +257,7 @@ public class LentesController {
 	}
 
 	@RequestMapping(value = "/Pasarela", method = RequestMethod.POST)
-	public String posted(@RequestBody HashMap<String, String> map) {
+	public String Pasarela(@RequestBody HashMap<String, String> map) {
 		
 		String result = "";
 		

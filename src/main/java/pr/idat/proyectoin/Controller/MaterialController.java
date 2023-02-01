@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.TipoMaterialMontura;
 import pr.idat.proyectoin.Service.TipoMaterialMonturaService;
@@ -66,11 +69,23 @@ public class MaterialController {
 		return "/Material/Eliminar";
 	}
 
-	@RequestMapping(value = "/Material/Eliminar/{MaterialID}", method = RequestMethod.POST)
-	public String EliminarMaterialArticulo_POST(TipoMaterialMontura MaterialMontura) {
+	@RequestMapping(value = "/Material/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-		materialService.Delete(MaterialMontura.getCod_TipMaterial());
-
-		return "redirect:/Material/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(materialService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el material de ID '" + codigo + "'");
+			
+			materialService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el material debido a que esta relacionado con articulos");
+		}
+		return result;
 	}
 }

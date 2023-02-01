@@ -34,6 +34,17 @@ public class ColorArticuloServiceImpl implements ColorArticuloService{
 	}
 
 	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountColorArticulo(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
+	@Override
 	public ColorArticulo FindByID(Integer ID) {
 		
 		return repository.findById(ID).orElse(null);
@@ -49,5 +60,11 @@ public class ColorArticuloServiceImpl implements ColorArticuloService{
 	public Integer codigoByNombre(String nombre) {
 	
 		return repository.codigoByNombre(nombre);
+	}
+
+	@Override
+	public Integer CountColorArticulo(Integer codColor) {
+		
+		return repository.CountColorArticulo(codColor);
 	}
 }

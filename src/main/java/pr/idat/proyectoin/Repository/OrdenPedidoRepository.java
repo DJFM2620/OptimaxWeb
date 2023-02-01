@@ -29,6 +29,6 @@ public interface OrdenPedidoRepository extends JpaRepository<OrdenPedido, Intege
 			 + "On OrdenPedidos.cod_pedido = Detalle_Orden_Pedido.cod_pedido join estadopedidos "
 			 + "On OrdenPedidos.cod_estado = estadopedidos.cod_estado "
 			 + "where cod_cliente =:codCliente "
-			 + "group by OrdenPedidos.cod_pedido having count(*) > 1;", nativeQuery = true)
+			 + "group by OrdenPedidos.cod_pedido ;", nativeQuery = true)
 	public abstract List<Object[]> OrdenesPedidosMovil(@Param("codCliente") Integer DNI);
 } 

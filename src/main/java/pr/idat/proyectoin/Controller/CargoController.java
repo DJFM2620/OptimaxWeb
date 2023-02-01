@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.CargoEmpleado;
 import pr.idat.proyectoin.Service.CargoEmpleadoService;
@@ -66,11 +69,23 @@ public class CargoController {
 		return "/Cargo/Borrar";
 	}
 
-	@RequestMapping(value = "/CargoEmpleado/Eliminar/{CargoID}", method = RequestMethod.POST)
-	public String EliminarCargosEmpleado_POST(CargoEmpleado cargoEmpleado) {
+	@RequestMapping(value = "/CargoEmpleado/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-		cargoempleadosService.Delete(cargoEmpleado.getCod_cargoemp());
-
-		return "redirect:/CargoEmpleado/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(cargoempleadosService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el cargo de ID '" + codigo + "'");
+			
+			cargoempleadosService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el cargo debido a que esta relacionado con empleados");
+		}
+		return result;
 	}
 }

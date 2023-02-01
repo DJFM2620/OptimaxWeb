@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service; 
 
@@ -60,6 +59,17 @@ public class ArticuloServiceImpl implements ArticuloService{
 		repository.deleteById(ID);
 	}
 
+	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountOrdenesArticulo(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+	
 	@Override
 	public Articulo FindByID(Integer ID) {
 		
@@ -143,5 +153,11 @@ public class ArticuloServiceImpl implements ArticuloService{
 	public Double minPrecio() {
 
 		return repository.minPrecio();
+	}
+	
+	@Override
+	public Integer CountOrdenesArticulo(Integer codArticulo) {
+	
+		return repository.CountOrdenesArticulo(codArticulo);
 	}
 }

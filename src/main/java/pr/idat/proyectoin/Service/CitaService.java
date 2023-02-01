@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.data.repository.query.Param;
 
 import pr.idat.proyectoin.Entity.Cita;
-import pr.idat.proyectoin.Entity.OrdenPedido;
 
 public interface CitaService{
 

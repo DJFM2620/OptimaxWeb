@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pr.idat.proyectoin.Entity.Cita;
-import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Repository.CitaRepository;
 import pr.idat.proyectoin.Service.CitaService;
 

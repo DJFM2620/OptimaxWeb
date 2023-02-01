@@ -12,32 +12,31 @@
 <link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Eliminar.css'/>">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
-<title>Eliminar Distrito</title>
-
+<title>Eliminar Color</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
 
 	<div class="Form">
-		<h1>Eliminar Distrito</h1>
+		<h1>Eliminar Color</h1>
 
-		<form:form name="" method="post" modelAttribute="Distrito">
+		<form:form name="" method="post" modelAttribute="Color">
 		
 			ID:
 			<br>
-			<form:input type="text" path="cod_distrito" id="codigo" readonly="true"/>
+			<form:input type="text" path="cod_color" id="codigo" readonly="true"/>
 			<br> 
 			<br>
 			
-			Distrito:
+			Nombre:
 			<br>
-			<form:input type="text" path="nombredistr" readonly="true"/>
+			<form:input type="text" path="nombre" readonly="true"/>
 			<br>
 			<br>
 	
-			<p>¿Estas seguro de eliminar este distrito?</p>
-			<button type="button" class="Delete_Button" onclick="validateRelationship(document.getElementById('codigo'),'/Distrito/Eliminar' ,'/Distrito/Listar')">Eliminar</button>
-			<button type="button" class="Cancel_Button"  onclick="location.href='<c:url value = "/Distrito/Listar"/>'">Cancelar</button>
+			<p>¿Estas seguro de eliminar este color?</p>
+			<button type="button" class="Delete_Button" onclick="validateRelationship(document.getElementById('codigo'),'/ColorArticulo/Eliminar' ,'/ColorArticulo/Listar')">Eliminar</button>
+			<button type="button" class="Cancel_Button"  onclick="location.href='<c:url value = "/ColorArticulo/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
 	

@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.Empleado;
 import pr.idat.proyectoin.Service.CargoEmpleadoService;
@@ -76,11 +79,23 @@ public class EmpleadoController {
 		return "/Empleado/Borrar";
 	}
 
-	@RequestMapping(value = "/Empleado/Eliminar/{EmpleadoID}", method = RequestMethod.POST)
-	public String Eliminarcliente_POST(Empleado empleado) {
+	@RequestMapping(value = "/Empleado/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-		empleadoService.Delete(empleado.getCod_empleado());
-
-		return "redirect:/Empleado/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(empleadoService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente el empleado de ID '" + codigo + "'");
+			
+			empleadoService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar el empleado debido a que esta relacionado con comprobantes de pago");
+		}
+		return result;
 	}
 }

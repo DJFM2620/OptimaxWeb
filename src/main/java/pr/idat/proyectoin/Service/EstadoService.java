@@ -4,8 +4,6 @@ import java.util.Collection;
 
 import pr.idat.proyectoin.Entity.EstadoPedido;
 
-
-
 public interface EstadoService {
 	public abstract void Insert (EstadoPedido estado);
 	public abstract void Update (EstadoPedido estado);

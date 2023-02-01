@@ -263,7 +263,7 @@ public class ControllerApiService {
 	@PutMapping(path = "/Cliente/Actualizar")
 	public void actualizarcliente(@RequestBody Cliente cliente) {
 
-		boolean op = serviceCli.Validate(serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
+		boolean op = serviceCli.Validar(serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
 
 		if (op) {
 

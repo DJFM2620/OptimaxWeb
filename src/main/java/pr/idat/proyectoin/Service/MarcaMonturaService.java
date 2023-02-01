@@ -15,4 +15,6 @@ public interface MarcaMonturaService {
 	public abstract Collection<MarcaMontura> FindAll();
 	
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	public abstract Integer ValidarRelacion(Integer ID);
+	public abstract Integer CountMarcaArticulos(@Param("codMarca") Integer codMarca);
 }

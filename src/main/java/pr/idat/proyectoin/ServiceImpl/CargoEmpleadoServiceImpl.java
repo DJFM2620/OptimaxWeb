@@ -30,8 +30,6 @@ public class CargoEmpleadoServiceImpl implements CargoEmpleadoService{
 		repository.save(cargoempleado);
 	}
 
-	
-
 	@Override
 	@Transactional(readOnly = true)
 	public CargoEmpleado FindByID(Integer ID) {
@@ -50,5 +48,22 @@ public class CargoEmpleadoServiceImpl implements CargoEmpleadoService{
 	public void Delete(Integer ID ) {
 		
 		repository.deleteById(ID);
+	}
+	
+	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountCargoEmpleado(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
+
+	@Override
+	public Integer CountCargoEmpleado(Integer codCargo) {
+		
+		return repository.CountCargoEmpleado(codCargo);
 	}
 }

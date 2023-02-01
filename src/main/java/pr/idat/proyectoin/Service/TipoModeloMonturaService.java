@@ -15,4 +15,6 @@ public interface TipoModeloMonturaService {
 	public abstract Collection<TipoModeloMontura> FindAll();
 	
 	public abstract Integer codigoByNombre(@Param("nombre") String nombre);
+	public abstract Integer ValidarRelacion(Integer ID);
+	public abstract Integer CountModeloArticulo(@Param("codArticulo") Integer codArticulo);
 }

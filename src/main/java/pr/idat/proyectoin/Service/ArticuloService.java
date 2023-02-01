@@ -30,7 +30,8 @@ public interface ArticuloService{
 			@Param("pagina") Integer pagina);
 	
 	public abstract List<Map<String, Object>> Better_Selling(@Param("mes") String mes);
-	
 	public abstract Double minPrecio();
 	public abstract Double maxPrecio();
+	public abstract Integer ValidarRelacion(Integer ID);
+	public abstract Integer CountOrdenesArticulo(@Param("codArticulo") Integer codArticulo);
 }

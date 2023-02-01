@@ -36,6 +36,17 @@ public class MarcaMonturaServiceImpl implements MarcaMonturaService{
 		
 		repository.deleteById(ID);
 	}
+	
+	@Override
+	public Integer ValidarRelacion(Integer ID) {
+
+		if(repository.CountMarcaArticulos(ID) == 0) {	
+			return 0;
+			
+		}else {
+			return 1;
+		}
+	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -55,5 +66,11 @@ public class MarcaMonturaServiceImpl implements MarcaMonturaService{
 	public Integer codigoByNombre(String nombre) {
 	
 		return repository.codigoByNombre(nombre);
+	}
+
+	@Override
+	public Integer CountMarcaArticulos(Integer codMarca) {
+		
+		return repository.CountMarcaArticulos(codMarca);
 	}
 }

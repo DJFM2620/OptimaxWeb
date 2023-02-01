@@ -1,5 +1,7 @@
 package pr.idat.proyectoin.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.MarcaMontura;
 import pr.idat.proyectoin.Service.MarcaMonturaService;
@@ -65,12 +68,24 @@ public class MarcaController {
 
 		return "/Marca/Eliminar";
 	}
+	
+	@RequestMapping(value = "/Marca/Eliminar", method = RequestMethod.GET)
+	public @ResponseBody List<String> ValidarEliminar(Integer codigo) {
 
-	@RequestMapping(value = "/Marca/Eliminar/{MarcaID}", method = RequestMethod.POST)
-	public String EliminarMarcaArticulo_POST(MarcaMontura marcaArticulo) {
-
-		marcamonturaService.Delete(marcaArticulo.getCod_Marca());
-
-		return "redirect:/Marca/Listar";
+		List<String> result = new ArrayList<String>();
+		
+		if(marcamonturaService.ValidarRelacion(codigo) == 0) {
+			
+			result.add("Exito");
+			result.add("Se elimino correctamente la marca de ID '" + codigo + "'");
+			
+			marcamonturaService.Delete(codigo);
+			
+		}else {
+			
+			result.add("Error");
+			result.add("No se pudo eliminar la marca debido a que esta relacionado con articulos");
+		}
+		return result;
 	}
 }
