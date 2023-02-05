@@ -21,7 +21,7 @@
 			<input type="text" placeholder="Buscar..." class="Search">
 		</div>
 		
-				<table class="Table">
+		<table class="Table">
 			<thead class="Table_Head">
 				<tr>
 					<th><b>ID</b></th>
@@ -36,58 +36,29 @@
 				</tr>
 			</thead>
 			<tbody class="Table_Body">
-				<c:if test="${isPageable == true}">
-					<c:forEach var="art" items="${bArticulo.content}">
-						<tr>
-							<td>${art.codArticulo}</td>
-							<td>${art.precio}</td>
-							<td>${art.stock}</td>
-							<td>${art.color.nombre}</td>
-							<td>${art.marcaMontura.nombre_Marca}</td>
-							<td>${art.tipoMaterialMontura.nombre_Materia}</td>
-							<td>${art.tipoModeloMontura.forma_Modelo}</td>
-							<td>
-								<c:set var="typeImage" value="${fn:substringAfter(art.imagen,'.')}" /> 
-								<img src="data:image/${typeImage};base64,${art.getBase64Imagen()}">
-							</td>
-							<td>
-								<button class="Button_Edit" onclick="location.href='<c:url value ="/Articulo/Editar/${art.codArticulo}"/>'">
-									<span class="las la-edit"></span><span>Editar</span>
-								</button>
-								<button class="Button_Delete" onclick="location.href='<c:url value = "/Articulo/Eliminar/${art.codArticulo}"/>'">
-									<span class="las la-trash-alt"></span><span>Borrar </span>
-								</button>
-							</td>
-						</tr>
-						
-					</c:forEach>
-				</c:if>
-				
-				<c:if test="${isPageable == false}">
-					<c:forEach var="art" items="${bArticulo}">
-						<tr>
-							<td>${art.codArticulo}</td>
-							<td>${art.precio}</td>
-							<td>${art.stock}</td>
-							<td>${art.color.nombre}</td>
-							<td>${art.marcaMontura.nombre_Marca}</td>
-							<td>${art.tipoMaterialMontura.nombre_Materia}</td>
-							<td>${art.tipoModeloMontura.forma_Modelo}</td>
-							<td>
-								<c:set var="typeImage" value="${fn:substringAfter(articulo.imagen,'.')}" /> 
-								<img src="data:image/${typeImage};base64,${art.getBase64Imagen()}">
-							</td>
-							<td>
-								<button class="Button_Edit" onclick="location.href='<c:url value ="/Articulo/Editar/${art.codArticulo}"/>'">
-									<span class="las la-edit"></span><span>Editar</span>
-								</button>
-								<button class="Button_Delete" onclick="location.href='<c:url value = "/Articulo/Eliminar/${art.codArticulo}"/>'">
-									<span class="las la-trash-alt"></span><span>Borrar </span>
-								</button>
-							</td>
-						</tr>		
-					</c:forEach>
-				</c:if>
+				<c:forEach var="articulo" items="${bArticulo}">
+					<tr>
+						<td>${articulo.codArticulo}</td>
+						<td>${articulo.precio}</td>
+						<td>${articulo.stock}</td>
+						<td>${articulo.color.nombre}</td>
+						<td>${articulo.marcaMontura.nombre_Marca}</td>
+						<td>${articulo.tipoMaterialMontura.nombre_Materia}</td>
+						<td>${articulo.tipoModeloMontura.forma_Modelo}</td>
+						<td>
+							<c:set var="typeImage" value="${fn:substringAfter(articulo.imagen,'.')}" /> 
+							<img src="data:image/${typeImage};base64,${articulo.getBase64Imagen()}">
+						</td>
+						<td>
+							<button class="Button_Edit" onclick="location.href='<c:url value ="/Articulo/Editar/${articulo.codArticulo}"/>'">
+								<span class="las la-edit"></span><span>Editar</span>
+							</button>
+							<button class="Button_Delete" onclick="location.href='<c:url value = "/Articulo/Eliminar/${articulo.codArticulo}"/>'">
+								<span class="las la-trash-alt"></span><span>Borrar </span>
+							</button>
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		
@@ -197,41 +168,6 @@
 				</div>
 			</div>
 		</div>
-	
-		<div class="Pagination">
-			<button id="firstPage" onclick="goFirstPage()" type="button"><span class="las la-angle-double-left"></span></button>
-			<button id="previousPage" onclick="goPreviousPage()" type="button"><span class="las la-angle-left"></span></button>
-			
-			<c:if test="${lastPage > 10}">
-				<c:if test="${(lastPage - currentPage) <= 10}">
-					<c:forEach var = "i" begin="${currentPage}" end="${lastPage}">
-						<button id="page_${i}" onclick="selectPage('page_${i}')" type="button">${i}</button>
-					</c:forEach>
-				</c:if>
-				
-				<c:if test="${(lastPage - currentPage) > 10}">
-					<c:forEach var = "i" begin="${currentPage}" end="${currentPage + 4}">
-						<button id="page_${i}" onclick="selectPage('page_${i}')" type="button">${i}</button>
-					</c:forEach>
-					<div>
-						<p>...</p>
-					</div>
-					<c:forEach var = "i" begin="1" end="5" step="1">
-						<button id="page_${lastPage - (5 - i)}" onclick="selectPage('page_${lastPage - (5 - i)}')" type="button">${lastPage - (5 - i)}</button>
-					</c:forEach>
-				</c:if>
-			</c:if>
-			
-			<c:if test="${lastPage <= 10}">
-				<c:forEach var = "i" begin="1" end="${lastPage}">
-					<button id="page_${i}" onclick="selectPage('page_${i}')" type="button">${i}</button>
-				</c:forEach>
-			</c:if>
-			
-			<button id="nextPage" onclick="goNextPage(${lastPage})" type="button"><span class="las la-angle-right"></span></button>
-			<button id="lastPage" onclick="goLastPage(${lastPage})" type="button"><span class="las la-angle-double-right"></span></button>
-		</div>	
-	
 	</div>
 	
 	<script type="text/javascript" src="/idat/JS/Listar.js"></script>

@@ -96,7 +96,7 @@ public class ArticuloServiceImpl implements ArticuloService{
 	
 	@Override
 	public Collection<Articulo> FilterAll(List<String> coloresList, List<String> marcasList,
-			List<String> materialList, List<String> modeloList, Double precioMinimo, Double precioMaximo, Integer pagina) {
+			List<String> materialList, List<String> modeloList, Double precioMinimo, Double precioMaximo, Integer limite, Integer pagina) {
 		
 		List<Integer> marcasCods = new ArrayList<>();
 		List<Integer> materialCods = new ArrayList<>();
@@ -134,7 +134,7 @@ public class ArticuloServiceImpl implements ArticuloService{
 				modeloCods.add(serviceModelo.codigoByNombre(nombre));
 			}
 		}
-		return repository.FilterAll(colorCods, marcasCods, materialCods, modeloCods, precioMinimo, precioMaximo, pagina);
+		return repository.FilterAll(colorCods, marcasCods, materialCods, modeloCods, precioMinimo, precioMaximo, limite,pagina);
 	}
 	
 	@Override

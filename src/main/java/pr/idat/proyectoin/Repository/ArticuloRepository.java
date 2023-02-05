@@ -18,13 +18,14 @@ public interface ArticuloRepository extends JpaRepository<Articulo, Integer>, Jp
 			+ "( cod_tip_material IN (:materiales) IS NULL OR cod_tip_material IN (:materiales) ) AND"
 			+ "( cod_marca IN (:marcas) IS NULL OR cod_marca IN (:marcas) ) AND"
 			+ "( cod_modelo IN (:modelos) IS NULL OR cod_modelo IN (:modelos) ) AND"
-			+ "( precio >= :minimo AND precio <= :maximo ) LIMIT 12 OFFSET :pagina ;", nativeQuery = true)
+			+ "( precio >= :minimo AND precio <= :maximo ) LIMIT :limite OFFSET :pagina ;", nativeQuery = true)
 	public abstract Collection<Articulo> FilterAll(@Param("colores") List<Integer> coloresList,
 			@Param("marcas") List<Integer> marcasList,
 			@Param("materiales") List<Integer> materialList,
 			@Param("modelos") List<Integer> modeloList,
 			@Param("minimo") Double precioMinimo,
 			@Param("maximo") Double precioMaximo,
+			@Param("limite") Integer limite,
 			@Param("pagina") Integer pagina);
 	
 	@Query(value = "SELECT COD_ARTICULO, SUM(CANTIDAD) FROM DETALLE_ORDEN_PEDIDO JOIN ORDENPEDIDOS"

@@ -18,10 +18,9 @@ public interface ClienteService{
 	
 	public abstract Integer validacioncliente(@Param("clienteemail")String email,@Param("clientedni") Integer dni);
 	public abstract Integer ExistenciaCliente(@Param("clienteDNI")Integer DNI );
-	
 	public abstract Integer ObtenerCodigoCliente(@Param("clienteDNI")Integer DNI );
 	public abstract Cliente ObtenerCodigoByEmail(@Param("clienteEmail") String Email );
-	
 	public abstract Integer CountCitasCliente(@Param("codCliente") Integer codCliente );
 	public abstract Integer CountOrdenesCliente(@Param("codCliente") Integer codCliente );
+	public abstract String ObtenerDireccionCliente(@Param("Email") String Email );
 }

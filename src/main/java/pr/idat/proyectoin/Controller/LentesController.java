@@ -152,6 +152,7 @@ public class LentesController {
 		
 		Integer offSet = 0; // 12(1) -> 24(2) -> 36(3)
 		Integer currentPage = 1;
+		Integer limite = 12; //La cantidad de articulos que se podra ver en pantalla
 		
 		if(pagina != null) {
 			offSet = 12 * (pagina - 1); // 12(1) -> 24(2) -> 36(3)
@@ -177,11 +178,11 @@ public class LentesController {
 		if (precioMinimo == null) {
 
 			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, minPrecio,
-					maxPrecio, offSet));
+					maxPrecio, limite,  offSet));
 
 		} else {
 			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, precioMinimo,
-					precioMaximo, offSet));
+					precioMaximo, limite, offSet));
 		}
 
 		map.put("bCarrito", carritoArticulo);

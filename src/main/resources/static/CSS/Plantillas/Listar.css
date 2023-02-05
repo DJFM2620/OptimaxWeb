@@ -328,3 +328,46 @@ input[type="range"]::-webkit-slider-thumb{
     padding-left: 20px;
     height: 35px;
 }
+
+
+.Pagination {
+	
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+}
+
+.Pagination button {
+	
+	border: 1px solid #DDDDDD;
+	height: 50px;
+	width: 50px;
+	font-size: 22px;
+	margin-left: 15px;
+	
+}
+
+.Pagination button:hover {
+	
+	background: #000000;
+	color: #FFFFFF;
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+.Page_Active {
+	
+	background: #000000;
+	color: #FFFFFF;
+}
+
+.Pagination p {
+
+	font-size: 36px;
+	margin-left: 16px;
+}
+
+.Pagination span {
+	
+	font-size: 32px;
+}

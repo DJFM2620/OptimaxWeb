@@ -410,3 +410,339 @@ function clicPriceFilter(){
 		}
 	}	
 }
+
+
+function goFirstPage() {
+
+	var url = location.href;
+	var url_Principal = "http://localhost:8040/idat/Articulo/Listar";
+
+	if (url.includes("pagina")) {
+
+		var items_split = url.split('?');
+		items_split = items_split[1].split('&');
+
+		// Declaramos la variable que almacenara la pagina
+		/*var minimoPrecio;
+		var maximoPrecio;*/
+		var pagina;
+
+		for (var i = 0; i < items_split.length; i++) {
+
+			// Validamos que la URL spliteada tenga el parametro de pagina
+			if (items_split[i].includes("pagina")) {
+
+				pagina = items_split[i]; //Añadimos dicho parametro al array creado anteriormente 
+			}
+		}
+		var index = url.indexOf(pagina);
+		var cant_url_pagina = pagina.length;
+
+		if ((index + cant_url_pagina) < url.length) {
+
+			url = url.split(pagina + "&").toString();
+
+			url = url.replace(",", "");
+
+			location.href = url + "&pagina=1";
+
+		} else if ((index + cant_url_pagina) >= url.length) {
+
+			/*
+				Hay dos posibles caso, que tengan mas parametros por detras o no, entonces, se procede a hacer el split
+				en los dos casos, no hay problemas, ya que el split buscara exactamente, lo que se ingreso como parametro, en
+				la URL, si no esta igual lo pasara por alto e ira al siguiente split. Es como un if pero sin if XD
+			*/
+			url = url.split("&" + pagina).toString();
+			url = url.split("?" + pagina).toString();
+
+			url = url.replace(",", "");
+
+			if (url == (url_Principal + "/Filtro")) {
+
+				location.href = url + "?pagina=1";
+
+			} else {
+
+				location.href = url + "&pagina=1";
+			}
+		}
+	} else {
+		if (location.href == url_Principal) {
+
+			location.href = url + "/Filtro?pagina=1";
+
+		} else {
+
+			location.href = url + "&pagina=1";
+		}
+	}
+}
+
+function goPreviousPage() {
+
+	var url = location.href;
+	var url_Principal = "http://localhost:8040/idat/Articulo/Listar";
+
+	if (url.includes("pagina")) {
+
+		var items_split = url.split('?');
+		items_split = items_split[1].split('&');
+
+		// Declaramos la variable que almacenara la pagina
+		var pagina;
+
+		for (var i = 0; i < items_split.length; i++) {
+
+			// Validamos que la URL spliteada tenga el parametro de pagina
+			if (items_split[i].includes("pagina")) {
+
+				pagina = items_split[i]; // Añadimos dicho parametro a la variable creada anteriormente 
+			}
+		}
+
+		var pagina_index = pagina.split("="); // Obtenemos la pagina actual 
+
+		if (pagina_index[1] > 1) { // Validamos que la pagina actual sea mayor a 1, si no validamos se ira a numeros negativos
+
+			var index = url.indexOf(pagina);
+			var cant_url_pagina = pagina.length;
+
+			if ((index + cant_url_pagina) < url.length) {
+
+				url = url.split(pagina + "&").toString();
+
+				url = url.replace(",", "");
+
+				location.href = url + "&pagina=" + (pagina_index[1] - 1); // Le restamos 1
+
+			} else if ((index + cant_url_pagina) >= url.length) {
+
+				/*
+					Hay dos posibles caso, que tengan mas parametros por detras o no, entonces, se procede a hacer el split
+					en los dos casos, no hay problemas, ya que el split buscara exactamente, lo que se ingreso como parametro, en
+					la URL, si no esta igual lo pasara por alto e ira al siguiente split. Es como un if pero sin if XD
+				*/
+				url = url.split("&" + pagina).toString();
+				url = url.split("?" + pagina).toString();
+
+				url = url.replace(",", "");
+
+				pagina = pagina.split("="); // Obtenemos la pagina actual
+
+				if (url == (url_Principal + "/Filtro")) {
+
+					location.href = url + "?pagina=" + (pagina_index[1] - 1);
+
+				} else {
+
+					location.href = url + "&pagina=" + (pagina_index[1] - 1);
+				}
+			}
+		}
+	}
+}
+
+function goNextPage(LastPage) {
+
+	var url = location.href;
+	var url_Principal = "http://localhost:8040/idat/Articulo/Listar";
+
+	if (url.includes("pagina")) {
+
+		var items_split = url.split('?');
+		items_split = items_split[1].split('&');
+
+		// Declaramos la variable que almacenara la pagina
+		var pagina;
+
+		for (var i = 0; i < items_split.length; i++) {
+
+			// Validamos que la URL spliteada tenga el parametro de pagina
+			if (items_split[i].includes("pagina")) {
+
+				pagina = items_split[i]; // Añadimos dicho parametro a la variable creada anteriormente 
+			}
+		}
+		var pagina_index = pagina.split("="); // Obtenemos la pagina actual 
+
+		if (pagina_index[1] < LastPage) { // Validamos que la pagina actual sea mayor a 1, si no validamos se ira a numeros negativos
+
+			var index = url.indexOf(pagina);
+			var cant_url_pagina = pagina.length;
+
+			if ((index + cant_url_pagina) < url.length) {
+
+				url = url.split(pagina + "&").toString();
+
+				url = url.replace(",", "");
+
+				location.href = url + "&pagina=" + (parseInt(pagina_index[1]) + 1); // Le aumentamos 1
+
+			} else if ((index + cant_url_pagina) >= url.length) {
+
+				/*
+					Hay dos posibles caso, que tengan mas parametros por detras o no, entonces, se procede a hacer el split
+					en los dos casos, no hay problemas, ya que el split buscara exactamente, lo que se ingreso como parametro, en
+					la URL, si no esta igual lo pasara por alto e ira al siguiente split. Es como un if pero sin if XD
+				*/
+				url = url.split("&" + pagina).toString();
+				url = url.split("?" + pagina).toString();
+
+				url = url.replace(",", "");
+
+				pagina = pagina.split("="); // Obtenemos la pagina actual
+
+				if (url == (url_Principal + "/Filtro")) {
+
+					location.href = url + "?pagina=" + (parseInt(pagina_index[1]) + 1);
+
+				} else {
+
+					location.href = url + "&pagina=" + (parseInt(pagina_index[1]) + 1);
+				}
+			}
+		}
+	} else {
+		if (location.href == url_Principal) {
+			/*
+				 Si esta el parametro pagina=2 en la URL significa que el usuario esta en la ventana principal de "Lentes"
+				 Por lo tanto, si quiere ir a la siguiente pagina, esta sera la numero 2
+			*/
+			location.href = url + "/Filtro?pagina=2";
+		}
+	}
+}
+
+function goLastPage(LastPage) {
+
+	var url = location.href;
+	var url_Principal = "http://localhost:8040/idat/Articulo/Listar";
+
+	if (url.includes("pagina")) {
+
+		var items_split = url.split('?');
+		items_split = items_split[1].split('&');
+
+		// Declaramos la variable que almacenara la pagina
+		var pagina;
+
+		for (var i = 0; i < items_split.length; i++) {
+
+			// Validamos que la URL spliteada tenga el parametro de pagina
+			if (items_split[i].includes("pagina")) {
+
+				pagina = items_split[i]; //Añadimos dicho parametro al array creado anteriormente 
+			}
+		}
+		var index = url.indexOf(pagina);
+		var cant_url_pagina = pagina.length;
+
+		if ((index + cant_url_pagina) < url.length) {
+
+			url = url.split(pagina + "&").toString();
+
+			url = url.replace(",", "");
+
+			location.href = url + "&pagina=" + LastPage;
+
+		} else if ((index + cant_url_pagina) >= url.length) {
+
+			/*
+				Hay dos posibles caso, que tengan mas parametros por detras o no, entonces, se procede a hacer el split
+				en los dos casos, no hay problemas, ya que el split buscara exactamente, lo que se ingreso como parametro, en
+				la URL, si no esta igual lo pasara por alto e ira al siguiente split. Es como un if pero sin if XD
+			*/
+			url = url.split("&" + pagina).toString();
+			url = url.split("?" + pagina).toString();
+
+			url = url.replace(",", "");
+
+			if (url == (url_Principal + "/Filtro")) {
+
+				location.href = url + "?pagina=" + LastPage;
+
+			} else {
+
+				location.href = url + "&pagina=" + LastPage;
+			}
+		}
+	} else {
+		if (location.href == url_Principal) {
+
+			location.href = url + "/Filtro?pagina=" + LastPage;
+
+		} else {
+
+			location.href = url + "&pagina=" + LastPage;
+		}
+	}
+}
+
+function selectPage(ButtonID) {
+
+	var button = document.getElementById(ButtonID);
+	var url = location.href;
+	var url_Principal = "http://localhost:8040/idat/Articulo/Listar";
+
+	if (url.includes("pagina")) {
+
+		var items_split = url.split('?');
+		items_split = items_split[1].split('&');
+
+		// Declaramos la variable que almacenara la pagina
+		/*var minimoPrecio;
+		var maximoPrecio;*/
+		var pagina;
+
+		for (var i = 0; i < items_split.length; i++) {
+
+			// Validamos que la URL spliteada tenga el parametro de pagina
+			if (items_split[i].includes("pagina")) {
+
+				pagina = items_split[i]; //Añadimos dicho parametro al array creado anteriormente 
+			}
+		}
+		var index = url.indexOf(pagina);
+		var cant_url_pagina = pagina.length;
+
+		if ((index + cant_url_pagina) < url.length) {
+
+			url = url.split(pagina + "&").toString();
+
+			url = url.replace(",", "");
+
+			location.href = url + "&pagina=" + button.innerText;
+
+		} else if ((index + cant_url_pagina) >= url.length) {
+
+			/*
+				Hay dos posibles caso, que tengan mas parametros por detras o no, entonces, se procede a hacer el split
+				en los dos casos, no hay problemas, ya que el split buscara exactamente, lo que se ingreso como parametro, en
+				la URL, si no esta igual lo pasara por alto e ira al siguiente split. Es como un if pero sin if XD
+			*/
+			url = url.split("&" + pagina).toString();
+			url = url.split("?" + pagina).toString();
+
+			url = url.replace(",", "");
+
+			if (url == (url_Principal + "/Filtro")) {
+
+				location.href = url + "?pagina=" + button.innerText;
+
+			} else {
+
+				location.href = url + "&pagina=" + button.innerText;
+			}
+		}
+	} else {
+		if (location.href == url_Principal) {
+
+			location.href = url + "/Filtro?pagina=" + button.innerText;
+
+		} else {
+
+			location.href = url + "&pagina=" + button.innerText;
+		}
+	}
+}

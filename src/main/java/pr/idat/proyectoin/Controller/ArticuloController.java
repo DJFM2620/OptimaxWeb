@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,7 +46,16 @@ public class ArticuloController {
 	@RequestMapping(value = "/Articulo/Listar", method = RequestMethod.GET)
 	public String listar_GET(Map map) {
 		
-		map.put("bArticulo", articuloService.FindAll());
+		int maxPages = (int) Math.ceil(articuloService.CountArticles() / 12.0);
+
+		map.put("currentPage", 1);
+		map.put("lastPage", maxPages);
+		map.put("isPageable", true);
+
+		Pageable pageable = PageRequest.of(0, 8);
+
+		map.put("bArticulo", articuloService.FindAllPage(pageable));
+		
 		map.put("bMarcas", marcaService.FindAll());
 		map.put("bModelos", modeloService.FindAll());
 		map.put("bMateriales", materialService.FindAll());
@@ -61,8 +72,49 @@ public class ArticuloController {
 									 @RequestParam(name = "materiales", required = false) List<String> materialList,
 									 @RequestParam(name = "modelos", required = false) List<String> modeloList,
 									 @RequestParam(name = "minimo", required = false) Double precioMinimo,
-									 @RequestParam(name = "maximo", required = false) Double precioMaximo) {
+									 @RequestParam(name = "maximo", required = false) Double precioMaximo,
+									 @RequestParam(name = "pagina", required = false) Integer pagina) {
 
+		Double minPrecio = articuloService.minPrecio();
+		Double maxPrecio = articuloService.maxPrecio();
+
+		int maxPages = (int) Math.ceil(articuloService.CountArticles()/8.0);
+		
+		Integer offSet = 0; // 12(1) -> 24(2) -> 36(3)
+		Integer currentPage = 1;
+		Integer limite = 8; //La cantidad de articulos que se podra ver en pantalla
+		
+		if(pagina != null) {
+			offSet = 8 * (pagina - 1); // 12(1) -> 24(2) -> 36(3)
+			currentPage = pagina;
+		}
+
+		if ((maxPages - currentPage) > 10) {
+			if (currentPage > 3) {
+
+				map.put("currentPage", pagina - 2);
+			} else {
+
+				map.put("currentPage", 1);
+			}
+		} else {
+
+			map.put("currentPage", maxPages - 10);
+		}
+
+		map.put("lastPage", maxPages);
+		map.put("isPageable", false);
+
+		if (precioMinimo == null) {
+
+			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, minPrecio,
+					maxPrecio, limite, offSet));
+
+		} else {
+			map.put("bArticulo", articuloService.FilterAll(colorList, marcaList, materialList, modeloList, precioMinimo,
+					precioMaximo, limite,  offSet));
+		}
+		
 		map.put("bMarcas", marcaService.FindAll());
 		map.put("bModelos", modeloService.FindAll());
 		map.put("bMateriales", materialService.FindAll());

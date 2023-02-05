@@ -127,5 +127,31 @@ public class ClienteServiceImpl implements ClienteService{
 		return repository.CountOrdenesCliente(codCliente);
 	}
 
-	
+	@Override
+	public String ObtenerDireccionCliente(String Email) {
+
+		String result = "";
+		
+		String direccion = repository.ObtenerDireccionCliente(Email); 
+		
+		if(direccion == null) {
+			
+			result = null;
+			System.out.println("IS NULL: " +  result);
+			
+		}else if(direccion.isEmpty()) {
+			
+			result = null;
+			System.out.println("IS EMPTY: " +  result);
+			
+		}else {
+			
+			result = direccion;
+			System.out.println("IT'S OK: " +  result);
+		}
+		
+		System.out.println("RESULT: " +  result);
+		
+		return result;
+	}
 }

@@ -1,6 +1,5 @@
 package pr.idat.proyectoin.Controller;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -10,10 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Service.DetalleOrdenPedidoService;

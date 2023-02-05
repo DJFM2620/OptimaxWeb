@@ -15,9 +15,6 @@ import java.util.regex.Pattern;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,8 +22,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,7 +37,6 @@ import pr.idat.proyectoin.Entity.Cita;
 import pr.idat.proyectoin.Entity.Cliente;
 import pr.idat.proyectoin.Entity.DetalleOrdenPedido;
 import pr.idat.proyectoin.Entity.Distrito;
-import pr.idat.proyectoin.Entity.MarcaMontura;
 import pr.idat.proyectoin.Entity.OrdenPedido;
 import pr.idat.proyectoin.Service.ArticuloService;
 import pr.idat.proyectoin.Service.CitaService;
@@ -91,18 +85,16 @@ public class ControllerApiService {
 
 	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	
+	/*
+	 ARTICULO
+	 ARTICULO
+	 ARTICULO
+	 */
+	
 	@GetMapping
 	public Collection<Articulo> FindAll() {
 
 		return serviceArt.FindAll();
-	}
-	
-	@GetMapping(path = "/Pageable")
-	public Page<Articulo> FindAllPageable() {
-		
-		Pageable first = PageRequest.of(1, 4);
-		
-		return serviceArt.FindAllPage(first);
 	}
 	
 	@GetMapping(path = "/{ID}")
@@ -113,6 +105,33 @@ public class ControllerApiService {
 		return articulo;
 	}
 
+	
+	@PostMapping(path = "/AgregarArt")
+	public String InsertArticulo(@RequestBody Articulo articulo) {
+
+		serviceArt.Insert(articulo);
+
+		return "¡Articulo agregado exitosamente...!";
+	}
+	
+	@DeleteMapping(path = "/Delete/Articulo/{ID}")
+	public void DeleteArticulo(@PathVariable("ID") Integer ID) {
+
+		serviceArt.Delete(ID);
+	}
+	
+	/*
+	 CLIENTE
+	 CLIENTE
+	 CLIENTE
+	 */
+	
+	@GetMapping(path = "/Distritos")
+	public Collection<Distrito> FindAllDistritos() {
+
+		return serviceDis.FindAll();
+	}
+	
 	@GetMapping(path = "/Distrito/{ID}")
 	public Distrito FindDistritoByID(@PathVariable("ID") Integer ID) {
 
@@ -138,21 +157,154 @@ public class ControllerApiService {
 
 		serviceCli.Insert(cliente);
 	}
+	
+	@GetMapping(path = "/Cliente/Existencia/{Dni}")
+	public Integer ExistenciaCliente(@PathVariable("Dni") Integer Dni) {
 
-	@PostMapping(path = "/AgregarArt")
-	public String InsertArticulo(@RequestBody Articulo articulo) {
-
-		serviceArt.Insert(articulo);
-
-		return "¡Articulo agregado exitosamente...!";
+		return serviceCli.ExistenciaCliente(Dni);
 	}
 
-	@DeleteMapping(path = "/Delete/Articulo/{ID}")
-	public void DeleteArticulo(@PathVariable("ID") Integer ID) {
+	@GetMapping(path = "/Cliente/{Email}")
+	public Cliente CodigoClienteByEmail(@PathVariable("Email") String Email) {
 
-		serviceArt.Delete(ID);
+		return serviceCli.ObtenerCodigoByEmail(Email);
+	}
+	
+	@GetMapping(path = "/Cliente/Codigo/{Dni}")
+	public String CodigoClienteByDni(@PathVariable("Dni") Integer Dni) {
+
+		Cliente cliente = serviceCli.FindByID(serviceCli.ObtenerCodigoCliente(Dni)); 
+		
+		return cliente.getEmail();
+	}
+	
+	@GetMapping(path = "/Cliente/Direccion/{Email}", produces = "application/json")
+	public String DireccionClienteByDni(@PathVariable("Email") String Email) {
+		
+		return serviceCli.ObtenerDireccionCliente(Email);
+	}
+	
+	@PutMapping(path = "/Cliente/Actualizar")
+	public void actualizarcliente(@RequestBody Cliente cliente) {
+		
+		boolean op = false;
+		
+		System.err.println(cliente.getEmail());
+		System.err.println(cliente.getDni());
+			
+		if(serviceCli.ObtenerCodigoCliente(cliente.getDni()) == null) {
+			
+			System.err.println("CLIENTE EMAIL BUSQUEDA: " + serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
+			
+			op = serviceCli.Validar(serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
+			
+			System.err.println("CLIENTE EMAIL BOOLEAN: " + op);
+			
+		}else {
+			System.err.println("CLIENTE DB DNI: " + serviceCli.ObtenerCodigoCliente(cliente.getDni()));
+			
+			op = serviceCli.Validar(serviceCli.ObtenerCodigoCliente(cliente.getDni()));
+			
+			System.err.println("CLIENTE DNI: " + op);
+		}
+
+		System.err.println(op);
+		
+		if (op) {
+
+			Cliente clienteDb = new Cliente();
+			
+			if(serviceCli.ObtenerCodigoCliente(cliente.getDni()) == null) {
+				
+				clienteDb = serviceCli.ObtenerCodigoByEmail(cliente.getEmail());
+				System.err.println("CLIENTE DB EMAIL: " + serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
+				
+			}else {
+				
+				clienteDb = serviceCli.FindByID(serviceCli.ObtenerCodigoCliente(cliente.getDni()));
+				System.err.println("CLIENTE DB DNI: " + serviceCli.ObtenerCodigoCliente(cliente.getDni()));
+			}
+
+			System.err.println(clienteDb.getCod_Cliente());
+			
+			cliente.setCod_Cliente(clienteDb.getCod_Cliente());
+
+			if (cliente.getNombres() == null)
+				cliente.setNombres(clienteDb.getNombres());
+			
+			if (cliente.getApellidop() == null)
+				cliente.setApellidop(clienteDb.getApellidop());
+			
+			if (cliente.getApellidom() == null)
+				cliente.setApellidom(clienteDb.getApellidom());
+			
+			if (cliente.getDni() == null)
+				cliente.setDni(clienteDb.getDni());
+			
+			if (cliente.getEmail() == null)
+				cliente.setEmail(clienteDb.getEmail());
+			
+			if (cliente.getCelular() == null)
+				cliente.setCelular(clienteDb.getCelular());
+			
+			if (cliente.getRuc() == null)
+				cliente.setRuc(clienteDb.getRuc());
+			
+			if (cliente.getDireccion() == null)
+				cliente.setDireccion(clienteDb.getDireccion());
+			
+			if (cliente.getDistrito() == null)
+				cliente.setDistrito(clienteDb.getDistrito());
+
+			serviceCli.Update(cliente);
+			// return "Se actualizaron los datos correctamente";
+
+		} else {
+			// return "No existe el registro con ID => " + cliente.getCod_Cliente();
+		}
 	}
 
+	/*
+	 	CITAS
+	 	CITAS
+	 	CITAS
+	 */
+	
+	@PostMapping(path = "/Cita/Registrar")
+	public void RegistrarCita(@RequestBody HashMap<String, String> map) throws ParseException {
+
+		Cita cita = new Cita();
+
+		cita.setFecha(LocalDate.parse(map.get("date")));
+		cita.setHora(LocalTime.parse(map.get("hour")));
+
+		Cliente cliente = serviceCli.ObtenerCodigoByEmail(map.get("email"));
+
+		cita.setCliente(cliente);
+
+		serviceCita.Insert(cita);
+	}
+
+	@GetMapping(path = "/Cita/Listar")
+	public Collection<Cita> ListarCitas() {
+
+		return serviceCita.FindAll();
+	}
+
+	@GetMapping(path = "/Cita/{Email}")
+	public Collection<Cita> ListarCitas(@PathVariable("Email") String Email) {
+
+		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
+
+		return serviceCita.CitasByCodigoCliente(cliente.getCod_Cliente());
+	}
+
+	/*
+	 	VENTAS
+	 	VENTAS 
+	 	VENTAS
+	 */
+	
 	@GetMapping(path = "/Ventas")
 	public Collection<OrdenPedido> ListarPedidos() {
 
@@ -165,10 +317,12 @@ public class ControllerApiService {
 		return serviceDetOrd.FindAll();
 	}
 
-	@GetMapping(path = "/Cliente/{Email}")
-	public Cliente CodigoClienteByEmail(@PathVariable("Email") String Email) {
+	@GetMapping("/Ordenes/{Email}")
+	public Collection<OrdenPedidoDto> ObtenerOrdenesMovil(@PathVariable("Email") String Email) {
 
-		return serviceCli.ObtenerCodigoByEmail(Email);
+		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
+
+		return serviceOrd.ObtenerPedidosPersonalizado(cliente.getCod_Cliente());
 	}
 
 	@PostMapping(path = "/InsertarVenta")
@@ -230,80 +384,7 @@ public class ControllerApiService {
 													 */
 		}
 	}
-
-	@PostMapping(path = "/Cita/Registrar")
-	public void RegistrarCita(@RequestBody HashMap<String, String> map) throws ParseException {
-
-		Cita cita = new Cita();
-
-		cita.setFecha(LocalDate.parse(map.get("date")));
-		cita.setHora(LocalTime.parse(map.get("hour")));
-
-		Cliente cliente = serviceCli.ObtenerCodigoByEmail(map.get("email"));
-
-		cita.setCliente(cliente);
-
-		serviceCita.Insert(cita);
-	}
-
-	@GetMapping(path = "/Cita/Listar")
-	public Collection<Cita> ListarCitas() {
-
-		return serviceCita.FindAll();
-	}
-
-	@GetMapping(path = "/Cita/{Email}")
-	public Collection<Cita> ListarCitas(@PathVariable("Email") String Email) {
-
-		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
-
-		return serviceCita.CitasByCodigoCliente(cliente.getCod_Cliente());
-	}
-
-	@PutMapping(path = "/Cliente/Actualizar")
-	public void actualizarcliente(@RequestBody Cliente cliente) {
-
-		boolean op = serviceCli.Validar(serviceCli.ObtenerCodigoByEmail(cliente.getEmail()).getCod_Cliente());
-
-		if (op) {
-
-			Cliente clienteDb = serviceCli.ObtenerCodigoByEmail(cliente.getEmail());
-
-			cliente.setCod_Cliente(clienteDb.getCod_Cliente());
-
-			if (cliente.getApellidop() == null)
-				cliente.setApellidop(clienteDb.getApellidop());
-			if (cliente.getApellidom() == null)
-				cliente.setApellidom(clienteDb.getApellidom());
-			if (cliente.getDni() == null)
-				cliente.setDni(clienteDb.getDni());
-			if (cliente.getEmail() == null)
-				cliente.setEmail(clienteDb.getEmail());
-			if (cliente.getCelular() == null)
-				cliente.setCelular(clienteDb.getCelular());
-			if (cliente.getRuc() == null)
-				cliente.setRuc(clienteDb.getRuc());
-			if (cliente.getDireccion() == null)
-				cliente.setDireccion(clienteDb.getDireccion());
-			if (cliente.getDistrito() == null)
-				cliente.setDistrito(clienteDb.getDistrito());
-
-			serviceCli.Update(cliente);
-			// return "Se actualizaron los datos correctamente";
-
-		} else {
-			// return "No existe el registro con ID => " + cliente.getCod_Cliente();
-		}
-	}
-
-	@GetMapping("/Ordenes/{Email}")
-	public Collection<OrdenPedidoDto> ObtenerOrdenesMovil(@PathVariable("Email") String Email) {
-
-		Cliente cliente = serviceCli.ObtenerCodigoByEmail(Email);
-
-		return serviceOrd.ObtenerPedidosPersonalizado(cliente.getCod_Cliente());
-	}
-
+	
 	@PostMapping(path = "/Token")
 	public void getToken(@org.springframework.web.bind.annotation.RequestBody HashMap<String, String> map)
 			throws IOException {
@@ -358,11 +439,5 @@ public class ControllerApiService {
 
 		}
 		return result;
-	}
-
-	@GetMapping("/Marcas")
-	public Collection<MarcaMontura> findallmarca() {
-
-		return serviceMarca.FindAll();
 	}
 }

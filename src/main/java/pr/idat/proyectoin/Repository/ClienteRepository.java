@@ -11,7 +11,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	@Query(value="select cod_cliente from clientes where email=:clienteemail and dni=:clientedni", nativeQuery=true)
 	public abstract Integer validacioncliente(@Param("clienteemail")String email,@Param("clientedni") Integer dni);
 	
-	@Query(value="select count(*) as 'Clientes' from clientes where  dni =:clienteDNI", nativeQuery=true)
+	@Query(value="select count(*) as 'Clientes' from clientes where dni =:clienteDNI", nativeQuery=true)
 	public abstract Integer ExistenciaCliente(@Param("clienteDNI")Integer DNI );
 	
 	@Query(value="select cod_cliente from clientes where dni=:clienteDNI", nativeQuery=true)
@@ -25,4 +25,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	@Query(value="SELECT count(*) FROM ORDENPEDIDOS WHERE COD_CLIENTE = :codCliente", nativeQuery=true)
 	public abstract Integer CountOrdenesCliente(@Param("codCliente") Integer codCliente );
+	
+	@Query(value="SELECT DIRECCION FROM CLIENTES WHERE EMAIL = :Email", nativeQuery = true)
+	public abstract String ObtenerDireccionCliente(@Param("Email") String Email );
 }
