@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Listar.css'/>">
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+	
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.core.min.js"></script>
 
 </head>
 <body>
@@ -19,10 +21,13 @@
 			<button class="New" onclick="location.href='<c:url value = "/Cliente/Registrar"/>'">
 				<span class="las la-user-plus"></span> <span>NUEVO</span>
 			</button>
-			<input type="text" placeholder="Buscar..." class="Search">
+			
+			<button class="Button_To_Excel" onclick="exportToExcel('Clientes')">
+				<span class="las la-download"></span> <span>EXPORTAR A EXCEL</span>
+			</button>
 		</div>
 		
-		<table class="Table">
+		<table class="Table" id="Table">
 			<thead class="Table_Head">
 				<tr>
 					<td><b>ID</b></td>
@@ -64,5 +69,6 @@
 			</tbody>
 		</table>
 	</div>
+	<script type="text/javascript" src="/idat/JS/Listar.js"></script>
 </body>
 </html>

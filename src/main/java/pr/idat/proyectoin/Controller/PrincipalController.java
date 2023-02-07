@@ -3,6 +3,7 @@ package pr.idat.proyectoin.Controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import pr.idat.proyectoin.Entity.Articulo;
 import pr.idat.proyectoin.Entity.Cliente;
@@ -64,30 +66,36 @@ public class PrincipalController {
 		return "/Cliente/Login_Registrar";
 	}
 	
-	@RequestMapping(value = "/validarempleado/{emailId}/{dniId}", method = RequestMethod.GET)
-	public String validarempleado(Map map, @PathVariable("emailId") String email, @PathVariable("dniId") Integer dni) {
+	@RequestMapping(value = "/Login/Validar", method = RequestMethod.GET)
+	public @ResponseBody String ValidarLogin(String email, Integer dni) {
+
+		String result = "";
 		
 		if (clienteService.validacioncliente(email, dni) == 1) {
 
-			return "redirect:/Principal";
+			result = "Cliente";
+			//return "redirect:/Principal";
 
 		} else {
 			if (empleadoService.validarcargo(email, dni) == 3) {
 				
-				return "/Administrador/Principal";
+				result = "Admin";
 				
-			} else if (empleadoService.validarcargo(email, dni) == 4) {
+			}else if (empleadoService.validarcargo(email, dni) == 4) {
 
-				return "/Recepcionista/Principal";
-			}
-			if (empleadoService.validarcargo(email, dni) == 2) {
+				result = "Recepcionista";
 				
-				return "/JefeVentas/Principal";
+			}else if (empleadoService.validarcargo(email, dni) == 2) {
+				
+				result = "JefeVentas";
+				
 			}else {
 
-				return "redirect:/Principal";
+				result = "Lo sentimos, los datos de inicio de sesión que has ingresado no son correctos. Por favor, verifica tus credenciales e inténtalo de nuevo.";
+				//return "redirect:/Principal";
 			}
 		}
+		return result;
 	}
 
 	@RequestMapping(value = "/Recepcionista/Principal", method = RequestMethod.GET)

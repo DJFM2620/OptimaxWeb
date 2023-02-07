@@ -35,6 +35,36 @@ img {
 	color: #FFFFFF;
 }
 
+
+.Search {
+	
+	margin-left: 60px;
+	margin-bottom: 20px;
+}
+
+.Search button{
+	
+    height: 30px;
+    width: 100px;
+	background: #3C72FF;
+    color: #FFFFFF;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: 0;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.Search input{
+	
+	width: 100px;
+    height: 30px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    font-size: 17px;
+    text-align: center;
+}
+
 .Button_Edit, .Button_Delete {
 	
 	width: 120px;
@@ -59,9 +89,22 @@ img {
 	border-radius: 5px;
 }
 
+.Button_To_Excel {
+	
+    width: 200px;
+    height: 30px;
+    background: #10793F;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    
+}
+
 .la-user-plus, .New > span, 
-.Filter > span, la-filter,
-.la-trash-alt, .la-edit {
+.Filter > span, .la-filter,
+.la-trash-alt, .la-edit,
+.la-download {
 
 	font-size: 17px;
 	font-weight: bold;

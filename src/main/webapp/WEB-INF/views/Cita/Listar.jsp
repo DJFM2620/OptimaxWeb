@@ -13,6 +13,8 @@
 
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <title>Listado de citas</title>
 
@@ -22,6 +24,10 @@
 	<%@include file="/WEB-INF/views/shared/tabrecepcionista.jsp"%>
 
 	<div class="main">
+		<div class="Search">
+				Ingresar DNI: <input type="text" id='dni' maxlength="8"/>
+				<button type="button" onclick="CitasDni(document.getElementById('dni'), 'Listar/Dni', 'Listar')">Buscar</button>
+		</div>
 		<table class="Table">
 			<thead class="Table_Head">
 				<tr>
@@ -32,7 +38,7 @@
 					<td><b>Apellido Cliente</b></td>
 				</tr>
 			</thead>
-			<tbody class="Table_Body">
+			<tbody class="Table_Body" id="TBody">
 				<c:forEach var="citas" items="${bCitas}">
 					<tr>
 						<td><b>${citas.cod_Cita}</b></td>
@@ -45,5 +51,7 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<script type="text/javascript" src="/idat/JS/MisCitas.js"></script>
 </body>
 </html>

@@ -25,6 +25,7 @@ body {
 
 .Search {
 	
+	display: inline-block;
 	margin-left: 60px;
 	margin-bottom: 20px;
 }
@@ -50,6 +51,24 @@ body {
     border-radius: 10px;
     font-size: 17px;
     text-align: center;
+}
+
+.Button_To_Excel {
+	
+    width: 200px;
+    height: 30px;
+    background: #10793F;
+    color: #FFFFFF;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    
+}
+
+.la-download {
+
+	font-size: 17px;
+	font-weight: bold;
 }
 
 .Table {

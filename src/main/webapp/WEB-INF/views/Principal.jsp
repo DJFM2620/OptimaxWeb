@@ -12,6 +12,8 @@
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
 <title>Principal</title>
 </head>
 <body>
@@ -63,7 +65,7 @@
 		<form action="/idat/Principal" class="form-container">
 			<h1>Login</h1>
 
-			<label for="email"><b>Email</b></label> <input type="text"
+			<label for="email"><b>Email</b></label> <input type="email"
 				placeholder="Enter Email" name="email" id="emailId" required>
 
 			<label for="psw"><b>Password</b></label> <input type="password"
@@ -72,34 +74,13 @@
 			<a href="<c:url value ='/Login/Registrar'/>">Registrate aqui </a>
 
 			<button type="button" id="button-a" class="btn"
-				onclick="execute(document.getElementById('emailId').value,document.getElementById('dniId').value)">Login</button>
+				onclick="validateUserLogin()">Login</button>
 			<br>
 			<button type="button" class="btn cancel" onclick="closeForm()">Close</button>
 		</form>
 	</div>
 
 	<%@include file="/WEB-INF/views/shared/Footer.jsp"%>
-
-	<script>
-		function openForm() {
-			document.getElementById("myForm").style.display = "block";
-		}
-
-		function execute(emailId, dniId) {
-			if (emailId == "" || dniId == null) {
-				alert("Todos los campos son requeridos");
-			} else {
-				<c:url var="path" value="/validarempleado"/>
-				location.href = "${path}" + "/" + emailId + "/" + dniId;
-
-			}
-		}
-
-		function closeForm() {
-			document.getElementById("myForm").style.display = "none";
-
-		}
-	</script>
-
+	<script type="text/javascript" src="/idat/JS/Principal.js"></script>
 </body>
 </html>

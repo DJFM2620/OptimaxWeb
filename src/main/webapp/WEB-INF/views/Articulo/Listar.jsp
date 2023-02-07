@@ -11,6 +11,8 @@
 <link rel="stylesheet"
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.core.min.js"></script>
+
 <title>Listado de Articulos</title>
 </head>
 <body onload="checkItemsOnLoad()">
@@ -18,10 +20,9 @@
 	<div class="main">
 		<div>
 			<button class="New" onclick="location.href='<c:url value = "/Articulo/Registrar"/>'"><span class="las la-user-plus"></span> <span>NUEVO</span></button>
-			<input type="text" placeholder="Buscar..." class="Search">
 		</div>
 		
-				<table class="Table">
+		<table class="Table"  id="Table">
 			<thead class="Table_Head">
 				<tr>
 					<th><b>ID</b></th>
@@ -43,7 +44,7 @@
 							<td>${art.precio}</td>
 							<td>${art.stock}</td>
 							<td>${art.color.nombre}</td>
-							<td>${art.marcaMontura.nombre_Marca}</td>
+							<td data-format="@">${art.marcaMontura.nombre_Marca}</td>
 							<td>${art.tipoMaterialMontura.nombre_Materia}</td>
 							<td>${art.tipoModeloMontura.forma_Modelo}</td>
 							<td>

@@ -20,7 +20,6 @@
 	<div class="main">
 		<div>
 			<button class="New" onclick="location.href='<c:url value = "/Modelo/Registrar"/>'"><span class="las la-user-plus"></span> <span>NUEVO</span></button>
-			<input type="text" placeholder="Buscar..." class="Search">
 		</div>
 		
 		<table class="Table">

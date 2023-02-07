@@ -27,7 +27,7 @@
 		<div class="Content">
 			<div class="Search">
 				Ingresar DNI: <input type="text" id='dni' maxlength="8"/>
-				<button type="button" onclick="CitasDni(document.getElementById('dni'))">Buscar</button>
+				<button type="button" onclick="CitasDni(document.getElementById('dni'), 'Cita/Dni', 'MisCitas')">Buscar</button>
 			</div>
 			<table class="Table">
 				<thead>

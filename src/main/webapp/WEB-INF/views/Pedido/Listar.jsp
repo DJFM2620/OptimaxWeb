@@ -13,6 +13,7 @@
 	href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.core.min.js"></script>
 
 <title>Listar Pedidos</title>
 </head>
@@ -24,9 +25,15 @@
 		<div class="Content">
 		
 			<div class="Search">
-				<input id="myInput" type="text" placeholder="Search..">
+				Ingresar DNI: <input type="text" id='dni' maxlength="8" />
+				<button type="button" onclick="OrdenesDni(document.getElementById('dni'), 'Listar/Dni', 'Listar')">Buscar</button>
 			</div>
-			<table class="Table">
+			
+			<button class="Button_To_Excel" onclick="exportToExcel('Pedidos')">
+				<span class="las la-download"></span> <span>EXPORTAR A EXCEL</span>
+			</button>
+			
+			<table class="Table"  id="Table">
 				<thead>
 					<tr>
 						<td><b>Pedido</b></td>

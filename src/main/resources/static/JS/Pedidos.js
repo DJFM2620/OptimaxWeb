@@ -1,28 +1,60 @@
-function OrdenesDni(dni) {
+function OrdenesDni(dni, url, pagina) {
 
 	$.ajax({
 		type: "GET",
-		url: "Pedido/Dni",
+		url: url,
 		data: { dni: dni.value },
 		success: function(bOrden) {
 
 			var html = "";
-			$.each(bOrden, function(index, orden) {
+			
+			if(pagina == "MisPedidos"){
+			
+				$.each(bOrden, function(index, orden) {
 
-				html +=
-					"<tr>" +
-						"<td id=codigo" + orden.cod_pedido + ">" + orden.cod_pedido + "</td>" +
-						"<td>" + orden.fecha + "</td>" +
-						"<td>" + orden.estadopedido.estado + "</td>" +
-						"<td>" +
-						"<button onclick='Detalle(document.getElementById(`codigo" + orden.cod_pedido + "`))'>DETALLE</button>" +
-						"</td>"+
-					"</tr>"
-			});
+					html +=
+						"<tr>" +
+							"<td id=codigo" + orden.cod_pedido + ">" + orden.cod_pedido + "</td>" +
+							"<td>" + orden.fecha + "</td>" +
+							"<td>" + orden.estadopedido.estado + "</td>" +
+							"<td>" +
+							"<button onclick='Detalle(document.getElementById(`codigo" + orden.cod_pedido + "`))'>DETALLE</button>" +
+							"</td>"+
+						"</tr>"
+				});
+			
+			}else {
+				$.each(bOrden, function(index, orden) {
+	
+					html +=
+						"<tr>" +
+							"<td id=codigo" + orden.cod_pedido + ">" + orden.cod_pedido + "</td>" +
+							"<td>" + orden.fecha + "</td>" +
+							"<td>" + orden.cliente.nombres + "</td>" +
+							"<td>" + orden.cliente.apellidop + "</td>" +
+							"<td>" + orden.cliente.dni + "</td>" +
+							"<td>" + orden.estadopedido.estado + "</td>" +
+							"<td>" +
+							"<button onclick='Detalle(document.getElementById(`codigo" + orden.cod_pedido + "`))'>DETALLE</button>" +
+							         
+							"<button class='Edit_Button' onclick='EditarPedido(" + orden.cod_pedido + ")'>"+
+								"EDITAR"+
+							"</button>"+
+							"</td>"+
+						"</tr>"
+				});
+			}
+			
+			
 			$("#TBody").html(html);
 			
 		}
 	})
+}
+
+function EditarPedido(pedido){
+	
+	location.href= "http://localhost:8040/idat/Pedido/Editar/" + pedido
 }
 
 function Detalle(codPedido) {
@@ -66,4 +98,11 @@ function Detalle(codPedido) {
 			$("#Info_Total").text(total);
 		}
 	})
+}
+
+function exportToExcel(nameExcel) {
+  
+	var table = document.getElementById("Table");
+	var wb = XLSX.utils.table_to_book(table);
+	XLSX.writeFile(wb, nameExcel+'.xlsx');
 }

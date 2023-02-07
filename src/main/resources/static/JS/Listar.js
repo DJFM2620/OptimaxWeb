@@ -746,3 +746,10 @@ function selectPage(ButtonID) {
 		}
 	}
 }
+
+function exportToExcel(nameExcel) {
+  
+	var table = document.getElementById("Table");
+	var wb = XLSX.utils.table_to_book(table);
+	XLSX.writeFile(wb, nameExcel+'.xlsx');
+}

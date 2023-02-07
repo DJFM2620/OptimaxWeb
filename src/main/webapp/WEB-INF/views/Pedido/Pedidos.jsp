@@ -29,7 +29,7 @@
 		<div class="Content">
 			<div class="Search">
 				Ingresar DNI: <input type="text" id='dni' maxlength="8" />
-				<button type="button" onclick="OrdenesDni(document.getElementById('dni'))">Buscar</button>
+				<button type="button" onclick="OrdenesDni(document.getElementById('dni'), 'Pedido/Dni', 'MisPedidos')">Buscar</button>
 			</div>
 			<table class="Table">
 				<thead>

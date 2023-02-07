@@ -38,6 +38,14 @@ public class CitaController {
 		return "/Cita/Listar";
 	}
 	
+	@RequestMapping(value = "/Cita/Listar/Dni", method = RequestMethod.GET)
+	public @ResponseBody Collection<Cita> ListarCitasDni(Integer dni){
+
+		Collection<Cita> cita = citaService.CitasCliente(dni);
+        
+        return cita;
+	}
+	
 	@RequestMapping(value = "/Cita", method = RequestMethod.GET)
 	public String cita_GET(Map map) {
 
@@ -102,7 +110,7 @@ public class CitaController {
 	}
 
 	@RequestMapping(value = "/Cita/Dni", method = RequestMethod.GET)
-	public @ResponseBody Collection<Cita> Citas(Integer dni){
+	public @ResponseBody Collection<Cita> CitasDni_Cliente(Integer dni){
 
 		Collection<Cita> cita = citaService.CitasCliente(dni);
         

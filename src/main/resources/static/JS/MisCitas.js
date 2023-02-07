@@ -5,25 +5,43 @@ function EnviarDNI() {
 	location.href = "/Buscarcitapordni?code=" + ClienteDNI;
 }
 
-function CitasDni(dni) {
+function CitasDni(dni, url, pagina) {
 
 	$.ajax({
 		type: "GET",
-		url: "Cita/Dni",
+		url: url,
 		data: { dni: dni.value },
 		success: function(bCitas) {
 
 			var html = "";
+			//MisPedidos
 
-			$.each(bCitas, function(index, cita) {
-
-				html +=
-					"<tr>"+
-						"<td id=codigo"+cita.cod_Cita+">" + cita.cod_Cita + "</td>"+
-						"<td>" + cita.hora + "</td>"+
-						"<td>" + cita.fecha + "</td>"+
-					"</tr>";
-			});
+			if(pagina == "MisCitas"){
+			
+				$.each(bCitas, function(index, cita) {
+	
+					html +=
+						"<tr>"+
+							"<td id=codigo"+cita.cod_Cita+">" + cita.cod_Cita + "</td>"+
+							"<td>" + cita.hora + "</td>"+
+							"<td>" + cita.fecha + "</td>"+
+						"</tr>";
+				});
+				
+			}else {
+			
+				$.each(bCitas, function(index, cita) {
+	
+					html +=
+						"<tr>"+
+							"<td id=codigo"+cita.cod_Cita+">" + cita.cod_Cita + "</td>"+
+							"<td>" + cita.hora + "</td>"+
+							"<td>" + cita.fecha + "</td>"+
+							"<td>" + cita.cliente.nombres + "</td>"+
+							"<td>" + cita.cliente.apellidop + "</td>"+
+						"</tr>";
+				});		
+			}
 			$("#TBody").html(html);
 		}
 	})

@@ -37,6 +37,14 @@ public class PedidosController {
 		return "/Pedido/Listar";
 	}
 	
+	@RequestMapping(value = "/Pedido/Listar/Dni", method = RequestMethod.GET)
+	public @ResponseBody Collection<OrdenPedido> listarPedidosDni(Integer dni) {
+
+		Collection<OrdenPedido> orden = ordenPedidoService.PedidosCliente(dni);
+
+		return orden;
+	}
+	
 	@RequestMapping(value = "/MisPedidos", method = RequestMethod.GET)
 	public String pedidos(Map map) {
 		
