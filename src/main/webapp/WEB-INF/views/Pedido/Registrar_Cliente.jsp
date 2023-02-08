@@ -114,6 +114,12 @@
 			
 		</div>
 	</div>
+	
+	<div class="Cart" id="Cart">
+		<div class="Cart_Content" id="Cart_Content">
+		</div>
+	</div>
+	
 	<script src="https://checkout.culqi.com/js/v4"></script>
 	<script type="text/javascript" src="/idat/JS/Pasarela_Pago.js"></script>
 </body>

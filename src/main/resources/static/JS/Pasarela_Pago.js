@@ -86,7 +86,7 @@ btn_pagar.addEventListener("click", function(e) {
 function culqi() {
 	if (Culqi.token) {
 		const token = Culqi.token.id;
-		var monto = document.getElementById("amount").value;
+		var monto = document.getElementById("amount").value.trim();
 		var nuevoMonto;
 
 		if (monto.includes(".") == true) {
@@ -96,18 +96,18 @@ function culqi() {
 		} else {
 			nuevoMonto = monto + "00";
 		}
-		var email = document.getElementById("card[email]").value;
+		var email = document.getElementById("card[email]").value.trim();
 
 		var newData = {
-			"nombres": document.getElementById("nombres").value,
-			"apellidop": document.getElementById("apellidop").value,
-			"celular": document.getElementById("celular").value,
-			"email": document.getElementById("email").value,
-			"dni" : document.getElementById("dni").value,
-			"ruc": document.getElementById("ruc").value,
-			"direccion": document.getElementById("direccion").value,
-			"distrito" : document.getElementById("distritos").value,
-			"apellidom": document.getElementById("apellidom").value,
+			"nombres": document.getElementById("nombres").value.trim(),
+			"apellidop": document.getElementById("apellidop").value.trim(),
+			"celular": document.getElementById("celular").value.trim(),
+			"email": document.getElementById("email").value.trim(),
+			"dni" : document.getElementById("dni").value.trim(),
+			"ruc": document.getElementById("ruc").value.trim(),
+			"direccion": document.getElementById("direccion").value.trim(),
+			"distrito" : document.getElementById("distritos").value.trim(),
+			"apellidom": document.getElementById("apellidom").value.trim(),
 			"monto": nuevoMonto,
 			"moneda": "PEN",
 			"email": email,
@@ -119,16 +119,61 @@ function culqi() {
 			contentType: "application/json",
 			url: 'http://localhost:8040/idat/Pasarela',
 			data: JSON.stringify(newData),
-			success: function(result) {
+			success: function(response) {
 
-				$("#InputPs").val(result);
+				var modal = document.getElementById("Cart");
+				var cart_content = document.getElementById("Cart_Content");
+				var html = "";
+				
+	    		if(response[0] == "Exito"){
+		
+					modal.classList.add("Modal_Show");
+					cart_content.classList.add("Exito");
+					
+	    			html +=	"<p>EXITO</p>" + 
+	    					"<p>" + response[1] + "</p>"+
+	    					"<div class='Center'>" +
+					        	"<button onclick='toPrincipal()'>ACEPTAR</button>"+
+					    	"</div>";
+		
+				} else {
+					
+					modal.classList.add("Modal_Show");
+					cart_content.classList.add("Error");
+					
+	    			html +=	"<p>ERROR</p>" + 
+	    					"<p>" + response[1] + "</p>"+
+	    					"<div class='Center'>" +
+					        	"<button onclick='toPrincipal()'>ACEPTAR</button>"+
+					    	"</div>";
+				}
+    		
+    			$("#Cart_Content").html(html);
 
 			}, error: function(xhr, status, error) {
 
-				$("#InputPs").val(error);
+				var modal = document.getElementById("Cart");
+				var cart_content = document.getElementById("Cart_Content");
+				var html = "";
+			
+				modal.classList.add("Modal_Show");
+				cart_content.classList.add("Error");
+				
+				html +=	"<p>ERROR</p>" + 
+						"<p>" + response[1] + "</p>"+
+						"<div class='Center'>" +
+				        	"<button onclick='toPrincipal()'>ACEPTAR</button>"+
+				    	"</div>";
+	    		
+	    		$("#Cart_Content").html(html);
 			}
 		});
 	} else {
 		console.log("Error : ", Culqi.error);
 	}
+}
+
+function toPrincipal() {
+	
+	location.href = "http://localhost:8040/idat/Principal";
 }

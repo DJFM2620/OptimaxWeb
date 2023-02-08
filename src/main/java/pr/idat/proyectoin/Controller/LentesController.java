@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -84,6 +85,7 @@ public class LentesController {
 	private static final List<Articulo> carritoArticulo = new ArrayList<>();
 	private static final List<DetalleOrdenPedido> carritoDetalleOrdenPedido = new ArrayList<>();
 	private static final List<Integer> Quantities = new ArrayList<Integer>();
+	
 	private static String SubTotal = "";
 	private static final String URL_CULQI = "https://api.culqi.com/v2";
 
@@ -258,9 +260,9 @@ public class LentesController {
 	}
 
 	@RequestMapping(value = "/Pasarela", method = RequestMethod.POST)
-	public String Pasarela(@RequestBody HashMap<String, String> map) {
+	public @ResponseBody List<String> Pasarela(@RequestBody HashMap<String, String> map) {
 		
-		String result = "";
+		List<String> result = new ArrayList<String>();
 		
 		JSONObject jo = new JSONObject();
 		jo.put("amount", map.get("monto"));
@@ -280,7 +282,8 @@ public class LentesController {
 
 			if (response.isSuccessful()) {
 				
-				result = "La transaccion fue exitosa!";
+				result.add("Exito");
+				result.add("La transaccion fue exitosa!");
 				
 				Cliente cliente = new Cliente();
 				
@@ -366,14 +369,16 @@ public class LentesController {
 				}
 
 			} else {
-				result = "Hubo un error al momento de realizar la transaccion";
+				
+				result.add("Error");
+				result.add("Hubo un error al momento de realizar la transaccion");
 			}
 				
 		} catch (IOException e) {
-			result = exceptionError();
-
+			
+			result.add("Error");
+			result.add("Hubo un error al momento de realizar la transaccion \n" + exceptionError());
 		}
-		System.out.println(result);
 		return result;
 	}
 
