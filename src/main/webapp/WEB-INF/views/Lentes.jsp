@@ -80,9 +80,9 @@
 		
 						<div class="Item">
 		
-							<c:set var="typeImage" value="${fn:substringAfter(art.imagen,'.')}" />
+							<c:set var="typeImage" value="${fn:substringAfter(art.imagen,'.')}"/>
 		
-							<img src="data:image/${typeImage};base64,${art.getBase64Imagen()}"
+							<img src="data:image/${typeImage};base64,${art.getBase64Imagen()}" 
 								onclick="DetailProduct(document.getElementById('articuloID${art.codArticulo}').value)" />
 		
 							<div class="Item_Flex">
@@ -107,21 +107,28 @@
 				<button id="firstPage" onclick="goFirstPage()" type="button"><span class="las la-angle-double-left"></span></button>
 				<button id="previousPage" onclick="goPreviousPage()" type="button"><span class="las la-angle-left"></span></button>
 				
-				<c:if test="${lastPage > 10}">
-					<c:if test="${(lastPage - currentPage) <= 10}">
-						<c:forEach var = "i" begin="${currentPage}" end="${lastPage}">
+				<c:if test="${lastPage > 10}"> <!-- 40 > 10 -->
+					<c:if test="${(lastPage - currentPage) <= 10}"> <!-- 40 - 33 (7) <= 10 -->
+					 	<!-- Cuando el numero de paginas es menor o igual a 10 se muestran todas-->
+						<c:forEach var = "i" begin="${currentPage}" end="${lastPage}"> 
 							<button id="page_${i}" onclick="selectPage('page_${i}')" type="button">${i}</button>
 						</c:forEach>
 					</c:if>
 					
-					<c:if test="${(lastPage - currentPage) > 10}">
-						<c:forEach var = "i" begin="${currentPage}" end="${currentPage + 4}">
+					<c:if test="${(lastPage - currentPage) > 10}"> <!-- 40 - 10 (30) > 10 -->
+						<!-- 
+							Cuando hay mas de 10 se muestra unicamente las 5 primeras paginas, despues puntos suspensivos
+							indicando que hay mas paginas por delante y se muestran las ultimas 5 paginas, como se puede
+							apreciar en el segundo forEach 
+						-->
+						<c:forEach var = "i" begin="${currentPage}" end="${currentPage + 4}"> <!-- begin = 1 | end = 5 -->
 							<button id="page_${i}" onclick="selectPage('page_${i}')" type="button">${i}</button>
 						</c:forEach>
 						<div>
 							<p>...</p>
 						</div>
-						<c:forEach var = "i" begin="1" end="5" step="1">
+						<!-- Recorremos solo 5 veces, que seran las ultimas paginas mostradas -->
+						<c:forEach var = "i" begin="1" end="5" step="1"> 
 							<button id="page_${lastPage - (5 - i)}" onclick="selectPage('page_${lastPage - (5 - i)}')" type="button">${lastPage - (5 - i)}</button>
 						</c:forEach>
 					</c:if>

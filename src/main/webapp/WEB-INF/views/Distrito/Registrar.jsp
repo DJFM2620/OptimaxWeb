@@ -10,25 +10,36 @@
 <link rel="stylesheet"
 	href="<c:url value='/CSS/Plantillas/Registrar.css'/>">
 
-<title>Registrar Distrito</title>
-</head>
-<%@include file="/WEB-INF/views/shared/tab.jsp"%>
-<section>
-	<div class="Form">
-		<h1>Registro Distrito</h1>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 
-		<form:form name="" method="post" modelAttribute="Distrito">
+<title>Registrar Distrito</title>
+
+</head>
+
+<body>
+
+	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
+	
+	<div class="Form">
+	
+		<h1>Registrar Distrito</h1>
+
+		<form:form id="formId" name="" method="post" modelAttribute="Distrito">
 
 			Distrito:
 			<br>
-			<form:input type="text" path="nombredistr" id="nombres"
-				placeholder="distrito" required="true" />
+			<form:input type="text" path="nombredistr" name="nombre_obj" id="distrito" placeholder="distrito" />
 			<br>
 			<br>
-			<button type="submit" class="button">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Distrito/Listar"/>'">Cancelar</button>
+			
+			<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+			<button class="Button" type="button" onclick="location.href='<c:url value = "/Distrito/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
-</section>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
+
 </body>
 </html>

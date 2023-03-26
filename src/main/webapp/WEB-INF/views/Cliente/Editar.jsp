@@ -9,6 +9,10 @@
 
 <link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
 <title>Editar Cliente</title>
 </head>
 <body>
@@ -16,67 +20,60 @@
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
 
 	<div class="Form">
-		<form:form name="" method="post" modelAttribute="Cliente">
+		<form:form id="formId" name="" method="post" modelAttribute="Cliente">
 			<h1>Editar Datos de Cliente</h1>
 			
 				ID:
 				<br>
-				<form:input path="cod_Cliente" id="nombres"
-					placeholder="nombre" readonly="true"/>
+				<form:input path="cod_Cliente" name="cod" placeholder="codigo"/>
 				<br> 
 				<br>
 				
 				Nombre:
 				<br>
-				<form:input path="nombres" id="nombres" placeholder="nombre"
-					required="true"/>
+				<form:input path="nombres" name="nombre" placeholder="nombre"/>
 				<br>
 				<br>
 				
 				Apellido Paterno:
 				<br>
-				<form:input path="apellidop" id="nombres"
-					placeholder="Apellido Paterno" required="true"/>
+				<form:input path="apellidop" name="apellidop" placeholder="Apellido Paterno"/>
 				<br>
 				<br>
 				
 				Apellido Materno:
 				<br>
-				<form:input path="apellidom" id="nombres"
-					placeholder="Apellido Materno" required="true"/>
+				<form:input path="apellidom" name="apellidom" placeholder="Apellido Materno"/>
 				<br>
 				<br>
 				
 				Celular:
 				<br>
-				<form:input path="celular" id="nombres" placeholder="celular"
-					required="true" maxlength="9" />
+				<form:input path="celular" name="celular" placeholder="celular"/>
 				<br>
 				<br>
 				
 				DNI:
 				<br>
-				<form:input path="dni" id="nombres" placeholder="dni"
-					required="true" maxlength="8" />
+				<form:input path="dni" name="dni" placeholder="dni"/>
 				<br>
 				<br>
 				
 				Email:
 				<br>
-				<form:input path="email" id="nombres" placeholder="email"
-					required="true"/>
+				<form:input path="email" name="email" id="nombres" placeholder="email"/>
 				<br>
 				<br>
 				 
 				RUC(Opcional):
 				<br>
-				<form:input path="ruc" id="nombres" placeholder="ruc"/>
+				<form:input path="ruc" name="ruc" id="nombres" placeholder="ruc"/>
 				<br>
 				<br>
 				
 				Direccion:
 				<br>
-				<form:input path="direccion" type='text' placeholder='direccion' />
+				<form:input path="direccion" name="direccion" type='text' placeholder='direccion' />
 				<br>
 				<br>
 				
@@ -89,10 +86,12 @@
 				<br>
 				<br>
 	
-				<button type="submit">Guardar</button>
-				<button type="button" onclick="location.href='<c:url value = "/Cliente/Listar"/>'">Cancelar</button>
+				<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+				<button class="Button" type="button" onclick="location.href='<c:url value = "/Cliente/Listar"/>'">Cancelar</button>
 				<br>
 		</form:form>
+		
+		<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
 	</div>
 </body>
 </html>

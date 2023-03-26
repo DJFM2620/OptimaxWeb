@@ -15,6 +15,10 @@
 	href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css"
 	rel="stylesheet">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
 <title>Registrar Empleado</title>
 </head>
 <body>
@@ -23,41 +27,41 @@
 	<div class="Form">
 		<h1>Registrar Empleado</h1>
 
-		<form:form name="" method="post" modelAttribute="Empleado">
+		<form:form id="formId" name="" method="post" modelAttribute="Empleado">
 
 			Nombre:
 			<br>
-			<form:input type="text" path="nombres" id="nombres" placeholder="nombre" required="true" />
+			<form:input type="text" path="nombres" name="nombre" id="nombres" placeholder="nombre"/>
 			<br>
 			<br>
 			
 			Apellido Paterno:
 			<br>
-			<form:input type="text" path="apellidp" id="apellidp" placeholder="apellido Paterno" required="true"/>
+			<form:input type="text" path="apellidp" name="apellidp" id="apellidp" placeholder="apellido Paterno"/>
 			<br>
 			<br>
 			
 			Apellido Materno:
 			<br>
-			<form:input type="text" path="apellidom" id="apellidom" placeholder="apellido Materno" required="true" />
+			<form:input type="text" path="apellidom" name="apellidom" id="apellidom" placeholder="apellido Materno"/>
 			<br>
 			<br>
 			
 			DNI:
 			<br>
-			<form:input type="text" path="dni" id="dni" placeholder="dni" required="true" maxlength="8" />
+			<form:input type="text" path="dni" name="dni" id="dni" placeholder="dni"/>
 			<br>
 			<br>
 			
-			Telefono:
+			Celular:
 			<br>
-			<form:input type="text" path="telefono" id="telefono" placeholder="telefono" required="true" maxlength="9"/>
+			<form:input type="text" path="telefono" name="telefono" id="telefono" placeholder="telefono"/>
 			<br>
 			<br>
 			
 			Email:
 			<br>
-			<form:input type="text" path="email" id="name" placeholder="email" required="true" />
+			<form:input type="text" path="email" name="email" id="name" placeholder="email"/>
 			<br>
 			<br>
 
@@ -69,9 +73,12 @@
 			<br>
 			<br>
 
-			<button type="submit" class="button">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Empleado/Listar"/>'">Cancelar</button>
+			<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+			<button class="Button" type="button" onclick="location.href='<c:url value = "/Empleado/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
+	
 </body>
 </html>

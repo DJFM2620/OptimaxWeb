@@ -91,29 +91,32 @@ function CerrarModal() {
 
 function goFirstPage() {
 
-	var url = location.href;
-	var url_Principal = "http://localhost:8040/idat/Lentes";
+	var url = location.href; //Se obtiene la URL actual
+	var url_Principal = "http://localhost:8040/idat/Lentes"; //Se obtiene principal
 
+	// Si es que la URL actual contiene la cadena "pagina" dentro, significa que se esta aplicando los filtros
 	if (url.includes("pagina")) {
 
-		var items_split = url.split('?');
-		items_split = items_split[1].split('&');
+		var items_split = url.split('?'); // Se separa la URL en dos mediante el "?"
+		
+		// Se separa el item de la posicion 1 mediante el "&", si es que no tiene no pasa nada
+		items_split = items_split[1].split('&'); 
 
 		// Declaramos la variable que almacenara la pagina
 		/*var minimoPrecio;
 		var maximoPrecio;*/
 		var pagina;
 
-		for (var i = 0; i < items_split.length; i++) {
+		for (var i = 0; i < items_split.length; i++) { // Se hacer un for en base a la cantidad de elementos de la lista
 
-			// Validamos que la URL spliteada tenga el parametro de pagina
+			// Validamos que la URL spliteada tenga el parametro "pagina"
 			if (items_split[i].includes("pagina")) {
 
-				pagina = items_split[i]; //Añadimos dicho parametro al array creado anteriormente 
+				pagina = items_split[i]; //Añadimos dicho parametro a la variable creada anteriormente 
 			}
 		}
-		var index = url.indexOf(pagina);
-		var cant_url_pagina = pagina.length;
+		var index = url.indexOf(pagina); //Se obtiene el indice de donde comienza el valor de la variable pagina
+		var cant_url_pagina = pagina.length; //Se obtiene la cantidad de caracteres que tiene el valor de la variable pagina
 
 		if ((index + cant_url_pagina) < url.length) {
 
@@ -250,7 +253,7 @@ function goNextPage(LastPage) {
 
 			if ((index + cant_url_pagina) < url.length) {
 
-				url = url.split(pagina + "&").toString();
+				url = url.split(pagina + "&").toString(); // Separamos la URL, en dos, en parametros y la URL base con la pagina
 
 				url = url.replace(",", "");
 

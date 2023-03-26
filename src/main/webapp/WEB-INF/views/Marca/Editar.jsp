@@ -10,28 +10,38 @@
 
 <link rel="stylesheet" href="<c:url value='/CSS/Plantillas/Editar.css'/>">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
 <title>Editar Marca Articulo</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/shared/tab.jsp"%>
+	
 	<div class="Form">
+	
 		<h1>Editar Marca de Articulo</h1>
-		<form:form name="" method="post" modelAttribute="MarcaArticulo">
+		
+		<form:form id="formId" name="" method="post" modelAttribute="MarcaArticulo">
 			ID: 
 			<br>
-			<form:input type="text" path="cod_Marca" readonly="true" />
+			<form:input type="text" name="cod" path="cod_Marca"/>
 			<br>
 			<br>
 			
 			Nombre: 
 			<br>
-			<form:input type="text" path="nombre_Marca" />
+			<form:input type="text" name="nombre_obj" path="nombre_Marca" />
 			<br>
 			<br>
 			
-			<button type="submit">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Marca/Listar"/>'">Cancelar</button>
+			<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+			<button class="Button" type="button" onclick="location.href='<c:url value = "/Marca/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
+	
 </body>
 </html>

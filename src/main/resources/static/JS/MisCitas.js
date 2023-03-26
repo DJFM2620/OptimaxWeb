@@ -38,9 +38,10 @@ function CitasDni(dni, url, pagina) {
 							"<td>" + cita.hora + "</td>"+
 							"<td>" + cita.fecha + "</td>"+
 							"<td>" + cita.cliente.nombres + "</td>"+
+							"<td>" + cita.cliente.dni + "</td>"+
 							"<td>" + cita.cliente.apellidop + "</td>"+
 						"</tr>";
-				});		
+				});
 			}
 			$("#TBody").html(html);
 		}

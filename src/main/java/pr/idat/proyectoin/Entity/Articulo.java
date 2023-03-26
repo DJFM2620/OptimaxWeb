@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "articulos")
+@Table(name = "articulos")
 public class Articulo implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -132,8 +132,7 @@ public class Articulo implements Serializable {
 		this.imagen = imagen;
 	}
 	
-
-	public String getBase64Imagen() 
+	public String getBase64Imagen()
 	{
 		String base64=Base64.getEncoder().encodeToString(this.imagen);
 		return base64;

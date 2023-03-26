@@ -35,6 +35,7 @@
 					<td><b>Hora </b></td>
 					<td><b>Fecha</b></td>
 					<td><b>Nombre Cliente</b></td>
+					<td><b>DNI Cliente</b></td>
 					<td><b>Apellido Cliente</b></td>
 				</tr>
 			</thead>
@@ -45,6 +46,7 @@
 						<td><b>${citas.hora}</b></td>
 						<td><b>${citas.fecha}</b></td>
 						<td><b>${citas.getCliente().getNombres()}</b></td>
+						<td><b>${citas.getCliente().getDni()}</b></td>
 						<td><b>${citas.getCliente().getApellidop()}</b></td>
 					</tr>
 				</c:forEach>

@@ -9,6 +9,10 @@
 
 <link rel="stylesheet"
 	href="<c:url value='/CSS/Plantillas/Registrar.css'/>">
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 
 <title>Registrar Articulo</title>
 </head>
@@ -19,7 +23,7 @@
 	<div class="Form">
 		<h1>Registrar Articulo</h1>
 
-		<form:form name="" method="post" modelAttribute="articulo" enctype="multipart/form-data">
+		<form:form id="formId" name="" method="post" modelAttribute="articulo" enctype="multipart/form-data">
 	
 			Seleccione imagen:
 			<br>
@@ -29,13 +33,13 @@
 	  
 	 		Precio:
 	 		<br>
-	 		<form:input path="precio" id="nombres" placeholder="precio" required="true" />
+	 		<form:input path="precio" name="precio" placeholder="precio" required="true" />
 			<br>
 			<br>
 	 
 	  		Stock:
 	  		<br>
-	  		<form:input path="stock" id="nombres" placeholder="stock" required="true" />
+	  		<form:input path="stock" name="stock" placeholder="stock" required="true" />
 			<br>
 			<br>
 	  
@@ -69,9 +73,11 @@
 				<form:options items="${bMaterial}" itemValue="cod_TipMaterial" itemLabel="nombre_Materia" />
 			</form:select>
 			<br>
-			<button type="submit">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value = "/Articulo/Listar"/>'">Cancelar</button>
+			<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+			<button class="Button" type="button" onclick="location.href='<c:url value = "/Articulo/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
 </body>
 </html>

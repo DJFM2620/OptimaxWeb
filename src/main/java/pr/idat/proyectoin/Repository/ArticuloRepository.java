@@ -13,6 +13,16 @@ import pr.idat.proyectoin.Entity.Articulo;
 
 public interface ArticuloRepository extends JpaRepository<Articulo, Integer>, JpaSpecificationExecutor<Articulo> {
 	
+	// COD_COLOR IN (1, 2) | Sirve para seleccionar los articulos que este relaciondos con esos colores
+	
+	// COD_COLOR IN (:colores) IS NULL ---> Validar que si es nulo o no, si es nulo no pasa nada, simplemente no existen 
+/*
+	cod_color IN (:colores) ---> Busca los articulos que tengan los colores(En este caso se busca mediante codigo) que estan dentro del parentesis
+*/
+	
+	// LIMIT SELECCIONAR COMO MAXIMO N FILAS
+	// OFFSET INDICA QUE SE DEBE SALTAR LAS PRIMERAS N FILAS
+	
 	@Query(value = "SELECT * FROM ARTICULOS WHERE"
 			+ "( cod_color IN (:colores) IS NULL OR cod_color IN (:colores) ) AND"
 			+ "( cod_tip_material IN (:materiales) IS NULL OR cod_tip_material IN (:materiales) ) AND"

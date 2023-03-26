@@ -6,62 +6,68 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Registrar Datos</title>
 
 <link rel="stylesheet"
 	href="<c:url value='/CSS/Plantillas/Registrar.css'/>">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>	
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+	
+<title>Registrar Datos</title>
+	
 </head>
 <body>
 	<div class="Form">
 		<h1>¡Hola! Ingresa tus datos para registrarte</h1>
 		
-		<form:form name="" method="post" modelAttribute="Cliente">
+		<form:form id="formId" name="" method="post" modelAttribute="Cliente">
 			
 			Nombres:
 			<br>
-			<form:input path="nombres" placeholder='nombres' />
+			<form:input path="nombres" name="nombre" placeholder='nombres' />
 			<br>
 			<br>
 			
 			Apellido Paterno:
 			<br>
-			<form:input path="apellidop" placeholder='apellido paterno' />
+			<form:input path="apellidop" name="apellidop" placeholder='apellido paterno' />
 			<br>
 			<br>
 			
 			Apellido Materno:
 			<br>
-			<form:input path="apellidom" placeholder='apellido Materno' />
+			<form:input path="apellidom" name="apellidom" placeholder='apellido Materno' />
 			<br>
 			<br>
 			
 			Celular:
 			<br>
-			<form:input path="celular" placeholder='celular' maxlength="9" />
+			<form:input path="celular" name="celular" placeholder='celular'/>
 			<br>
 			<br>
 			
 			Email:
 			<br>
-			<form:input path="email" placeholder='email'/>
+			<form:input path="email" name="email" placeholder='email'/>
 			<br>
 			<br>
 			
 			DNI:
 			<br>
-			<form:input path="dni" placeholder='dni' maxlength="8" />
+			<form:input path="dni" name="dni" placeholder='dni'/>
 			<br>
 			<br>
 			
 			RUC (Opcional):
 			<br>
-			<form:input path="ruc" placeholder='ruc' />
+			<form:input path="ruc" name="ruc" placeholder='ruc' />
 			<br>
 			<br>
 			
 			Direccion:
 			<br>
-			<form:input path="direccion" placeholder='direccion' />
+			<form:input path="direccion" name="direccion" placeholder='direccion' />
 			<br>
 			<br>
 			
@@ -77,8 +83,13 @@
 					inicia sesion 
 				</span>
 			</div>
-			<button type="submit">Registrarse</button>
+			
+			<button class="Button_Submit" type="button" onclick="validate_data()">Registrarse</button>
+			
 		</form:form>
 	</div>
+	
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
+	
 </body>
 </html>

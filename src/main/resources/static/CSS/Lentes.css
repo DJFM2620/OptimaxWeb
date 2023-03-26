@@ -168,7 +168,7 @@ body {
     left: 0;
     background: #111111bd;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 10px;	
     pointer-events: none;
     opacity: 0;
     transition: opacity .6s;

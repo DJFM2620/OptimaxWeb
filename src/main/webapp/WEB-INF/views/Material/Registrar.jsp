@@ -11,6 +11,10 @@
 <link rel="stylesheet"
 	href="<c:url value='/CSS/Plantillas/Registrar.css'/>">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+
 <title>Registrar Material</title>
 </head>
 <body>
@@ -19,19 +23,22 @@
 	
 	<div class="Form">
 	
-		<h1>Registro Material</h1>
+		<h1>Registrar Material</h1>
 		
-		<form:form name="" method="post" modelAttribute="material">
+		<form:form id="formId" name="" method="post" modelAttribute="material">
 		
 			Material:
 			<br>
-			<form:input type="text" path="nombre_Materia" placeholder="Material" required="true" />
+			<form:input type="text" name="nombre_obj" path="nombre_Materia" placeholder="Material"/>
 			<br>
 			<br>
 			
-			<button type="submit">Guardar</button>
-			<button type="button" onclick="location.href='<c:url value="/Material/Listar"/>'">Cancelar</button>
+			<button class="Button_Submit" type="button" onclick="validate_data()">Guardar</button>
+			<button class="Button" type="button" onclick="location.href='<c:url value="/Material/Listar"/>'">Cancelar</button>
 		</form:form>
 	</div>
+		
+	<script type="text/javascript" src="/idat/JS/CRUD.js"></script>
+	
 </body>
 </html>

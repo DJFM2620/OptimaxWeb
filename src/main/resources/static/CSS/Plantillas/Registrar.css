@@ -10,6 +10,10 @@ body {
     background: #FFDA9E;
 }
 
+label.error {
+  color: red;
+}
+
 .Form {
 
     margin: 50px auto;
@@ -21,19 +25,7 @@ body {
     border: solid 1px #cbc9c9;
 }
 
-button[type=submit] {
-
-    width: 150px;
-    height: 40px;
-    border-radius: 6px;
-    border: 0px;
-    background: #3C72FF;
-    color: #FFFFFF;
-    font-size: 16px;
-    margin-top: 15px;
-}
-
-button[type=button] {
+.Button {
 
     width: 150px;
     height: 40px;
@@ -41,6 +33,18 @@ button[type=button] {
     border-radius: 6px;
     border: 0px;
     background: #FF3A46;
+    color: #FFFFFF;
+    font-size: 16px;
+    margin-top: 15px;
+}
+
+.Button_Submit {
+
+    width: 150px;
+    height: 40px;
+    border-radius: 6px;
+    border: 0px;
+    background: #3C72FF;
     color: #FFFFFF;
     font-size: 16px;
     margin-top: 15px;

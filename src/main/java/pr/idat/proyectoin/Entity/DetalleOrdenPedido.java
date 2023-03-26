@@ -22,8 +22,8 @@ foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (cod_pedido) refere
 joinColumns = @JoinColumn( name = "CodArticulo", nullable = false,
 foreignKey = @ForeignKey(foreignKeyDefinition = "foreign key (CodArticulo) references articulos (CodArticulo)"))),
 })
-public class DetalleOrdenPedido implements Serializable
-{
+public class DetalleOrdenPedido implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
