@@ -1,3 +1,9 @@
+
+document.getElementById('SubTotalOrder').readOnly = true;
+document.getElementById('IGVOrder').readOnly = true;
+document.getElementById('DeliveryOrder').readOnly = true;
+document.getElementById('TotalOrder').readOnly = true;
+
 /*
 	Esto primer codigo permite que al cargar la pagina se ejecute automaticamente, por mas que ya este este codigo dentro de la
 	funcion "Calcular()", ya que eso solo se ejecuta cuando se cambia las cantidades, no cuando se carga la pagina

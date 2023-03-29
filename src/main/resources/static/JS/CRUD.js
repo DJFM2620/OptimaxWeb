@@ -54,7 +54,6 @@ $('[name="cod_color"]').prop('readonly', true)
 $('[name="codArticulo"]').prop('readonly', true)
 $('[name="cod_cargoemp"]').prop('readonly', true)
 
-
 $("#formId").validate({
 	
 	rules: {

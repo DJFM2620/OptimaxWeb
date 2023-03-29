@@ -397,18 +397,21 @@ public class ControllerApiService {
 		
 		JSONObject jo = new JSONObject();
 		jo.put("amount", total);
-		jo.put("currency_code", "PEN");
+		jo.put("currency_code", "PEN"); 
 		jo.put("email", map.get("email"));
 		jo.put("source_id", key);
 
 		System.err.println(jo.toString());
 
 		try {
+			// Se crea un RequestBody para poder enviar datos en una solicitud HTTP
 			okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, jo.toString());
 
+			//Se creara una peticion a la API "/charges" de Culqi para poder realizar el pago usando como header el token que nos brinda culqi para las operaciones de prueba
 			Request request = new Request.Builder().url(URL + "/charges")
 					.header("Authorization", "Bearer sk_test_3a60f9b15e3b78a3").post(body).build();
 
+			//Sirve para ejecutar la peticion a la API de Culqi enviando la solicitud HTTP "REQUEST" al servidor de CULQI
 			Response response = client.newCall(request).execute();
 
 		} catch (IOException e) {
